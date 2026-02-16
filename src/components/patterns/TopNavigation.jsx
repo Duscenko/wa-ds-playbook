@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { useHover } from '../useHover';
+import { BtnPreview } from '../LivePreviews';
 
 /* ═══════════════════════════════════════════════════
-   TOP NAVIGATION — Pattern Component
-   Orchestrates atoms and foundations from wa-ds
+   TOP NAVIGATION — Pattern Component (Pixel-Perfect)
+   Based on Figma node: 58236-22687
    ═══════════════════════════════════════════════════ */
 
-// ─── Icon Components (SVG) ────────────────────────
-// Using inline SVG until lucide-react is available
-
+// ─── Icon Components (SVG - matching lucide-react style) ───
 const MenuIcon = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <line x1="3" y1="12" x2="21" y2="12"/>
@@ -37,86 +36,15 @@ const ChevronDownIcon = ({ size = 16 }) => (
   </svg>
 );
 
-const MailIcon = ({ size = 16 }) => (
+const SearchIcon = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-    <polyline points="22,6 12,13 2,6"/>
+    <circle cx="11" cy="11" r="8"/>
+    <path d="m21 21-4.35-4.35"/>
   </svg>
 );
 
-const PhoneIcon = ({ size = 16 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-  </svg>
-);
-
-// ─── Button Component (using tokens) ───────────────
-function Button({ variant = 'default', size = 'md', children, onClick, disabled, className = '' }) {
-  const { hover, pressed, bind } = useHover();
-  const h = { sm: 32, md: 36, lg: 40 }[size];
-  const pad = { sm: '6px 12px', md: '8px 16px', lg: '10px 24px' }[size];
-  const fs = { sm: 12, md: 13, lg: 14 }[size];
-
-  const base = {
-    height: h,
-    padding: pad,
-    fontSize: fs,
-    borderRadius: 'var(--radius-sm)',
-    fontWeight: 500,
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    fontFamily: 'var(--font)',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 6,
-    transition: 'all 120ms ease',
-    opacity: disabled ? 0.4 : 1,
-    transform: pressed && !disabled ? 'scale(0.96)' : 'scale(1)',
-    border: 'none',
-    outline: 'none',
-  };
-
-  const variants = {
-    default: {
-      ...base,
-      background: pressed ? 'var(--accent-pressed)' : hover ? 'var(--accent-hover)' : 'var(--accent)',
-      color: '#fff',
-      boxShadow: hover && !pressed ? '0 2px 8px color-mix(in srgb, var(--accent), transparent 70%)' : 'none',
-    },
-    secondary: {
-      ...base,
-      background: pressed ? 'var(--bg)' : hover ? 'var(--bg3)' : 'var(--bg2)',
-      color: 'var(--text)',
-      border: '1px solid ' + (hover ? 'var(--border-hover)' : 'var(--border)'),
-    },
-    outline: {
-      ...base,
-      background: hover ? 'rgba(255,255,255,0.04)' : 'transparent',
-      color: 'var(--text)',
-      border: '1px solid ' + (hover ? 'var(--text3)' : 'var(--border)'),
-    },
-    ghost: {
-      ...base,
-      background: pressed ? 'rgba(255,255,255,0.08)' : hover ? 'rgba(255,255,255,0.05)' : 'transparent',
-      color: hover ? 'var(--text)' : 'var(--text2)',
-    },
-  };
-
-  return (
-    <button
-      {...bind}
-      onClick={onClick}
-      disabled={disabled}
-      className={className}
-      style={variants[variant] || variants.default}
-    >
-      {children}
-    </button>
-  );
-}
-
-// ─── NavLink Component ──────────────────────────────
-function NavLink({ href, children }) {
+// ─── NavLink Component with Active State ──────────────
+function NavLink({ href, children, isActive = false }) {
   const { hover, bind } = useHover();
   return (
     <a
@@ -124,11 +52,16 @@ function NavLink({ href, children }) {
       {...bind}
       style={{
         fontSize: 14,
-        color: hover ? 'var(--accent)' : 'var(--text)',
-        textDecoration: 'none',
+        lineHeight: '20px',
         fontWeight: 400,
-        transition: 'color 120ms',
+        color: isActive ? '#fff' : 'var(--text)',
+        background: isActive ? 'var(--accent)' : 'transparent',
+        padding: isActive ? '6px 12px' : '6px 0',
+        borderRadius: isActive ? 'var(--radius-sm)' : 0,
+        textDecoration: 'none',
+        transition: 'all 120ms',
         cursor: 'pointer',
+        whiteSpace: 'nowrap',
       }}
     >
       {children}
@@ -136,7 +69,7 @@ function NavLink({ href, children }) {
   );
 }
 
-// ─── DropdownMenu Component ────────────────────────
+// ─── DropdownMenu Component ────────────────────────────
 function DropdownMenu({ trigger, children, open, onOpenChange }) {
   const ref = useRef(null);
 
@@ -154,19 +87,21 @@ function DropdownMenu({ trigger, children, open, onOpenChange }) {
 
   return (
     <div ref={ref} style={{ position: 'relative' }}>
-      <div onClick={() => onOpenChange(!open)}>{trigger}</div>
+      <div onClick={() => onOpenChange(!open)} style={{ cursor: 'pointer' }}>
+        {trigger}
+      </div>
       {open && (
         <div
           style={{
             position: 'absolute',
             top: 'calc(100% + 8px)',
             right: 0,
-            minWidth: 200,
+            minWidth: 220,
             background: 'var(--bg1)',
             border: '1px solid var(--border)',
             borderRadius: 'var(--radius)',
             padding: '4px',
-            boxShadow: 'var(--shadow-lg, 0 10px 15px -3px rgba(0,0,0,.1))',
+            boxShadow: '0 10px 15px -3px rgba(0,0,0,.1)',
             zIndex: 1000,
             fontFamily: 'var(--font)',
           }}
@@ -178,7 +113,7 @@ function DropdownMenu({ trigger, children, open, onOpenChange }) {
   );
 }
 
-function DropdownMenuItem({ children, onClick, icon }) {
+function DropdownMenuItem({ children, onClick, icon, isDestructive = false }) {
   const { hover, bind } = useHover();
   return (
     <div
@@ -191,24 +126,37 @@ function DropdownMenuItem({ children, onClick, icon }) {
         padding: '8px 12px',
         borderRadius: 'var(--radius-sm)',
         fontSize: 13,
-        color: hover ? 'var(--text)' : 'var(--text2)',
+        color: isDestructive ? 'var(--red)' : (hover ? 'var(--text)' : 'var(--text2)'),
         background: hover ? 'var(--bg2)' : 'transparent',
         cursor: 'pointer',
         transition: 'all 120ms',
       }}
     >
-      {icon && <span style={{ display: 'flex', alignItems: 'center' }}>{icon}</span>}
+      {icon && <span style={{ display: 'flex', alignItems: 'center', color: 'inherit' }}>{icon}</span>}
       {children}
     </div>
   );
 }
 
-// ─── Main TopNavigation Component ──────────────────
-export function TopNavigation({ isLoggedIn = false, userName = 'User-name', balance = '0.00', currency = 'USD' }) {
+// ─── Main TopNavigation Component ──────────────────────
+export function TopNavigation({ 
+  isLoggedIn = false, 
+  userName = 'User name', 
+  balance = '0.00', 
+  currency = 'USD',
+  activeLink = 'Home' // Active navigation link
+}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [depositDropdownOpen, setDepositDropdownOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
-  const navLinks = ['Inicio', 'Nosotros', 'Ayuda', 'Promociones', 'Pagos', 'Recargas'];
+  // Navigation links from Figma design
+  const navLinks = ['Home', 'Live Preview', 'Docs', 'About', 'Resources', 'Blog', 'Legal'];
+
+  // Desktop navigation height: 72px (exact from Figma)
+  const DESKTOP_NAV_HEIGHT = 72;
+  // Mobile navigation dimensions: 110x28px (exact from Figma)
+  const MOBILE_NAV_WIDTH = 110;
+  const MOBILE_NAV_HEIGHT = 28;
 
   return (
     <>
@@ -227,43 +175,52 @@ export function TopNavigation({ isLoggedIn = false, userName = 'User-name', bala
         <div
           className="desktop-nav"
           style={{
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '0 24px',
-            height: 64,
+            height: `${DESKTOP_NAV_HEIGHT}px`, // Exact height from Figma
             maxWidth: 1440,
             margin: '0 auto',
           }}
         >
-          {/* Logo */}
+          {/* Logo - WA-DS 2 BETA (exact from Figma) */}
           <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
             <div
               style={{
                 padding: '8px 16px',
                 background: '#fff',
                 borderRadius: 'var(--radius-sm)',
+                borderTopRightRadius: 'var(--radius-base)', // Rounded corners on right side only
+                borderBottomRightRadius: 'var(--radius-base)',
                 color: '#000',
                 fontSize: 14,
+                lineHeight: '20px',
                 fontWeight: 700,
                 fontFamily: 'var(--font-display)',
+                whiteSpace: 'nowrap',
               }}
             >
-              WA-PREPAGO
+              WA-DS 2 BETA
             </div>
           </div>
 
-          {/* Navigation Links */}
+          {/* Navigation Links - Gap: 32px (exact from Figma) */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 32,
+              gap: '32px', // Exact gap from Figma
               flex: 1,
               justifyContent: 'center',
             }}
           >
             {navLinks.map((link) => (
-              <NavLink key={link} href="#">
+              <NavLink 
+                key={link} 
+                href="#" 
+                isActive={link === activeLink}
+              >
                 {link}
               </NavLink>
             ))}
@@ -273,83 +230,186 @@ export function TopNavigation({ isLoggedIn = false, userName = 'User-name', bala
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
             {!isLoggedIn ? (
               <>
-                <Button variant="secondary" size="md" onClick={() => {}}>
+                {/* Login Button - using BtnPreview with exact styling */}
+                <BtnPreview variant="secondary" size="md">
                   Login
-                </Button>
-                <Button variant="default" size="md" onClick={() => {}}>
+                </BtnPreview>
+                {/* Register Button */}
+                <BtnPreview variant="default" size="md">
                   Register
-                </Button>
+                </BtnPreview>
               </>
             ) : (
               <>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                {/* User Icon */}
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: 8,
+                  height: 36,
+                }}>
                   <UserIcon size={18} />
-                  <span style={{ fontSize: 13, color: 'var(--text)', fontWeight: 500 }}>{userName}</span>
                 </div>
-                <div style={{ fontSize: 13, color: 'var(--text2)' }}>
-                  Balance: {balance} {currency}
+                
+                {/* Balance Display */}
+                <div style={{ 
+                  fontSize: 13, 
+                  lineHeight: '20px',
+                  color: 'var(--text)', 
+                  whiteSpace: 'nowrap',
+                }}>
+                  {balance} {currency}
                 </div>
+                
+                {/* Deposit Button */}
+                <BtnPreview variant="default" size="md">
+                  Deposit
+                </BtnPreview>
+
+                {/* User Menu Dropdown */}
                 <DropdownMenu
-                  open={depositDropdownOpen}
-                  onOpenChange={setDepositDropdownOpen}
+                  open={userMenuOpen}
+                  onOpenChange={setUserMenuOpen}
                   trigger={
-                    <Button variant="default" size="md">
-                      Deposit
+                    <button
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        padding: '6px 12px',
+                        height: 36,
+                        background: 'var(--bg2)',
+                        border: '1px solid var(--border)',
+                        borderRadius: 'var(--radius-sm)',
+                        color: 'var(--text)',
+                        fontSize: 13,
+                        fontWeight: 400,
+                        fontFamily: 'var(--font)',
+                        cursor: 'pointer',
+                        transition: 'all 120ms',
+                      }}
+                    >
+                      {userName}
                       <ChevronDownIcon size={16} />
-                    </Button>
+                    </button>
                   }
                 >
-                  <DropdownMenuItem onClick={() => {}}>Ver mi Billetera</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => {}}>Mis movimientos</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setUserMenuOpen(false); }}>
+                    My Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setUserMenuOpen(false); }}>
+                    Live Previews
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setUserMenuOpen(false); }}>
+                    Settings
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setUserMenuOpen(false); }}>
+                    Deposit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setUserMenuOpen(false); }}>
+                    Promotions
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setUserMenuOpen(false); }}>
+                    Support
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setUserMenuOpen(false); }}>
+                    Notifications
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setUserMenuOpen(false); }}>
+                    Affiliate Program
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setUserMenuOpen(false); }}>
+                    Refer a Friend
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    onClick={() => { setUserMenuOpen(false); }}
+                    isDestructive={true}
+                  >
+                    Logout
+                  </DropdownMenuItem>
                 </DropdownMenu>
               </>
             )}
           </div>
         </div>
 
-        {/* Mobile View */}
+        {/* Mobile View - 110x28px (exact from Figma) */}
         <div
           className="mobile-nav"
           style={{
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '0 12px',
-            height: 28,
-            width: 110,
+            height: `${MOBILE_NAV_HEIGHT}px`, // Exact: 28px
+            width: `${MOBILE_NAV_WIDTH}px`, // Exact: 110px
           }}
         >
+          {/* Logo - Compact version */}
           <div
             style={{
-              padding: '4px 8px',
+              padding: '2px 6px',
               background: '#fff',
               borderRadius: 'var(--radius-sm)',
               color: '#000',
               fontSize: 10,
+              lineHeight: '14px',
               fontWeight: 700,
               fontFamily: 'var(--font-display)',
+              whiteSpace: 'nowrap',
             }}
           >
             WA
           </div>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: 'var(--text)',
-              cursor: 'pointer',
-              padding: 4,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {mobileMenuOpen ? <XIcon size={18} /> : <MenuIcon size={18} />}
-          </button>
+          
+          {/* Right side: Search + Deposit (if logged in) + Menu */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {/* Search Icon */}
+            <button
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--text)',
+                cursor: 'pointer',
+                padding: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <SearchIcon size={16} />
+            </button>
+            
+            {/* Deposit Button (if logged in) */}
+            {isLoggedIn && (
+              <div style={{ height: 24, display: 'flex', alignItems: 'center' }}>
+                <BtnPreview variant="default" size="sm">
+                  Deposit
+                </BtnPreview>
+              </div>
+            )}
+            
+            {/* Hamburger Menu */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--text)',
+                cursor: 'pointer',
+                padding: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {mobileMenuOpen ? <XIcon size={16} /> : <MenuIcon size={16} />}
+            </button>
+          </div>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Full height sidebar */}
       {mobileMenuOpen && (
         <div
           className="mobile-menu"
@@ -362,21 +422,25 @@ export function TopNavigation({ isLoggedIn = false, userName = 'User-name', bala
             overflowY: 'auto',
           }}
         >
+          {/* Logo */}
           <div style={{ marginBottom: 32 }}>
             <div
               style={{
                 padding: '8px 16px',
                 background: '#fff',
                 borderRadius: 'var(--radius-sm)',
+                borderTopRightRadius: 'var(--radius-base)',
+                borderBottomRightRadius: 'var(--radius-base)',
                 color: '#000',
                 fontSize: 16,
+                lineHeight: '24px',
                 fontWeight: 700,
                 fontFamily: 'var(--font-display)',
                 display: 'inline-block',
                 marginBottom: 24,
               }}
             >
-              WA-PREPAGO
+              WA-DS 2 BETA
             </div>
           </div>
 
@@ -389,10 +453,14 @@ export function TopNavigation({ isLoggedIn = false, userName = 'User-name', bala
                 onClick={() => setMobileMenuOpen(false)}
                 style={{
                   fontSize: 16,
-                  color: 'var(--text)',
+                  lineHeight: '24px',
+                  color: link === activeLink ? '#fff' : 'var(--text)',
+                  background: link === activeLink ? 'var(--accent)' : 'transparent',
+                  padding: link === activeLink ? '8px 12px' : '8px 0',
+                  borderRadius: link === activeLink ? 'var(--radius-sm)' : 0,
                   textDecoration: 'none',
                   fontWeight: 400,
-                  padding: '8px 0',
+                  transition: 'all 120ms',
                 }}
               >
                 {link}
@@ -405,46 +473,66 @@ export function TopNavigation({ isLoggedIn = false, userName = 'User-name', bala
             <div style={{ marginBottom: 24, padding: '16px', background: 'var(--bg2)', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                 <UserIcon size={20} />
-                <span style={{ fontSize: 16, color: 'var(--text)', fontWeight: 600 }}>{userName}</span>
+                <span style={{ fontSize: 16, lineHeight: '24px', color: 'var(--text)', fontWeight: 600 }}>{userName}</span>
               </div>
-              <div style={{ fontSize: 14, color: 'var(--text2)', marginBottom: 16 }}>
-                Balance: {balance} {currency}
+              <div style={{ fontSize: 14, lineHeight: '20px', color: 'var(--text2)', marginBottom: 16 }}>
+                {balance} {currency}
               </div>
-              <Button variant="default" size="md" onClick={() => {}} style={{ width: '100%' }}>
-                Deposit
-              </Button>
+              <div style={{ width: '100%', display: 'flex' }}>
+                <BtnPreview variant="default" size="md">
+                  Deposit
+                </BtnPreview>
+              </div>
             </div>
           )}
 
           {/* Auth Buttons (if guest) */}
           {!isLoggedIn && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <Button variant="secondary" size="lg" onClick={() => setMobileMenuOpen(false)} style={{ width: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
+              <BtnPreview variant="secondary" size="lg">
                 Login
-              </Button>
-              <Button variant="default" size="lg" onClick={() => setMobileMenuOpen(false)} style={{ width: '100%' }}>
+              </BtnPreview>
+              <BtnPreview variant="default" size="lg">
                 Register
-              </Button>
+              </BtnPreview>
             </div>
           )}
 
-          {/* Additional Menu Items */}
-          <div style={{ marginTop: 32, paddingTop: 24, borderTop: '1px solid var(--border)' }}>
-            <DropdownMenuItem icon={<MailIcon size={16} />} onClick={() => setMobileMenuOpen(false)}>
-              Contact Support
-            </DropdownMenuItem>
-            <DropdownMenuItem icon={<PhoneIcon size={16} />} onClick={() => setMobileMenuOpen(false)}>
-              Call Us
-            </DropdownMenuItem>
-            {isLoggedIn && (
-              <>
-                <DropdownMenuItem icon={<UserIcon size={16} />} onClick={() => setMobileMenuOpen(false)}>
-                  Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setMobileMenuOpen(false)}>Sign out</DropdownMenuItem>
-              </>
-            )}
-          </div>
+          {/* Additional Menu Items (if logged in) */}
+          {isLoggedIn && (
+            <div style={{ marginTop: 32, paddingTop: 24, borderTop: '1px solid var(--border)' }}>
+              <DropdownMenuItem onClick={() => setMobileMenuOpen(false)}>
+                My Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setMobileMenuOpen(false)}>
+                Live Previews
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setMobileMenuOpen(false)}>
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setMobileMenuOpen(false)}>
+                Promotions
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setMobileMenuOpen(false)}>
+                Support
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setMobileMenuOpen(false)}>
+                Notifications
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setMobileMenuOpen(false)}>
+                Affiliate Program
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setMobileMenuOpen(false)}>
+                Refer a Friend
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => setMobileMenuOpen(false)}
+                isDestructive={true}
+              >
+                Logout
+              </DropdownMenuItem>
+            </div>
+          )}
         </div>
       )}
     </>
