@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { brands, utility, semantic, resolveToken, spacing, radii, typography, shadows, chartColors } from '../data/tokens';
 import { useTheme } from '../components/ThemeContext';
-import { CopyBadge, SectionTitle, TabBar, InfoCard } from './UI';
+import { CopyBadge, SectionTitle, TabBar, InfoCard } from '../components/UI';
 
 function SwatchGrid({ scale, label }) {
   return (
