@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { brands, utility, semantic, resolveToken, spacing, radii, typography, shadows, chartColors } from '../data/tokens';
 import { useTheme } from '../components/ThemeContext';
-import { CopyBadge, SectionTitle, TabBar, InfoCard } from '../components/UI';
+import { CopyBadge, SectionTitle, TabBar } from '../components/UI';
 
+/**
+ * Renders a grid of color swatches for a given scale.
+ * It identifies if a color is an RGBA alpha value or a standard Hex code.
+ */
 function SwatchGrid({ scale, label }) {
   return (
     <div style={{ marginBottom: 20 }}>
@@ -11,9 +15,17 @@ function SwatchGrid({ scale, label }) {
         {Object.entries(scale).map(([step, hex]) => (
           <CopyBadge key={step} text={hex}>
             <div style={{ width: 56, textAlign: 'center' }}>
-              <div style={{ width: 56, height: 40, borderRadius: 'var(--radius-sm)', background: hex, border: '1px solid var(--border)' }} />
+              <div style={{ 
+                width: 56, 
+                height: 40, 
+                borderRadius: 'var(--radius-sm)', 
+                background: hex, 
+                border: '1px solid var(--border)' 
+              }} />
               <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 3, fontFamily: 'var(--font-mono)' }}>{step}</div>
-              <div style={{ fontSize: 8, color: 'var(--text3)', fontFamily: 'var(--font-mono)' }}>{typeof hex === 'string' && hex.startsWith('rgba') ? 'alpha' : hex}</div>
+              <div style={{ fontSize: 8, color: 'var(--text3)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
+                {typeof hex === 'string' && hex.startsWith('rgba') ? 'alpha' : hex}
+              </div>
             </div>
           </CopyBadge>
         ))}
@@ -25,45 +37,103 @@ function SwatchGrid({ scale, label }) {
 export function ColorPage() {
   const [tab, setTab] = useState('Primitives');
   const { brand, mode } = useTheme();
+  
+  // Get active brand metadata
   const brandData = brands[brand] || brands['wa-default'];
   const prims = brandData.primitives;
 
   return (
     <div>
-      <SectionTitle title="Color" sub="Token-based color system. Primitives change per brand; utility stays shared." />
-      <div style={{ marginBottom: 8, padding: '6px 10px', borderRadius: 'var(--radius-sm)', background: 'var(--accent-bg)', border: '1px solid color-mix(in srgb, var(--accent), transparent 80%)', display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--accent)' }}>
+      <SectionTitle title="Color" sub="Token-based color system. Primitives change per brand; utility resolves dynamically." />
+      
+      {/* Brand & Mode Status Indicator */}
+      <div style={{ 
+        marginBottom: 16, 
+        padding: '6px 10px', 
+        borderRadius: 'var(--radius-sm)', 
+        background: 'var(--accent-bg)', 
+        border: '1px solid color-mix(in srgb, var(--accent), transparent 80%)', 
+        display: 'inline-flex', 
+        alignItems: 'center', 
+        gap: 6, 
+        fontSize: 11, 
+        color: 'var(--accent)' 
+      }}>
         <span style={{ width: 8, height: 8, borderRadius: 9999, background: brandData.color }} />
-        Viewing: <strong>{brandData.label}</strong> · {mode}
+        Viewing Environment: <strong>{brandData.label}</strong> · <span style={{ textTransform: 'uppercase' }}>{mode}</span>
       </div>
+
       <TabBar tabs={['Primitives', 'Utility', 'Semantic']} active={tab} onChange={setTab} />
+
+      {/* TAB: PRIMITIVES - Raw brand colors */}
       {tab === 'Primitives' && (
         <div className="fade-in">
-          <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>Brand-specific colors. Only these change between brands — everything else resolves through them.</p>
-          {Object.entries(prims).map(([name, scale]) => <SwatchGrid key={name} label={name} scale={scale} />)}
+          <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>
+            Brand-specific core palettes. These are the raw ingredients that vary between brands.
+          </p>
+          {Object.entries(prims).map(([name, scale]) => (
+            <SwatchGrid key={name} label={name} scale={scale} />
+          ))}
         </div>
       )}
+
+      {/* TAB: UTILITY - Dynamic resolution for Pick'em Overrides */}
       {tab === 'Utility' && (
         <div className="fade-in">
-          <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>Shared across all brands. Status colors, overlays.</p>
-          {Object.entries(utility).map(([name, scale]) => <SwatchGrid key={name} label={name} scale={scale} />)}
+          <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>
+            Functional shared colors. This view dynamically resolves Pick'em overrides (Yellow, Mint, Grass) when the brand is active.
+          </p>
+          {Object.entries(utility).map(([name, scale]) => {
+            // MAGIC: Resolve each step via resolveToken to catch brand-specific overrides
+            const resolvedScale = Object.keys(scale).reduce((acc, step) => {
+              acc[step] = resolveToken(`${name}.${step}`, brand, mode);
+              return acc;
+            }, {});
+
+            return <SwatchGrid key={name} label={name} scale={resolvedScale} />;
+          })}
         </div>
       )}
+
+      {/* TAB: SEMANTIC - Intent-based tokens */}
       {tab === 'Semantic' && (
         <div className="fade-in">
-          <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>Semantic tokens resolve to primitives/utility based on brand + mode. Current: <strong>{brandData.label}</strong> · <strong>{mode}</strong></p>
+          <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>
+            Tokens describing UI intent. They resolve to primitives or utilities based on brand and mode selection.
+          </p>
           {Object.entries(semantic).map(([group, tokens]) => (
             <div key={group} style={{ marginBottom: 24 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text)', marginBottom: 8 }}>{group}</div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 {Object.entries(tokens).map(([name, refs]) => {
-                  const resolved = resolveToken(refs[mode], brand);
+                  // Resolve semantic token using active brand and current mode
+                  const resolved = resolveToken(refs[mode], brand, mode);
                   return (
                     <CopyBadge key={name} text={resolved}>
-                      <div style={{ width: 120, padding: 10, borderRadius: 'var(--radius-sm)', background: 'var(--bg1)', border: '1px solid var(--border)' }}>
-                        <div style={{ width: '100%', height: 32, borderRadius: 4, background: resolved, border: '1px solid var(--border)', marginBottom: 6 }} />
-                        <div style={{ fontSize: 11, fontWeight: 500, color: 'var(--text)' }}>{name}</div>
-                        <div style={{ fontSize: 9, color: 'var(--text3)', fontFamily: 'var(--font-mono)' }}>{refs[mode]}</div>
-                        <div style={{ fontSize: 9, color: 'var(--text3)', fontFamily: 'var(--font-mono)' }}>{resolved}</div>
+                      <div style={{ 
+                        width: 140, 
+                        padding: 10, 
+                        borderRadius: 'var(--radius-sm)', 
+                        background: 'var(--bg1)', 
+                        border: '1px solid var(--border)' 
+                      }}>
+                        <div style={{ 
+                          width: '100%', 
+                          height: 32, 
+                          borderRadius: 4, 
+                          background: resolved, 
+                          border: '1px solid var(--border)', 
+                          marginBottom: 6 
+                        }} />
+                        <div style={{ fontSize: 11, fontWeight: 500, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {name}
+                        </div>
+                        <div style={{ fontSize: 9, color: 'var(--text3)', fontFamily: 'var(--font-mono)', marginTop: 4 }}>
+                          Ref: {refs[mode]}
+                        </div>
+                        <div style={{ fontSize: 9, color: 'var(--text3)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
+                          {resolved}
+                        </div>
                       </div>
                     </CopyBadge>
                   );
@@ -77,13 +147,14 @@ export function ColorPage() {
   );
 }
 
+// Typography, Spacing, Radii, Shadows, and ChartColors sections follow below...
 export function TypographyPage() {
   return (
     <div>
       <SectionTitle title="Typography" sub="8 text styles using Inter. Sizes in px, line-heights optimized for readability." />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {typography.map(t => (
-          <div key={t.name} style={{ display: 'flex', alignItems: 'baseline', gap: 20, padding: '14px 16px', borderRadius: 'var(--radius)', background: 'var(--bg1)', border: '1px solid var(--border)' }}>
+          <div key={t.name} style={{ display: 'flex', alignItems: baseline, gap: 20, padding: '14px 16px', borderRadius: 'var(--radius)', background: 'var(--bg1)', border: '1px solid var(--border)' }}>
             <div style={{ width: 140, fontSize: 11, color: 'var(--text3)', fontFamily: 'var(--font-mono)', flexShrink: 0 }}>
               <div style={{ fontWeight: 600, color: 'var(--text2)' }}>{t.name}</div>
               {t.size}px / {t.lineHeight}px · {t.weight}
