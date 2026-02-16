@@ -19,7 +19,6 @@ function Dropdown({ label, value, options, onChange }) {
 
   return (
     <div ref={ref} style={{ position: 'relative' }}>
-      {/* Trigger */}
       <button
         onClick={() => setOpen(!open)}
         style={{
@@ -30,8 +29,6 @@ function Dropdown({ label, value, options, onChange }) {
           cursor: 'pointer', fontSize: 11, fontFamily: 'var(--font)',
           color: 'var(--text)', transition: 'all 120ms',
         }}
-        onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--border-hover)'; }}
-        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; }}
       >
         {current?.dot && (
           <span style={{
@@ -39,16 +36,11 @@ function Dropdown({ label, value, options, onChange }) {
             background: current.dot, flexShrink: 0,
           }} />
         )}
-        {current?.icon && <span style={{ fontSize: 12, lineHeight: 1 }}>{current.icon}</span>}
-        <span style={{
-          fontSize: 9, color: 'var(--text3)',
-          textTransform: 'uppercase', letterSpacing: '0.05em',
-        }}>{label}</span>
+        <span style={{ fontSize: 9, color: 'var(--text3)', textTransform: 'uppercase' }}>{label}</span>
         <span style={{ fontWeight: 600, fontSize: 11 }}>{current?.label || value}</span>
-        <span style={{ fontSize: 8, color: 'var(--text3)', marginLeft: 2 }}>▾</span>
+        <span>▾</span>
       </button>
 
-      {/* Popover */}
       {open && (
         <div style={{
           position: 'absolute', top: '100%', left: 0, marginTop: 4,
@@ -58,58 +50,39 @@ function Dropdown({ label, value, options, onChange }) {
           padding: 4, minWidth: 150,
           boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
         }}>
-          {options.map(o => {
-            const isActive = value === o.id;
-            return (
-              <button
-                key={o.id}
-                onClick={() => { onChange(o.id); setOpen(false); }}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 8,
-                  width: '100%', padding: '7px 10px', borderRadius: 4,
-                  border: 'none', textAlign: 'left',
-                  background: isActive ? 'color-mix(in srgb, var(--accent) 12%, transparent)' : 'transparent',
-                  color: isActive ? 'var(--accent)' : 'var(--text2)',
-                  cursor: 'pointer', fontSize: 12, fontFamily: 'var(--font)',
-                  transition: 'all 100ms',
-                }}
-                onMouseEnter={e => {
-                  if (!isActive) e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-                }}
-                onMouseLeave={e => {
-                  if (!isActive) e.currentTarget.style.background = 'transparent';
-                }}
-              >
-                {o.dot && (
-                  <span style={{
-                    width: 10, height: 10, borderRadius: 9999,
-                    background: o.dot, flexShrink: 0,
-                    border: isActive
-                      ? '2px solid var(--accent)'
-                      : '1px solid var(--border)',
-                  }} />
-                )}
-                {o.icon && <span style={{ fontSize: 13, lineHeight: 1 }}>{o.icon}</span>}
-                <span style={{ flex: 1 }}>{o.label}</span>
-                {isActive && <span style={{ fontSize: 10, color: 'var(--accent)' }}>✓</span>}
-              </button>
-            );
-          })}
+          {options.map(o => (
+            <button
+              key={o.id}
+              onClick={() => { onChange(o.id); setOpen(false); }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                width: '100%', padding: '7px 10px', borderRadius: 4,
+                border: 'none', textAlign: 'left',
+                background: value === o.id ? 'rgba(162, 66, 245, 0.1)' : 'transparent',
+                color: value === o.id ? '#a242f5' : 'var(--text2)',
+                cursor: 'pointer', fontSize: 12,
+              }}
+            >
+              {o.dot && <span style={{ width: 10, height: 10, borderRadius: 9999, background: o.dot }} />}
+              <span style={{ flex: 1 }}>{o.label}</span>
+            </button>
+          ))}
         </div>
       )}
     </div>
   );
 }
 
-/* ─── Theme Switcher (3 controls) ─────────────────── */
+/* ─── Theme Switcher (3 controles) ─────────────────── */
 export default function ThemeSwitcher() {
   const { brand, setBrand, mode, setMode, radius, setRadius } = useTheme();
 
-  const brandOptions = Object.entries(brands).map(([id, b]) => ({
-    id,
-    label: b.label,
-    dot: b.color,
-  }));
+  // Forzamos las opciones para asegurar que Pick'em aparezca
+  const brandOptions = [
+    { id: 'wa-default', label: 'WA Default', dot: '#0090ff' },
+    { id: 'belloa',     label: 'Belloa',     dot: '#12A594' },
+    { id: 'pickem',     label: "Pick'em",    dot: '#a242f5' }
+  ];
 
   const modeOptions = [
     { id: 'dark',  label: 'Dark',  icon: '🌙' },
