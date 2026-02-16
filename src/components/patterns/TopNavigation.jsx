@@ -43,6 +43,28 @@ const SearchIcon = ({ size = 20 }) => (
   </svg>
 );
 
+const GiftIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="8" width="18" height="4" rx="1"/>
+    <path d="M12 8v13"/>
+    <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/>
+    <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
+  </svg>
+);
+
+const PhoneIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </svg>
+);
+
+const EnvelopeIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </svg>
+);
+
 // ─── NavLink Component with Active State ──────────────
 function NavLink({ href, children, isActive = false }) {
   const { hover, bind } = useHover();
@@ -333,7 +355,7 @@ export function TopNavigation({
           </div>
         </div>
 
-        {/* Mobile View - 110x28px (exact from Figma) */}
+        {/* Mobile View - Responsive Navigation (exact from Figma node 58236-22688) */}
         <div
           className="mobile-nav"
           style={{
@@ -342,53 +364,12 @@ export function TopNavigation({
             justifyContent: 'space-between',
             padding: '0 12px',
             height: `${MOBILE_NAV_HEIGHT}px`, // Exact: 28px
-            width: `${MOBILE_NAV_WIDTH}px`, // Exact: 110px
+            width: '100%', // Full width for responsive
+            maxWidth: '100%',
           }}
         >
-          {/* Logo - Compact version */}
-          <div
-            style={{
-              padding: '2px 6px',
-              background: '#fff',
-              borderRadius: 'var(--radius-sm)',
-              color: '#000',
-              fontSize: 10,
-              lineHeight: '14px',
-              fontWeight: 700,
-              fontFamily: 'var(--font-display)',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            WA
-          </div>
-          
-          {/* Right side: Search + Deposit (if logged in) + Menu */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            {/* Search Icon */}
-            <button
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--text)',
-                cursor: 'pointer',
-                padding: 2,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <SearchIcon size={16} />
-            </button>
-            
-            {/* Deposit Button (if logged in) */}
-            {isLoggedIn && (
-              <div style={{ height: 24, display: 'flex', alignItems: 'center' }}>
-                <BtnPreview variant="default" size="sm">
-                  Deposit
-                </BtnPreview>
-              </div>
-            )}
-            
+          {/* Left side: Menu + Search + Logo */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1 }}>
             {/* Hamburger Menu */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -401,10 +382,173 @@ export function TopNavigation({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                flexShrink: 0,
               }}
             >
               {mobileMenuOpen ? <XIcon size={16} /> : <MenuIcon size={16} />}
             </button>
+            
+            {/* Search Icon */}
+            <button
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--text)',
+                cursor: 'pointer',
+                padding: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <SearchIcon size={16} />
+            </button>
+            
+            {/* Logo placeholder - 110x28px */}
+            <div
+              style={{
+                padding: '4px 8px',
+                background: '#fff',
+                borderRadius: 'var(--radius-sm)',
+                color: '#000',
+                fontSize: 10,
+                lineHeight: '14px',
+                fontWeight: 700,
+                fontFamily: 'var(--font-display)',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+              }}
+            >
+              110x28
+            </div>
+          </div>
+          
+          {/* Right side: Actions (Guest or Logged-in) */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+            {!isLoggedIn ? (
+              <>
+                {/* Gift Icon Button (Guest state) */}
+                <button
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: '50%',
+                    background: 'var(--bg2)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: 0,
+                    flexShrink: 0,
+                  }}
+                >
+                  <GiftIcon size={14} />
+                </button>
+                
+                {/* Login Button */}
+                <BtnPreview variant="secondary" size="sm">
+                  Login
+                </BtnPreview>
+                
+                {/* Register Button */}
+                <BtnPreview variant="default" size="sm">
+                  Register
+                </BtnPreview>
+              </>
+            ) : (
+              <>
+                {/* Phone Icon Button */}
+                <button
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: '50%',
+                    background: '#000',
+                    border: 'none',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: 0,
+                    flexShrink: 0,
+                  }}
+                >
+                  <PhoneIcon size={14} />
+                </button>
+                
+                {/* Envelope Icon Button */}
+                <button
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: '50%',
+                    background: '#000',
+                    border: 'none',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: 0,
+                    flexShrink: 0,
+                  }}
+                >
+                  <EnvelopeIcon size={14} />
+                </button>
+                
+                {/* Currency and Balance */}
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: 4,
+                  flexShrink: 0,
+                }}>
+                  <span style={{ 
+                    fontSize: 12, 
+                    fontWeight: 600,
+                    color: 'var(--accent)', // Green color for currency
+                    lineHeight: '16px',
+                  }}>
+                    {currency}
+                  </span>
+                  <span style={{ 
+                    fontSize: 12, 
+                    fontWeight: 400,
+                    color: 'var(--text)', 
+                    lineHeight: '16px',
+                  }}>
+                    {balance}
+                  </span>
+                </div>
+                
+                {/* User Avatar - Circular with initial */}
+                <button
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: '50%',
+                    background: 'var(--accent)', // Green-teal background
+                    border: 'none',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: 0,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    fontFamily: 'var(--font-display)',
+                    flexShrink: 0,
+                  }}
+                >
+                  {userName.charAt(0).toUpperCase()}
+                </button>
+              </>
+            )}
           </div>
         </div>
       </nav>
