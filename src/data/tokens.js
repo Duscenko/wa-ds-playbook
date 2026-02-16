@@ -27,7 +27,7 @@ export const brands = {
     },
   },
   "pickem": {
-    label: "Pick\'em",
+    label: "Pick'em",
     color: "#a242f5",
     primitives: {
       "main-dark": { 100: "#150e1d", 200: "#1d1329", 300: "#2f1747", 400: "#3d195f", 500: "#48206e", 600: "#7410c5", 700: "#7026d1", 800: "#8848c6", 900: "#a242f5", 1000: "#a64eed", 1100: "#d09cff", 1200: "#f8f0ff" },
@@ -35,14 +35,21 @@ export const brands = {
       "neutral-dark": { 100: "#1c191f", 200: "#2b272c", 300: "#332f35", 400: "#2e2a2f", 500: "#332f35", 600: "#3a363c", 700: "#423e45", 800: "#4d4951", 900: "#8a8892", 1000: "#9795a0", 1100: "#eeeef0", 1200: "#eeeef0" },
       "neutral-light": { 100: "#fdfcfd", 200: "#f9f8f9", 300: "#f4f2f4", 400: "#efecef", 500: "#e9e5e9", 600: "#e1dde1", 700: "#d8d2d9", 800: "#c1b8c2", 900: "#8e8492", 1000: "#847a88", 1100: "#766c7a", 1200: "#211029" },
     },
-    // Pick\'em has custom overlay values
     utilityOverrides: {
-      "yellow": { 100: "#201300", 200: "#291a00", 300: "#3d2a00", 400: "#523b00", 500: "#664d00", 600: "#7a6100", 700: "#917600", 800: "#ab8d00", 900: "#ffdc00", 1000: "#ffe629", 1100: "#fff066", 1200: "#fff9c2" },
-      "mint": { 100: "#0b1614", 200: "#101e1b", 300: "#182f2b", 400: "#1e3e3a", 500: "#264f4a", 600: "#2f625b", 700: "#3a766f", 800: "#49938a", 900: "#5bb6aa", 1000: "#70d6c8", 1100: "#a2f2e7", 1200: "#dcfcf8" },
-      "grass": { 100: "#11150b", 200: "#181d0f", 300: "#252e16", 400: "#323e1e", 500: "#415027", 600: "#516231", 700: "#64773c", 800: "#7c924d", 900: "#99b65f", 1000: "#b5d47a", 1100: "#d2f296", 1200: "#eefccf" },
-      "overlay-black": { 100: "rgba(0,0,0,0.02)", 200: "rgba(0,0,0,0.05)", 300: "rgba(0,0,0,0.1)", 400: "rgba(0,0,0,0.15)", 500: "rgba(0,0,0,0.2)", 600: "rgba(0,0,0,0.3)", 700: "rgba(0,0,0,0.4)", 800: "rgba(0,0,0,0.5)", 900: "rgba(0,0,0,0.6)", 1000: "rgba(0,0,0,0.75)", 1100: "rgba(0,0,0,0.85)", 1200: "rgba(0,0,0,0.95)" },
-      "overlay-white": { 100: "rgba(249,250,251,0.03)", 200: "rgba(249,250,251,0.05)", 300: "rgba(249,250,251,0.07)", 400: "rgba(249,250,251,0.11)", 500: "rgba(249,250,251,0.14)", 600: "rgba(249,250,251,0.18)", 700: "rgba(249,250,251,0.24)", 800: "rgba(249,250,251,0.31)", 900: "rgba(249,250,251,0.44)", 1000: "rgba(249,250,251,0.5)", 1100: "rgba(249,250,251,0.65)", 1200: "rgba(249,250,251,0.92)" }
+      "yellow-dark": { 100: "#16120C", 200: "#1D180F", 300: "#302008", 400: "#3F2700", 500: "#4D3000", 600: "#5C3D05", 700: "#714F19", 800: "#8F6424", 900: "#FFC53D", 1000: "#FFD60A", 1100: "#FFCA16", 1200: "#FFE7B3" },
+      "yellow-light": { 100: "#16120C", 200: "#1D180F", 300: "#302008", 400: "#3F2700", 500: "#4D3000", 600: "#5C3D05", 700: "#714F19", 800: "#8F6424", 900: "#FFC53D", 1000: "#FFD60A", 1100: "#FFCA16", 1200: "#FFE7B3" },
+      "mint-dark": { 100: "#0E1515", 200: "#0F1B1B", 300: "#092C2B", 400: "#003A38", 500: "#004744", 600: "#105650", 700: "#1E685F", 800: "#277F70", 900: "#86EAD4", 1000: "#A8F5E5", 1100: "#58D5BA", 1200: "#C4F5E1" },
+      "mint-light": { 100: "#0E1515", 200: "#0F1B1B", 300: "#092C2B", 400: "#003A38", 500: "#004744", 600: "#105650", 700: "#1E685F", 800: "#277F70", 900: "#86EAD4", 1000: "#A8F5E5", 1100: "#58D5BA", 1200: "#C4F5E1" },
+      "grass-dark": { 100: "#11130C", 200: "#151A10", 300: "#1F2917", 400: "#29371D", 500: "#334423", 600: "#3D522A", 700: "#3D522A", 800: "#577538", 900: "#BDEE63", 1000: "#D4FF70", 1100: "#BDE56C", 1200: "#E3F7BA" },
+      "grass-light": { 100: "#11130C", 200: "#151A10", 300: "#1F2917", 400: "#29371D", 500: "#334423", 600: "#3D522A", 700: "#3D522A", 800: "#577538", 900: "#BDEE63", 1000: "#D4FF70", 1100: "#BDE56C", 1200: "#E3F7BA" },
+      "overlay-black": { 100: "rgba(0,0,0,0.02)", 200: "rgba(0,0,0,0.05)", 300: "rgba(0,0,0,0.10)", 400: "rgba(0,0,0,0.15)", 500: "rgba(0,0,0,0.20)", 600: "rgba(0,0,0,0.30)", 700: "rgba(0,0,0,0.40)", 800: "rgba(0,0,0,0.50)", 900: "rgba(0,0,0,0.60)", 1000: "rgba(0,0,0,0.75)", 1100: "rgba(0,0,0,0.85)", 1200: "rgba(0,0,0,0.95)" },
+      "overlay-white": { 100: "rgba(249,250,251,0.03)", 200: "rgba(249,250,251,0.05)", 300: "rgba(249,250,251,0.07)", 400: "rgba(249,250,251,0.11)", 500: "rgba(249,250,251,0.14)", 600: "rgba(249,250,251,0.18)", 700: "rgba(249,250,251,0.24)", 800: "rgba(249,250,251,0.31)", 900: "rgba(249,250,251,0.44)", 1000: "rgba(249,250,251,0.50)", 1100: "rgba(249,250,251,0.65)", 1200: "rgba(249,250,251,0.92)" }
     },
+    semanticOverrides: {
+      "Action.primary": { dark: "main-dark.700", light: "main-light.900" },
+      "Action.secondary": { dark: "main-dark.500", light: "main-light.700" },
+      "Surface.accent": { dark: "main-dark.300", light: "main-light.300" }
+    }
   },
 };
 
@@ -113,14 +120,22 @@ export const semantic = {
 
 // ─── RESOLVE TOKEN (brand-aware) ─────────────────
 
-export function resolveToken(ref, brandId) {
+export function resolveToken(ref, brandId, mode = "dark") {
   const b = brandId || activeBrand;
-  const [family, step] = ref.split(".");
   const brandData = brands[b] || brands["wa-default"];
+  
+  // 1. Check for brand-specific Semantic Overrides first (Highest Priority)
+  if (brandData.semanticOverrides && brandData.semanticOverrides[ref]) {
+    const semanticRef = brandData.semanticOverrides[ref][mode];
+    return resolveToken(semanticRef, b, mode); // Recursively resolve the primitive link
+  }
+
+  // 2. Resolve as standard Primitive or Utility
+  const [family, step] = ref.split(".");
   const prims = brandData.primitives;
-  // Check brand-specific utility overrides first, then shared utility
   const overrides = brandData.utilityOverrides || {};
   const all = { ...prims, ...utility, ...overrides };
+  
   if (all[family] && all[family][step]) return all[family][step];
   return "#555";
 }
