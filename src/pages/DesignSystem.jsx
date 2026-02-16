@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { semantic, resolveToken, brands } from '../data/tokens';
 import { componentDocs, componentIds } from '../data/components';
 import { useTheme } from '../components/ThemeContext';
-import { CopyBadge, SectionTitle, TabBar, InfoCard } from './UI';
+import { CopyBadge, SectionTitle, TabBar, InfoCard } from '../components/UI';
 import { BtnPreview, BadgePreview, SwitchPreview, CheckboxPreview, InputPreview, AlertPreview, CardPreview, DialogPreview, SheetPreview } from '../components/LivePreviews';
 
 export function TokensPage() {

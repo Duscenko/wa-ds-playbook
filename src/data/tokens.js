@@ -1,49 +1,99 @@
-// WA DESIGN SYSTEM — TOKEN DATA (Multi-brand)
+// ═══════════════════════════════════════════════════
+// WA DESIGN SYSTEM — TOKEN DATA  (Multi-brand)
+// Source: Figma Variables
+// ═══════════════════════════════════════════════════
+
+// ─── BRAND PRIMITIVES ────────────────────────────
 
 export const brands = {
   "wa-default": {
-    label: "WA Default", color: "#0090ff",
+    label: "WA Default",
+    color: "#0090ff",
     primitives: {
-      "main-dark": { 100:"#0d1520",200:"#111927",300:"#0d2847",400:"#003362",500:"#004074",600:"#104d87",700:"#205d9e",800:"#2870bd",900:"#0090ff",1000:"#3b9eff",1100:"#70b8ff",1200:"#c2e6ff" },
-      "main-light": { 100:"#fbfdff",200:"#f4faff",300:"#e6f4fe",400:"#d5efff",500:"#c2e5ff",600:"#acd8fc",700:"#8ec8f6",800:"#5eb1ef",900:"#0090ff",1000:"#0588f0",1100:"#0d74ce",1200:"#113264" },
-      "neutral-dark": { 100:"#111113",200:"#18191b",300:"#212225",400:"#272a2d",500:"#2e3135",600:"#363a3f",700:"#43484e",800:"#5a6169",900:"#696e77",1000:"#777b84",1100:"#b0b4ba",1200:"#edeef0" },
-      "neutral-light": { 100:"#fcfcfd",200:"#f8f9fa",300:"#f1f3f5",400:"#e9ecef",500:"#dee2e6",600:"#d7dbdf",700:"#c1c8cd",800:"#889096",900:"#687076",1000:"#4b5156",1100:"#313538",1200:"#11181c" }
-    }
+      "main-dark":     { 100:"#0d1520",200:"#111927",300:"#0d2847",400:"#003362",500:"#004074",600:"#104d87",700:"#205d9e",800:"#2870bd",900:"#0090ff",1000:"#3b9eff",1100:"#70b8ff",1200:"#c2e6ff" },
+      "main-light":    { 100:"#fbfdff",200:"#f4faff",300:"#e6f4fe",400:"#d5efff",500:"#c2e5ff",600:"#acd8fc",700:"#8ec8f6",800:"#5eb1ef",900:"#0090ff",1000:"#0588f0",1100:"#0d74ce",1200:"#113264" },
+      "neutral-dark":  { 100:"#111113",200:"#18191b",300:"#212225",400:"#272a2d",500:"#2e3135",600:"#363a3f",700:"#43484e",800:"#5a6169",900:"#696e77",1000:"#777b84",1100:"#b0b4ba",1200:"#edeef0" },
+      "neutral-light": { 100:"#fcfcfd",200:"#f8f9fa",300:"#f1f3f5",400:"#e9ecef",500:"#dee2e6",600:"#d7dbdf",700:"#c1c8cd",800:"#889096",900:"#687076",1000:"#4b5156",1100:"#313538",1200:"#11181c" },
+    },
   },
   "belloa": {
-    label: "Belloa", color: "#12A594",
+    label: "Belloa",
+    color: "#12A594",
     primitives: {
-      "main-dark": { 100:"#0D1514",200:"#111C1B",300:"#0D2D2A",400:"#023B37",500:"#084843",600:"#145750",700:"#1C6961",800:"#207E73",900:"#12A594",1000:"#0EB39E",1100:"#0BD8B6",1200:"#ADF0DD" },
-      "main-light": { 100:"#FBFEFD",200:"#F4FBF9",300:"#E6F6F3",400:"#D6F1EB",500:"#C4EAE1",600:"#ADE0D4",700:"#92D1C3",800:"#69BAA9",900:"#0BC3AD",1000:"#09B29E",1100:"#067A6F",1200:"#05312E" },
-      "neutral-dark": { 100:"#101211",200:"#171918",300:"#202221",400:"#272A29",500:"#2E3130",600:"#373B39",700:"#444947",800:"#5B625F",900:"#63706B",1000:"#717D79",1100:"#B0B4BA",1200:"#EDEEF0" },
-      "neutral-light": { 100:"#FCFCFD",200:"#F8F9FA",300:"#F1F3F5",400:"#E9ECEF",500:"#DEE2E6",600:"#D7DBDF",700:"#C1C8CD",800:"#889096",900:"#687076",1000:"#4B5156",1100:"#313538",1200:"#11181C" }
-    }
-  }
+      "main-dark":     { 100:"#0D1514",200:"#111C1B",300:"#0D2D2A",400:"#023B37",500:"#084843",600:"#145750",700:"#1C6961",800:"#207E73",900:"#12A594",1000:"#0EB39E",1100:"#0BD8B6",1200:"#ADF0DD" },
+      "main-light":    { 100:"#FBFEFD",200:"#F4FBF9",300:"#E6F6F3",400:"#D6F1EB",500:"#C4EAE1",600:"#ADE0D4",700:"#92D1C3",800:"#69BAA9",900:"#0BC3AD",1000:"#09B29E",1100:"#067A6F",1200:"#05312E" },
+      "neutral-dark":  { 100:"#101211",200:"#171918",300:"#202221",400:"#272A29",500:"#2E3130",600:"#373B39",700:"#444947",800:"#5B625F",900:"#63706B",1000:"#717D79",1100:"#B0B4BA",1200:"#EDEEF0" },
+      "neutral-light": { 100:"#FCFCFD",200:"#F8F9FA",300:"#F1F3F5",400:"#E9ECEF",500:"#DEE2E6",600:"#D7DBDF",700:"#C1C8CD",800:"#889096",900:"#687076",1000:"#4B5156",1100:"#313538",1200:"#11181C" },
+    },
+  },
 };
+
+// ─── ACTIVE BRAND STATE ──────────────────────────
 
 let activeBrand = "wa-default";
+
 export function setActiveBrand(b) { activeBrand = b; }
-export function getActiveBrand() { return activeBrand; }
-export function getPrimitives() { return brands[activeBrand]?.primitives || brands["wa-default"].primitives; }
+export function getActiveBrand()  { return activeBrand; }
+export function getPrimitives()   { return brands[activeBrand]?.primitives || brands["wa-default"].primitives; }
+
+// ─── UTILITY (shared across ALL brands) ──────────
 
 export const utility = {
-  "red-dark": { 100:"#191111",200:"#201314",300:"#3b1219",400:"#500f1c",500:"#611623",600:"#72232d",700:"#8c333a",800:"#b54548",900:"#e5484d",1000:"#ec5d5e",1100:"#ff9592",1200:"#ffd1d9" },
-  "red-light": { 100:"#fffcfc",200:"#fff7f7",300:"#feebec",400:"#ffdbdc",500:"#ffcdce",600:"#fdbdbe",700:"#f4a9aa",800:"#eb8e90",900:"#e5484d",1000:"#dc3e42",1100:"#ce2c31",1200:"#641723" },
-  "green-dark": { 100:"#0e1512",200:"#121b17",300:"#132d21",400:"#113b29",500:"#174933",600:"#20573e",700:"#28684a",800:"#2f7c57",900:"#30a46c",1000:"#33b074",1100:"#3dd68c",1200:"#b1f1cb" },
-  "green-light": { 100:"#fbfefc",200:"#f4fbf6",300:"#e6f6eb",400:"#d6f1df",500:"#c4e8d1",600:"#adddc0",700:"#8eceaa",800:"#5bb98b",900:"#30a46c",1000:"#2b9a66",1100:"#218358",1200:"#193b2d" },
-  "yellow-dark": { 100:"#14120b",200:"#1b180f",300:"#2d2305",400:"#362b00",500:"#433500",600:"#524202",700:"#665417",800:"#836a21",900:"#ffe629",1000:"#ffff57",1100:"#f5e147",1200:"#f6eeb4" },
-  "yellow-light": { 100:"#fdfdf9",200:"#fefce9",300:"#fffab8",400:"#fff394",500:"#ffe770",600:"#f3d768",700:"#e4c767",800:"#d5ae39",900:"#ffe629",1000:"#ffdc00",1100:"#9e6c00",1200:"#473b1f" },
+  "red-dark":      { 100:"#191111",200:"#201314",300:"#3b1219",400:"#500f1c",500:"#611623",600:"#72232d",700:"#8c333a",800:"#b54548",900:"#e5484d",1000:"#ec5d5e",1100:"#ff9592",1200:"#ffd1d9" },
+  "red-light":     { 100:"#fffcfc",200:"#fff7f7",300:"#feebec",400:"#ffdbdc",500:"#ffcdce",600:"#fdbdbe",700:"#f4a9aa",800:"#eb8e90",900:"#e5484d",1000:"#dc3e42",1100:"#ce2c31",1200:"#641723" },
+  "green-dark":    { 100:"#0e1512",200:"#121b17",300:"#132d21",400:"#113b29",500:"#174933",600:"#20573e",700:"#28684a",800:"#2f7c57",900:"#30a46c",1000:"#33b074",1100:"#3dd68c",1200:"#b1f1cb" },
+  "green-light":   { 100:"#fbfefc",200:"#f4fbf6",300:"#e6f6eb",400:"#d6f1df",500:"#c4e8d1",600:"#adddc0",700:"#8eceaa",800:"#5bb98b",900:"#30a46c",1000:"#2b9a66",1100:"#218358",1200:"#193b2d" },
+  "yellow-dark":   { 100:"#14120b",200:"#1b180f",300:"#2d2305",400:"#362b00",500:"#433500",600:"#524202",700:"#665417",800:"#836a21",900:"#ffe629",1000:"#ffff57",1100:"#f5e147",1200:"#f6eeb4" },
+  "yellow-light":  { 100:"#fdfdf9",200:"#fefce9",300:"#fffab8",400:"#fff394",500:"#ffe770",600:"#f3d768",700:"#e4c767",800:"#d5ae39",900:"#ffe629",1000:"#ffdc00",1100:"#9e6c00",1200:"#473b1f" },
   "overlay-black": { 100:"rgba(0,0,0,0.01)",200:"rgba(0,0,0,0.03)",300:"rgba(0,0,0,0.05)",400:"rgba(0,0,0,0.07)",500:"rgba(0,0,0,0.09)",600:"rgba(0,0,0,0.11)",700:"rgba(0,0,0,0.14)",800:"rgba(0,0,0,0.22)",900:"rgba(0,0,0,0.44)",1000:"rgba(0,0,0,0.66)" },
-  "overlay-white": { 100:"rgba(255,255,255,0.01)",200:"rgba(255,255,255,0.03)",300:"rgba(255,255,255,0.05)",400:"rgba(255,255,255,0.07)",500:"rgba(255,255,255,0.09)",600:"rgba(255,255,255,0.11)",700:"rgba(255,255,255,0.14)",800:"rgba(255,255,255,0.22)",900:"rgba(255,255,255,0.44)",1000:"rgba(255,255,255,0.66)" }
+  "overlay-white": { 100:"rgba(255,255,255,0.01)",200:"rgba(255,255,255,0.03)",300:"rgba(255,255,255,0.05)",400:"rgba(255,255,255,0.07)",500:"rgba(255,255,255,0.09)",600:"rgba(255,255,255,0.11)",700:"rgba(255,255,255,0.14)",800:"rgba(255,255,255,0.22)",900:"rgba(255,255,255,0.44)",1000:"rgba(255,255,255,0.66)" },
 };
 
+// ─── SEMANTIC ────────────────────────────────────
+
 export const semantic = {
-  Content: { Primary:{dark:"neutral-dark.1200",light:"neutral-light.1200"},"on-action":{dark:"neutral-dark.1200",light:"neutral-light.100"},secondary:{dark:"neutral-dark.1100",light:"neutral-light.1100"},subtle:{dark:"neutral-dark.1000",light:"neutral-light.1000"},inverse:{dark:"neutral-dark.100",light:"neutral-light.100"},accent:{dark:"main-dark.900",light:"main-light.900"} },
-  Action: { primary:{dark:"main-dark.600",light:"main-light.900"},neutral:{dark:"neutral-dark.200",light:"neutral-light.400"},secondary:{dark:"neutral-dark.1200",light:"neutral-light.600"},disabled:{dark:"overlay-white.300",light:"neutral-light.400"} },
-  Surface: { page:{dark:"neutral-dark.100",light:"neutral-light.100"},"layer-1":{dark:"neutral-dark.200",light:"neutral-light.200"},"layer-2":{dark:"neutral-dark.400",light:"neutral-light.400"},accent:{dark:"main-dark.300",light:"main-light.1100"},inverse:{dark:"neutral-dark.1100",light:"neutral-light.1200"},Overlay:{dark:"overlay-black.1000",light:"overlay-black.1000"} },
-  Status: { "critical-bg":{dark:"red-dark.400",light:"red-light.1100"},"critical-fg":{dark:"red-dark.1000",light:"red-light.1000"},"warning-fg":{dark:"yellow-dark.1000",light:"yellow-light.800"},"warning-bg":{dark:"yellow-dark.600",light:"yellow-light.1000"},"success-fg":{dark:"green-dark.1000",light:"green-dark.900"},"success-bg":{dark:"green-dark.600",light:"green-light.1100"} },
-  Border: { default:{dark:"neutral-dark.600",light:"neutral-light.600"},accent:{dark:"main-dark.700",light:"main-dark.1000"},subtle:{dark:"overlay-white.400",light:"neutral-light.400"},active:{dark:"main-dark.900",light:"main-light.900"},critical:{dark:"red-dark.800",light:"red-light.1000"},warning:{dark:"yellow-dark.800",light:"yellow-light.800"},success:{dark:"green-dark.800",light:"green-light.900"} }
+  Content: {
+    Primary:     { dark: "neutral-dark.1200", light: "neutral-light.1200" },
+    "on-action": { dark: "neutral-dark.1200", light: "neutral-light.100"  },
+    secondary:   { dark: "neutral-dark.1100", light: "neutral-light.1100" },
+    subtle:      { dark: "neutral-dark.1000", light: "neutral-light.1000" },
+    inverse:     { dark: "neutral-dark.100",  light: "neutral-light.100"  },
+    accent:      { dark: "main-dark.900",     light: "main-light.900"     },
+  },
+  Action: {
+    primary:   { dark: "main-dark.600",     light: "main-light.900"    },
+    neutral:   { dark: "neutral-dark.200",  light: "neutral-light.400" },
+    secondary: { dark: "neutral-dark.1200", light: "neutral-light.600" },
+    disabled:  { dark: "overlay-white.300", light: "neutral-light.400" },
+  },
+  Surface: {
+    page:      { dark: "neutral-dark.100",  light: "neutral-light.100"  },
+    "layer-1": { dark: "neutral-dark.200",  light: "neutral-light.200"  },
+    "layer-2": { dark: "neutral-dark.400",  light: "neutral-light.400"  },
+    accent:    { dark: "main-dark.300",     light: "main-light.1100"    },
+    inverse:   { dark: "neutral-dark.1100", light: "neutral-light.1200" },
+    Overlay:   { dark: "overlay-black.1000",light: "overlay-black.1000" },
+  },
+  Status: {
+    "critical-bg": { dark: "red-dark.400",     light: "red-light.1100"    },
+    "critical-fg": { dark: "red-dark.1000",    light: "red-light.1000"    },
+    "warning-fg":  { dark: "yellow-dark.1000", light: "yellow-light.800"  },
+    "warning-bg":  { dark: "yellow-dark.600",  light: "yellow-light.1000" },
+    "success-fg":  { dark: "green-dark.1000",  light: "green-dark.900"    },
+    "success-bg":  { dark: "green-dark.600",   light: "green-light.1100"  },
+  },
+  Border: {
+    default:  { dark: "neutral-dark.600",  light: "neutral-light.600"  },
+    accent:   { dark: "main-dark.700",     light: "main-dark.1000"     },
+    subtle:   { dark: "overlay-white.400", light: "neutral-light.400"  },
+    active:   { dark: "main-dark.900",     light: "main-light.900"     },
+    critical: { dark: "red-dark.800",      light: "red-light.1000"     },
+    warning:  { dark: "yellow-dark.800",   light: "yellow-light.800"   },
+    success:  { dark: "green-dark.800",    light: "green-light.900"    },
+  },
 };
+
+// ─── RESOLVE TOKEN (brand-aware) ─────────────────
 
 export function resolveToken(ref, brandId) {
   const b = brandId || activeBrand;
@@ -54,8 +104,58 @@ export function resolveToken(ref, brandId) {
   return "#555";
 }
 
-export const spacing = [ {token:"0x",ref:"0",value:"0px"},{token:"3xs",ref:"0.5",value:"2px"},{token:"2xs",ref:"1",value:"4px"},{token:"xs",ref:"2",value:"8px"},{token:"sm",ref:"3",value:"12px"},{token:"md",ref:"4",value:"16px"},{token:"lg",ref:"5",value:"20px"},{token:"xl",ref:"6",value:"24px"},{token:"2xl",ref:"8",value:"32px"},{token:"3xl",ref:"10",value:"40px"},{token:"4xl",ref:"12",value:"48px"},{token:"5xl",ref:"16",value:"64px"} ];
-export const radii = [ {token:"sharp",value:"0px"},{token:"xs",value:"2px"},{token:"sm",value:"4px"},{token:"md",value:"6px"},{token:"lg",value:"8px"},{token:"base",value:"10px"},{token:"xl",value:"12px"},{token:"2xl",value:"16px"},{token:"3xl",value:"24px"},{token:"full",value:"9999px"} ];
-export const typography = [ {name:"Heading 1",size:48,lineHeight:52,letterSpacing:-1.5,weight:"600"},{name:"Heading 2",size:30,lineHeight:32,letterSpacing:-1,weight:"600"},{name:"Heading 3",size:24,lineHeight:29,letterSpacing:-1,weight:"600"},{name:"Heading 4",size:20,lineHeight:24,letterSpacing:0,weight:"600"},{name:"Paragraph L",size:18,lineHeight:22,letterSpacing:0,weight:"400"},{name:"Paragraph",size:16,lineHeight:20,letterSpacing:0,weight:"400"},{name:"Paragraph S",size:14,lineHeight:18,letterSpacing:0,weight:"400"},{name:"Paragraph XS",size:12,lineHeight:14,letterSpacing:0,weight:"400"} ];
-export const shadows = [ {token:"2xs",value:"0 1px 0 rgba(0,0,0,.03)"},{token:"xs",value:"0 1px 2px rgba(0,0,0,.04)"},{token:"sm",value:"0 2px 4px rgba(0,0,0,.05)"},{token:"md",value:"0 4px 8px -1px rgba(0,0,0,.07)"},{token:"lg",value:"0 10px 15px -3px rgba(0,0,0,.1)"},{token:"xl",value:"0 20px 25px -5px rgba(0,0,0,.12)"},{token:"2xl",value:"0 25px 50px -12px rgba(0,0,0,.18)"} ];
-export const chartColors = { categorical:["#f54a00","#009689","#104e64","#ffb900","#fe9a00"], sentiment:{positive:"#009689",negative:"#f54a00"} };
+// ─── FOUNDATIONS DATA ────────────────────────────
+
+export const spacing = [
+  { token: "0x",  ref: "0",   value: "0px"  },
+  { token: "3xs", ref: "0.5", value: "2px"  },
+  { token: "2xs", ref: "1",   value: "4px"  },
+  { token: "xs",  ref: "2",   value: "8px"  },
+  { token: "sm",  ref: "3",   value: "12px" },
+  { token: "md",  ref: "4",   value: "16px" },
+  { token: "lg",  ref: "5",   value: "20px" },
+  { token: "xl",  ref: "6",   value: "24px" },
+  { token: "2xl", ref: "8",   value: "32px" },
+  { token: "3xl", ref: "10",  value: "40px" },
+  { token: "4xl", ref: "12",  value: "48px" },
+  { token: "5xl", ref: "16",  value: "64px" },
+];
+
+export const radii = [
+  { token: "sharp", value: "0px"    },
+  { token: "xs",    value: "2px"    },
+  { token: "sm",    value: "4px"    },
+  { token: "md",    value: "6px"    },
+  { token: "lg",    value: "8px"    },
+  { token: "base",  value: "10px"   },
+  { token: "xl",    value: "12px"   },
+  { token: "2xl",   value: "16px"   },
+  { token: "3xl",   value: "24px"   },
+  { token: "full",  value: "9999px" },
+];
+
+export const typography = [
+  { name: "Heading 1",    size: 48, lineHeight: 52, letterSpacing: -1.5, weight: "600" },
+  { name: "Heading 2",    size: 30, lineHeight: 32, letterSpacing: -1,   weight: "600" },
+  { name: "Heading 3",    size: 24, lineHeight: 29, letterSpacing: -1,   weight: "600" },
+  { name: "Heading 4",    size: 20, lineHeight: 24, letterSpacing: 0,    weight: "600" },
+  { name: "Paragraph L",  size: 18, lineHeight: 22, letterSpacing: 0,    weight: "400" },
+  { name: "Paragraph",    size: 16, lineHeight: 20, letterSpacing: 0,    weight: "400" },
+  { name: "Paragraph S",  size: 14, lineHeight: 18, letterSpacing: 0,    weight: "400" },
+  { name: "Paragraph XS", size: 12, lineHeight: 14, letterSpacing: 0,    weight: "400" },
+];
+
+export const shadows = [
+  { token: "2xs", value: "0 1px 0 rgba(0,0,0,.03)"         },
+  { token: "xs",  value: "0 1px 2px rgba(0,0,0,.04)"        },
+  { token: "sm",  value: "0 2px 4px rgba(0,0,0,.05)"        },
+  { token: "md",  value: "0 4px 8px -1px rgba(0,0,0,.07)"   },
+  { token: "lg",  value: "0 10px 15px -3px rgba(0,0,0,.1)"  },
+  { token: "xl",  value: "0 20px 25px -5px rgba(0,0,0,.12)" },
+  { token: "2xl", value: "0 25px 50px -12px rgba(0,0,0,.18)"},
+];
+
+export const chartColors = {
+  categorical: ["#f54a00", "#009689", "#104e64", "#ffb900", "#fe9a00"],
+  sentiment: { positive: "#009689", negative: "#f54a00" },
+};

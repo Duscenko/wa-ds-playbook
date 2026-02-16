@@ -1,7 +1,7 @@
-import { createContext, useContext, useState, useCallback } from 'react';
-import { brands, setActiveBrand, resolveToken } from '../data/tokens';
+import { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import { brands, setActiveBrand } from '../data/tokens';
 
-const ThemeContext = createContext();
+const ThemeContext = createContext(null);
 
 export function ThemeProvider({ children }) {
   const [brand, setBrandState] = useState('wa-default');
@@ -13,57 +13,59 @@ export function ThemeProvider({ children }) {
     setActiveBrand(b);
   }, []);
 
-  // Resolve a semantic token to hex for current brand + mode
-  const resolve = useCallback((ref) => {
-    return resolveToken(ref, brand);
-  }, [brand]);
-
-  // Get the accent color for current brand
   const accent = brands[brand]?.color || '#0090ff';
 
-  // Get CSS variable overrides based on current brand
   const getCSSVars = useCallback(() => {
     const p = brands[brand]?.primitives || brands['wa-default'].primitives;
     const m = mode === 'dark' ? 'main-dark' : 'main-light';
     const n = mode === 'dark' ? 'neutral-dark' : 'neutral-light';
 
     const radiusMap = {
-      sharp: { sm: '2px', md: '4px', lg: '6px', base: '8px' },
-      default: { sm: '4px', md: '6px', lg: '8px', base: '10px' },
-      round: { sm: '8px', md: '12px', lg: '16px', base: '20px' },
-      full: { sm: '9999px', md: '9999px', lg: '9999px', base: '9999px' },
+      sharp:   { sm: '0px',    md: '0px',    lg: '0px',    base: '0px'    },
+      default: { sm: '4px',    md: '6px',    lg: '8px',    base: '10px'   },
+      round:   { sm: '8px',    md: '12px',   lg: '16px',   base: '20px'   },
+      full:    { sm: '9999px', md: '9999px', lg: '9999px', base: '9999px' },
     };
     const r = radiusMap[radius] || radiusMap.default;
 
     return {
-      '--accent': p[m]?.[900] || '#0090ff',
-      '--accent-hover': p[m]?.[1000] || '#3b9eff',
-      '--accent-pressed': p[m]?.[800] || '#0077d4',
-      '--accent-bg': (p[m]?.[900] || '#0090ff') + '12',
-      '--accent-subtle': p[m]?.[300] || '#0d2847',
-      '--bg': mode === 'dark' ? (p[n]?.[100] || '#111113') : (p[n]?.[100] || '#fcfcfd'),
-      '--bg1': mode === 'dark' ? (p[n]?.[200] || '#18191b') : (p[n]?.[200] || '#f8f9fa'),
-      '--bg2': mode === 'dark' ? (p[n]?.[300] || '#212225') : (p[n]?.[300] || '#f1f3f5'),
-      '--bg3': mode === 'dark' ? (p[n]?.[400] || '#272a2d') : (p[n]?.[400] || '#e9ecef'),
-      '--text': mode === 'dark' ? (p[n]?.[1200] || '#edeef0') : (p[n]?.[1200] || '#11181c'),
-      '--text2': mode === 'dark' ? (p[n]?.[1100] || '#b0b4ba') : (p[n]?.[1100] || '#313538'),
-      '--text3': mode === 'dark' ? (p[n]?.[1000] || '#777b84') : (p[n]?.[1000] || '#4b5156'),
-      '--border': mode === 'dark' ? (p[n]?.[600] || '#363a3f') : (p[n]?.[600] || '#d7dbdf'),
-      '--border-hover': mode === 'dark' ? (p[n]?.[700] || '#43484e') : (p[n]?.[700] || '#c1c8cd'),
-      '--radius-sm': r.sm,
-      '--radius': r.md,
-      '--radius-lg': r.lg,
-      '--radius-base': r.base,
+      '--accent':         p[m]?.[900]  || '#0090ff',
+      '--accent-hover':   p[m]?.[1000] || '#3b9eff',
+      '--accent-pressed': p[m]?.[800]  || '#0077d4',
+      '--accent-subtle':  p[m]?.[300]  || '#0d2847',
+      '--accent-muted':   p[m]?.[1200] || '#c2e6ff',
+      '--bg':             p[n]?.[100]  || '#111113',
+      '--bg1':            p[n]?.[200]  || '#18191b',
+      '--bg2':            p[n]?.[300]  || '#212225',
+      '--bg3':            p[n]?.[400]  || '#272a2d',
+      '--text':           p[n]?.[1200] || '#edeef0',
+      '--text2':          p[n]?.[1100] || '#b0b4ba',
+      '--text3':          p[n]?.[1000] || '#777b84',
+      '--border':         p[n]?.[600]  || '#363a3f',
+      '--border-hover':   p[n]?.[700]  || '#43484e',
+      '--radius-sm':      r.sm,
+      '--radius':         r.md,
+      '--radius-lg':      r.lg,
+      '--radius-base':    r.base,
     };
   }, [brand, mode, radius]);
 
+  const value = useMemo(() => ({
+    brand, setBrand,
+    mode, setMode,
+    radius, setRadius,
+    accent, getCSSVars,
+  }), [brand, setBrand, mode, setMode, radius, setRadius, accent, getCSSVars]);
+
   return (
-    <ThemeContext.Provider value={{ brand, setBrand, mode, setMode, radius, setRadius, accent, resolve, getCSSVars }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
 export function useTheme() {
-  return useContext(ThemeContext);
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error('useTheme must be used within <ThemeProvider>');
+  return ctx;
 }
