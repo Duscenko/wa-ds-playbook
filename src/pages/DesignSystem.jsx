@@ -4,6 +4,7 @@ import { componentDocs, componentIds } from '../data/components';
 import { useTheme } from '../components/ThemeContext';
 import { CopyBadge, SectionTitle, TabBar, InfoCard } from '../components/UI';
 import { BtnPreview, BadgePreview, SwitchPreview, CheckboxPreview, InputPreview, AlertPreview, CardPreview, DialogPreview, SheetPreview } from '../components/LivePreviews';
+import { TopNavigation } from '../components/TopNavigation';
 
 export function TokensPage() {
   const { brand, mode } = useTheme();
@@ -222,7 +223,61 @@ export function PatternsPage() {
   return (
     <div>
       <SectionTitle title="Patterns" sub="Common UI patterns composed from components. Switch brands above to see white-label theming in action." />
-      <InfoCard title="Coming Soon" color="var(--accent)">Deposit Flow, Bet Placement, Registration, KYC Verification patterns will be documented here. Use the brand switcher to preview how patterns adapt across brands.</InfoCard>
+      
+      {/* TopNavigation Pattern */}
+      <div style={{ marginBottom: 48 }}>
+        <h3 style={{ fontSize: 18, fontWeight: 600, color: 'var(--text)', marginBottom: 16, fontFamily: 'var(--font-display)' }}>TopNavigation</h3>
+        <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 24, lineHeight: 1.6 }}>
+          Main navigation pattern that orchestrates atoms and foundations. Supports Guest and Logged-in states with responsive mobile/desktop layouts.
+        </p>
+        
+        {/* Guest Variant */}
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text3)', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Guest State</div>
+          <div style={{ 
+            border: '1px solid var(--border)', 
+            borderRadius: 'var(--radius-lg)', 
+            overflow: 'hidden',
+            background: 'var(--bg)',
+          }}>
+            <TopNavigation isLoggedIn={false} />
+            <div style={{ padding: 24, background: 'var(--bg1)', borderTop: '1px solid var(--border)' }}>
+              <div style={{ fontSize: 11, color: 'var(--text3)', fontFamily: 'var(--font-mono)' }}>
+                &lt;TopNavigation isLoggedIn={'{false}'} /&gt;
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Logged-in Variant */}
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text3)', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Logged-in State</div>
+          <div style={{ 
+            border: '1px solid var(--border)', 
+            borderRadius: 'var(--radius-lg)', 
+            overflow: 'hidden',
+            background: 'var(--bg)',
+          }}>
+            <TopNavigation 
+              isLoggedIn={true} 
+              userName="John Doe" 
+              balance="1,250.50" 
+              currency="USD" 
+            />
+            <div style={{ padding: 24, background: 'var(--bg1)', borderTop: '1px solid var(--border)' }}>
+              <div style={{ fontSize: 11, color: 'var(--text3)', fontFamily: 'var(--font-mono)' }}>
+                &lt;TopNavigation isLoggedIn={'{true}'} userName="John Doe" balance="1,250.50" /&gt;
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Responsive Note */}
+        <InfoCard title="Responsive Design" color="var(--accent)">
+          The TopNavigation automatically adapts between desktop and mobile layouts at the 768px breakpoint. 
+          On mobile, the navigation collapses to a compact 110×28px header with a hamburger menu that expands to show all navigation items and user actions.
+        </InfoCard>
+      </div>
     </div>
   );
 }

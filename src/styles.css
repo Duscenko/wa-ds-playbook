@@ -85,3 +85,30 @@ body {
 .slide-right { animation: slideRight 250ms ease-out; }
 .slide-up    { animation: slideUp 200ms ease-out; }
 .pulse-dot   { animation: pulse 1.5s infinite; }
+
+/* ── TopNavigation Responsive Styles ── */
+.desktop-nav {
+  display: none;
+}
+
+.mobile-nav {
+  display: flex;
+}
+
+.mobile-menu {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .desktop-nav {
+    display: flex !important;
+  }
+  
+  .mobile-nav {
+    display: none !important;
+  }
+  
+  .mobile-menu {
+    display: none !important;
+  }
+}
