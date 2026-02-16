@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useHover } from './useHover';
+import { useHover } from '../useHover';
 
 /* ═══════════════════════════════════════════════════
    TOP NAVIGATION — Pattern Component

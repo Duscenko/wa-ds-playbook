@@ -29,7 +29,11 @@ const NAV = [
     ...componentIds.map(cid => ({
       id: 'c-' + cid, label: componentDocs[cid].name, isComponent: true,
     })),
-    { id: 'patterns', label: 'Patterns' },
+    { id: 'patterns', label: 'Patterns', children: [
+      { id: 'patterns-navigation', label: 'Navigation' },
+      { id: 'patterns-cards', label: 'Cards' },
+      { id: 'patterns-forms', label: 'Forms' },
+    ]},
   ]},
   { id: 'r', label: 'Resources', children: [
     { id: 'figma', label: 'Figma Library' },
@@ -42,6 +46,9 @@ export default function App() {
   const [page, setPage] = useState('intro');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [expanded, setExpanded] = useState(['s', 'f', 'd', 'r']);
+  // Auto-expand patterns subcategory if we're on a pattern page
+  const initialExpandedSubs = page.startsWith('patterns-') ? ['patterns'] : [];
+  const [expandedSubs, setExpandedSubs] = useState(initialExpandedSubs);
 
   const { getCSSVars, brand, mode, radius } = useTheme();
 
@@ -58,18 +65,42 @@ export default function App() {
     );
   };
 
+  // Auto-expand patterns subcategory when navigating to pattern pages
+  useEffect(() => {
+    if (page.startsWith('patterns-')) {
+      if (!expandedSubs.includes('patterns')) {
+        setExpandedSubs(prev => [...prev, 'patterns']);
+      }
+    }
+  }, [page, expandedSubs]);
+
   /* ── Find current breadcrumb ── */
   let currentSection = null;
   let currentChild = null;
-  NAV.forEach(s =>
+  let currentSubChild = null;
+  NAV.forEach(s => {
     s.children.forEach(c => {
-      if (c.id === page) { currentSection = s; currentChild = c; }
-    })
-  );
+      if (c.id === page) {
+        currentSection = s;
+        currentChild = c;
+      } else if (c.children) {
+        // Check for nested children (subcategorías)
+        c.children.forEach(sub => {
+          if (sub.id === page) {
+            currentSection = s;
+            currentChild = c;
+            currentSubChild = sub;
+          }
+        });
+      }
+    });
+  });
 
   /* ── Route to page content ── */
   const isComponentPage = page.startsWith('c-');
   const componentKey = isComponentPage ? page.slice(2) : null;
+  const isPatternSubcategory = page.startsWith('patterns-');
+  const patternCategory = isPatternSubcategory ? page.replace('patterns-', '') : null;
 
   let content = null;
   if      (isComponentPage && componentKey) content = <ComponentDetailPage componentId={componentKey} />;
@@ -84,6 +115,7 @@ export default function App() {
   else if (page === 'charts')     content = <ChartColorsPage />;
   else if (page === 'tokens')     content = <TokensPage />;
   else if (page === 'comps')      content = <ComponentsOverview onNavigate={setPage} />;
+  else if (isPatternSubcategory)  content = <PatternsPage category={patternCategory} />;
   else if (page === 'patterns')   content = <PatternsPage />;
   else if (page === 'figma')      content = <FigmaLibraryPage />;
   else if (page === 'json')       content = <JsonExportsPage />;
@@ -151,34 +183,91 @@ export default function App() {
                     <div style={{ marginLeft: 4 }}>
                       {section.children.map(child => {
                         const isActive = page === child.id;
+                        const hasSubChildren = child.children && child.children.length > 0;
+                        const isSubChildActive = hasSubChildren && child.children.some(sub => sub.id === page);
+                        const subExpanded = expandedSubs.includes(child.id);
+                        
                         return (
-                          <button
-                            key={child.id}
-                            onClick={() => setPage(child.id)}
-                            style={{
-                              display: 'block', width: '100%', textAlign: 'left',
-                              padding: '5px 10px',
-                              paddingLeft: child.isComponent ? 22 : 10,
-                              borderRadius: 'var(--radius-sm)',
-                              fontSize: 13, fontFamily: 'var(--font)',
-                              color: isActive
-                                ? 'var(--accent)'
-                                : child.isComponent ? 'var(--text3)' : 'var(--text2)',
-                              background: isActive
-                                ? 'color-mix(in srgb, var(--accent) 10%, transparent)'
-                                : 'transparent',
-                              border: 'none', cursor: 'pointer',
-                              marginBottom: 1, transition: 'all 120ms',
-                            }}
-                            onMouseEnter={e => {
-                              if (!isActive) e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-                            }}
-                            onMouseLeave={e => {
-                              if (!isActive) e.currentTarget.style.background = 'transparent';
-                            }}
-                          >
-                            {child.label}
-                          </button>
+                          <div key={child.id}>
+                            <button
+                              onClick={() => {
+                                if (hasSubChildren) {
+                                  setExpandedSubs(prev =>
+                                    prev.includes(child.id)
+                                      ? prev.filter(id => id !== child.id)
+                                      : [...prev, child.id]
+                                  );
+                                } else {
+                                  setPage(child.id);
+                                }
+                              }}
+                              style={{
+                                display: 'flex', width: '100%', textAlign: 'left',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '5px 10px',
+                                paddingLeft: child.isComponent ? 22 : 10,
+                                borderRadius: 'var(--radius-sm)',
+                                fontSize: 13, fontFamily: 'var(--font)',
+                                color: isActive || isSubChildActive
+                                  ? 'var(--accent)'
+                                  : child.isComponent ? 'var(--text3)' : 'var(--text2)',
+                                background: isActive || isSubChildActive
+                                  ? 'color-mix(in srgb, var(--accent) 10%, transparent)'
+                                  : 'transparent',
+                                border: 'none', cursor: 'pointer',
+                                marginBottom: 1, transition: 'all 120ms',
+                              }}
+                              onMouseEnter={e => {
+                                if (!isActive && !isSubChildActive) e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                              }}
+                              onMouseLeave={e => {
+                                if (!isActive && !isSubChildActive) e.currentTarget.style.background = 'transparent';
+                              }}
+                            >
+                              <span>{child.label}</span>
+                              {hasSubChildren && (
+                                <span style={{
+                                  fontSize: 9, transition: 'transform 200ms',
+                                  transform: subExpanded ? 'rotate(0)' : 'rotate(-90deg)',
+                                }}>▾</span>
+                              )}
+                            </button>
+                            {hasSubChildren && subExpanded && (
+                              <div style={{ marginLeft: 12 }}>
+                                {child.children.map(subChild => {
+                                  const isSubActive = page === subChild.id;
+                                  return (
+                                    <button
+                                      key={subChild.id}
+                                      onClick={() => setPage(subChild.id)}
+                                      style={{
+                                        display: 'block', width: '100%', textAlign: 'left',
+                                        padding: '5px 10px',
+                                        paddingLeft: 22,
+                                        borderRadius: 'var(--radius-sm)',
+                                        fontSize: 12, fontFamily: 'var(--font)',
+                                        color: isSubActive ? 'var(--accent)' : 'var(--text3)',
+                                        background: isSubActive
+                                          ? 'color-mix(in srgb, var(--accent) 10%, transparent)'
+                                          : 'transparent',
+                                        border: 'none', cursor: 'pointer',
+                                        marginBottom: 1, transition: 'all 120ms',
+                                      }}
+                                      onMouseEnter={e => {
+                                        if (!isSubActive) e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                                      }}
+                                      onMouseLeave={e => {
+                                        if (!isSubActive) e.currentTarget.style.background = 'transparent';
+                                      }}
+                                    >
+                                      {subChild.label}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
                         );
                       })}
                     </div>
@@ -229,7 +318,7 @@ export default function App() {
 
             {/* Breadcrumb */}
             <span style={{ fontSize: 12, color: 'var(--text3)', fontFamily: 'var(--font-mono)' }}>
-              {currentSection?.label || ''} / {currentChild?.label || ''}
+              {currentSection?.label || ''} / {currentChild?.label || ''}{currentSubChild ? ` / ${currentSubChild.label}` : ''}
             </span>
           </div>
 

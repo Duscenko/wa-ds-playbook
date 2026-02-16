@@ -4,7 +4,7 @@ import { componentDocs, componentIds } from '../data/components';
 import { useTheme } from '../components/ThemeContext';
 import { CopyBadge, SectionTitle, TabBar, InfoCard } from '../components/UI';
 import { BtnPreview, BadgePreview, SwitchPreview, CheckboxPreview, InputPreview, AlertPreview, CardPreview, DialogPreview, SheetPreview } from '../components/LivePreviews';
-import { TopNavigation } from '../components/TopNavigation';
+import { TopNavigation } from '../components/patterns/TopNavigation';
 
 export function TokensPage() {
   const { brand, mode } = useTheme();
@@ -219,11 +219,10 @@ export function ComponentDetailPage({ componentId }) {
   );
 }
 
-export function PatternsPage() {
-  return (
+export function PatternsPage({ category }) {
+  // Navigation Patterns
+  const NavigationPatterns = () => (
     <div>
-      <SectionTitle title="Patterns" sub="Common UI patterns composed from components. Switch brands above to see white-label theming in action." />
-      
       {/* TopNavigation Pattern */}
       <div style={{ marginBottom: 48 }}>
         <h3 style={{ fontSize: 18, fontWeight: 600, color: 'var(--text)', marginBottom: 16, fontFamily: 'var(--font-display)' }}>TopNavigation</h3>
@@ -280,4 +279,71 @@ export function PatternsPage() {
       </div>
     </div>
   );
+
+  // Cards Patterns
+  const CardsPatterns = () => (
+    <div>
+      <InfoCard title="Coming Soon" color="var(--accent)">
+        Card patterns will be documented here. Examples: Product Cards, Bet Slip Cards, Transaction Cards, etc.
+      </InfoCard>
+    </div>
+  );
+
+  // Forms Patterns
+  const FormsPatterns = () => (
+    <div>
+      <InfoCard title="Coming Soon" color="var(--accent)">
+        Form patterns will be documented here. Examples: Registration Forms, Deposit Forms, KYC Verification Forms, etc.
+      </InfoCard>
+    </div>
+  );
+
+  // Default/Overview
+  const PatternsOverview = () => (
+    <div>
+      <SectionTitle title="Patterns" sub="Common UI patterns composed from components. Switch brands above to see white-label theming in action." />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
+        <InfoCard title="Navigation" color="var(--accent)">
+          Navigation patterns including TopNavigation, Sidebar Navigation, Breadcrumbs, and more.
+        </InfoCard>
+        <InfoCard title="Cards" color="var(--accent)">
+          Card patterns for displaying content, products, bets, and transactions.
+        </InfoCard>
+        <InfoCard title="Forms" color="var(--accent)">
+          Form patterns for user input, registration, deposits, and verification flows.
+        </InfoCard>
+      </div>
+    </div>
+  );
+
+  // Render based on category
+  if (category === 'navigation') {
+    return (
+      <div>
+        <SectionTitle title="Navigation Patterns" sub="Navigation patterns that orchestrate atoms and foundations for site navigation." />
+        <NavigationPatterns />
+      </div>
+    );
+  }
+
+  if (category === 'cards') {
+    return (
+      <div>
+        <SectionTitle title="Card Patterns" sub="Card patterns for displaying structured content." />
+        <CardsPatterns />
+      </div>
+    );
+  }
+
+  if (category === 'forms') {
+    return (
+      <div>
+        <SectionTitle title="Form Patterns" sub="Form patterns for user input and data collection." />
+        <FormsPatterns />
+      </div>
+    );
+  }
+
+  // Default overview
+  return <PatternsOverview />;
 }
