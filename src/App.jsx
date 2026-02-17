@@ -10,35 +10,45 @@ import { FigmaLibraryPage, JsonExportsPage } from './pages/Resources';
 
 /* ─── NAV TREE ────────────────────────────────── */
 const NAV = [
-  { id: 's', label: 'Get Started', children: [
-    { id: 'intro',      label: 'Introduction' },
-    { id: 'principles', label: 'Principles' },
-    { id: 'arch',       label: 'Token Architecture' },
-  ]},
-  { id: 'f', label: 'Foundations', children: [
-    { id: 'color',   label: 'Color' },
-    { id: 'typo',    label: 'Typography' },
-    { id: 'spacing', label: 'Spacing' },
-    { id: 'radii',   label: 'Border Radii' },
-    { id: 'shadows', label: 'Shadows' },
-    { id: 'charts',  label: 'Chart Colors' },
-  ]},
-  { id: 'd', label: 'Design System', children: [
-    { id: 'tokens',   label: 'Tokens' },
-    { id: 'comps',    label: 'Components' },
-    ...componentIds.map(cid => ({
-      id: 'c-' + cid, label: componentDocs[cid].name, isComponent: true,
-    })),
-    { id: 'patterns', label: 'Patterns', children: [
-      { id: 'patterns-navigation', label: 'Navigation' },
-      { id: 'patterns-cards', label: 'Cards' },
-      { id: 'patterns-forms', label: 'Forms' },
-    ]},
-  ]},
-  { id: 'r', label: 'Resources', children: [
-    { id: 'figma', label: 'Figma Library' },
-    { id: 'json',  label: 'JSON Exports' },
-  ]},
+  {
+    id: 's', label: 'Get Started', children: [
+      { id: 'intro', label: 'Introduction' },
+      { id: 'principles', label: 'Principles' },
+      { id: 'arch', label: 'Token Architecture' },
+    ]
+  },
+  {
+    id: 'f', label: 'Foundations', children: [
+      { id: 'color', label: 'Color' },
+      { id: 'typo', label: 'Typography' },
+      { id: 'spacing', label: 'Spacing' },
+      { id: 'radii', label: 'Border Radii' },
+      { id: 'shadows', label: 'Shadows' },
+      { id: 'charts', label: 'Chart Colors' },
+    ]
+  },
+  {
+    id: 'd', label: 'Design System', children: [
+      { id: 'tokens', label: 'Tokens' },
+      { id: 'comps', label: 'Components' },
+      ...componentIds.map(cid => ({
+        id: 'c-' + cid, label: componentDocs[cid].name, isComponent: true,
+      })),
+      {
+        id: 'patterns', label: 'Patterns', children: [
+          { id: 'patterns-navigation', label: 'Navigation' },
+          { id: 'patterns-cards', label: 'Cards' },
+          { id: 'patterns-forms', label: 'Forms' },
+        ]
+      },
+    ]
+  },
+  {
+    id: 'r', label: 'Resources', children: [
+      { id: 'figma', label: 'Figma Library' },
+      { id: 'json', label: 'JSON Exports' },
+    ]
+  },
 ];
 
 /* ─── APP ─────────────────────────────────────── */
@@ -103,22 +113,22 @@ export default function App() {
   const patternCategory = isPatternSubcategory ? page.replace('patterns-', '') : null;
 
   let content = null;
-  if      (isComponentPage && componentKey) content = <ComponentDetailPage componentId={componentKey} />;
-  else if (page === 'intro')      content = <IntroductionPage />;
+  if (isComponentPage && componentKey) content = <ComponentDetailPage componentId={componentKey} />;
+  else if (page === 'intro') content = <IntroductionPage />;
   else if (page === 'principles') content = <PrinciplesPage />;
-  else if (page === 'arch')       content = <TokenArchitecturePage />;
-  else if (page === 'color')      content = <ColorPage />;
-  else if (page === 'typo')       content = <TypographyPage />;
-  else if (page === 'spacing')    content = <SpacingPage />;
-  else if (page === 'radii')      content = <RadiiPage />;
-  else if (page === 'shadows')    content = <ShadowsPage />;
-  else if (page === 'charts')     content = <ChartColorsPage />;
-  else if (page === 'tokens')     content = <TokensPage />;
-  else if (page === 'comps')      content = <ComponentsOverview onNavigate={setPage} />;
-  else if (isPatternSubcategory)  content = <PatternsPage category={patternCategory} />;
-  else if (page === 'patterns')   content = <PatternsPage />;
-  else if (page === 'figma')      content = <FigmaLibraryPage />;
-  else if (page === 'json')       content = <JsonExportsPage />;
+  else if (page === 'arch') content = <TokenArchitecturePage />;
+  else if (page === 'color') content = <ColorPage />;
+  else if (page === 'typo') content = <TypographyPage />;
+  else if (page === 'spacing') content = <SpacingPage />;
+  else if (page === 'radii') content = <RadiiPage />;
+  else if (page === 'shadows') content = <ShadowsPage />;
+  else if (page === 'charts') content = <ChartColorsPage />;
+  else if (page === 'tokens') content = <TokensPage />;
+  else if (page === 'comps') content = <ComponentsOverview onNavigate={setPage} />;
+  else if (isPatternSubcategory) content = <PatternsPage category={patternCategory} />;
+  else if (page === 'patterns') content = <PatternsPage />;
+  else if (page === 'figma') content = <FigmaLibraryPage />;
+  else if (page === 'json') content = <JsonExportsPage />;
 
   return (
     <div style={{
@@ -140,13 +150,16 @@ export default function App() {
           {/* Logo */}
           <div style={{ padding: '16px 18px', borderBottom: '1px solid var(--border)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <div style={{
-                width: 32, height: 32, borderRadius: 'var(--radius)',
-                background: 'linear-gradient(135deg, var(--accent), var(--accent-pressed, var(--accent)))',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 700, fontSize: 13, color: '#fff',
-                fontFamily: 'var(--font-display)',
-              }}>W</div>
+              <img
+                src="/logo-wa.png"
+                alt="WA Logo"
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 'var(--radius)',
+                  objectFit: 'contain'
+                }}
+              />
               <div>
                 <div style={{ fontSize: 14, fontWeight: 600, fontFamily: 'var(--font-display)' }}>WA Design System</div>
                 <div style={{ fontSize: 10, color: 'var(--text3)', fontFamily: 'var(--font-mono)' }}>v1.0 Playbook</div>
@@ -186,7 +199,7 @@ export default function App() {
                         const hasSubChildren = child.children && child.children.length > 0;
                         const isSubChildActive = hasSubChildren && child.children.some(sub => sub.id === page);
                         const subExpanded = expandedSubs.includes(child.id);
-                        
+
                         return (
                           <div key={child.id}>
                             <button
