@@ -63,26 +63,35 @@ export function FigmaLibraryPage() {
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
-              transition: 'all 200ms ease',
+              transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
               cursor: 'pointer',
             }}
             onMouseEnter={e => {
               e.currentTarget.style.borderColor = 'var(--accent)';
               e.currentTarget.style.transform = 'translateY(-4px)';
               e.currentTarget.style.boxShadow = '0 12px 24px -12px rgba(0,0,0,0.5)';
+              const img = e.currentTarget.querySelector('img');
+              if (img) img.style.transform = 'scale(1.05)';
             }}
             onMouseLeave={e => {
               e.currentTarget.style.borderColor = 'var(--border)';
               e.currentTarget.style.transform = 'none';
               e.currentTarget.style.boxShadow = 'none';
+              const img = e.currentTarget.querySelector('img');
+              if (img) img.style.transform = 'scale(1)';
             }}
           >
             {/* Visual Header */}
-            <div style={{ height: 160, overflow: 'hidden', background: 'var(--bg2)' }}>
+            <div style={{ aspectHeight: '16/9', overflow: 'hidden', background: 'var(--bg2)', position: 'relative', aspectRatio: '16/9' }}>
               <img
                 src={lib.image}
                 alt={lib.name}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  transition: 'transform 0.3s ease'
+                }}
               />
             </div>
 
