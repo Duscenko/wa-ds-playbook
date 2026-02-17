@@ -1,0 +1,266 @@
+{
+  "font definitions": {
+    "font-family-sans": {
+      "$value": "Inter",
+      "$type": "fontFamily"
+    },
+    "font-family-serif": {
+      "$value": "Inter",
+      "$type": "fontFamily"
+    },
+    "font-family-monospace": {
+      "$value": "Inter",
+      "$type": "fontFamily"
+    },
+    "font-family-headings": {
+      "$value": "{typescale.font definitions.font-family-sans}",
+      "$type": "fontFamily"
+    },
+    "font-family-body": {
+      "$value": "{typescale.font definitions.font-family-sans}",
+      "$type": "fontFamily"
+    }
+  },
+  "heading 1": {
+    "weight": {
+      "$value": "Semibold",
+      "$type": "string"
+    },
+    "font-size": {
+      "$value": 48,
+      "$type": "fontSize"
+    },
+    "line-height": {
+      "$value": 52,
+      "$type": "lineHeight"
+    },
+    "spacing": {
+      "$value": 48,
+      "$type": "paragraphSpacing"
+    },
+    "letter-spacing": {
+      "$value": -1.5,
+      "$type": "letterSpacing"
+    },
+    "font-family": {
+      "$value": "{typescale.font definitions.font-family-headings}",
+      "$type": "fontFamily"
+    }
+  },
+  "heading 2": {
+    "font-family": {
+      "$value": "{typescale.font definitions.font-family-headings}",
+      "$type": "fontFamily"
+    },
+    "font-size": {
+      "$value": 30,
+      "$type": "fontSize"
+    },
+    "line-height": {
+      "$value": 32,
+      "$type": "lineHeight"
+    },
+    "spacing": {
+      "$value": 30,
+      "$type": "paragraphSpacing"
+    },
+    "letter-spacing": {
+      "$value": -1,
+      "$type": "letterSpacing"
+    },
+    "weight": {
+      "$value": "Semibold",
+      "$type": "string"
+    }
+  },
+  "heading 3": {
+    "heading 3 weight": {
+      "$value": "Semibold",
+      "$type": "string"
+    },
+    "font-size": {
+      "$value": 24,
+      "$type": "fontSize"
+    },
+    "line-height": {
+      "$value": 28.799999237060547,
+      "$type": "lineHeight"
+    },
+    "spacing": {
+      "$value": 20,
+      "$type": "paragraphSpacing"
+    },
+    "letter-spacing": {
+      "$value": -1,
+      "$type": "letterSpacing"
+    },
+    "font-family": {
+      "$value": "{typescale.font definitions.font-family-headings}",
+      "$type": "fontFamily"
+    }
+  },
+  "heading 4": {
+    "weight": {
+      "$value": "Semibold",
+      "$type": "string"
+    },
+    "font-size": {
+      "$value": 20,
+      "$type": "fontSize"
+    },
+    "line-height": {
+      "$value": 24,
+      "$type": "lineHeight"
+    },
+    "spacing": {
+      "$value": 20,
+      "$type": "paragraphSpacing"
+    },
+    "letter-spacing": {
+      "$value": 0,
+      "$type": "letterSpacing"
+    },
+    "font-family": {
+      "$value": "{typescale.font definitions.font-family-headings}",
+      "$type": "fontFamily"
+    }
+  },
+  "paragraph": {
+    "paragraph-weight": {
+      "$value": "Regular",
+      "$type": "string"
+    },
+    "paragraph-bold-weight": {
+      "$value": "Semibold",
+      "$type": "string"
+    },
+    "regular": {
+      "font-size": {
+        "$value": 16,
+        "$type": "fontSize"
+      },
+      "line-height": {
+        "$value": 20,
+        "$type": "lineHeight"
+      },
+      "spacing": {
+        "$value": 16,
+        "$type": "paragraphSpacing"
+      },
+      "letter-spacing": {
+        "$value": 0,
+        "$type": "letterSpacing"
+      }
+    },
+    "small": {
+      "font-size": {
+        "$value": 14,
+        "$type": "fontSize"
+      },
+      "line height": {
+        "$value": 18,
+        "$type": "lineHeight"
+      },
+      "spacing": {
+        "$value": 14,
+        "$type": "paragraphSpacing"
+      },
+      "letter-spacing": {
+        "$value": 0,
+        "$type": "letterSpacing"
+      },
+      "line-height": {
+        "$value": 0,
+        "$type": "lineHeight"
+      }
+    },
+    "mini": {
+      "font-size": {
+        "$value": 12,
+        "$type": "fontSize"
+      },
+      "line height": {
+        "$value": 14,
+        "$type": "lineHeight"
+      },
+      "spacing": {
+        "$value": 12,
+        "$type": "paragraphSpacing"
+      },
+      "letter-spacing": {
+        "$value": 0,
+        "$type": "letterSpacing"
+      },
+      "line-height": {
+        "$value": 0,
+        "$type": "lineHeight"
+      }
+    },
+    "paragraph-medium-weight": {
+      "$value": "Medium",
+      "$type": "string"
+    },
+    "large": {
+      "font-size": {
+        "$value": 18,
+        "$type": "fontSize"
+      },
+      "line-height": {
+        "$value": 22,
+        "$type": "lineHeight"
+      },
+      "spacing": {
+        "$value": 18,
+        "$type": "paragraphSpacing"
+      },
+      "letter-spacing": {
+        "$value": 0,
+        "$type": "letterSpacing"
+      }
+    }
+  },
+  "monospaced": {
+    "font-size": {
+      "$value": 16,
+      "$type": "fontSize"
+    },
+    "line-height": {
+      "$value": 24,
+      "$type": "lineHeight"
+    },
+    "letter-spacing": {
+      "$value": 0,
+      "$type": "letterSpacing"
+    },
+    "spacing": {
+      "$value": 16,
+      "$type": "paragraphSpacing"
+    },
+    "font-weight": {
+      "$value": "Regular",
+      "$type": "string"
+    }
+  },
+  "font-definitions": {
+    "font-family-sans": {
+      "$value": "String value",
+      "$type": "fontFamily"
+    },
+    "font-family-serif": {
+      "$value": "String value",
+      "$type": "fontFamily"
+    },
+    "font-family-monospace": {
+      "$value": "String value",
+      "$type": "fontFamily"
+    },
+    "font-family-headings": {
+      "$value": "String value",
+      "$type": "fontFamily"
+    },
+    "font-family-body": {
+      "$value": "String value",
+      "$type": "fontFamily"
+    }
+  }
+}

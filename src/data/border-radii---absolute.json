@@ -1,0 +1,46 @@
+{
+  "radius-0": {
+    "$value": 0,
+    "$type": "number"
+  },
+  "radius-4": {
+    "$value": 4,
+    "$type": "number"
+  },
+  "radius-6": {
+    "$value": 6,
+    "$type": "number"
+  },
+  "radius-8": {
+    "$value": 8,
+    "$type": "number"
+  },
+  "radius-10": {
+    "$value": 10,
+    "$type": "number"
+  },
+  "radius-12": {
+    "$value": 12,
+    "$type": "number"
+  },
+  "radius-16": {
+    "$value": 16,
+    "$type": "number"
+  },
+  "radius-24": {
+    "$value": 24,
+    "$type": "number"
+  },
+  "radius-32": {
+    "$value": 32,
+    "$type": "number"
+  },
+  "radius-infinite": {
+    "$value": 9999,
+    "$type": "number"
+  },
+  "radius-2": {
+    "$value": 2,
+    "$type": "number"
+  }
+}

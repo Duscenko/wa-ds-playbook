@@ -1,0 +1,62 @@
+{
+  "radius": {
+    "rounded-lg": {
+      "$value": "{border radii / absolute.radius-8}",
+      "$type": "borderRadius"
+    },
+    "rounded-xl": {
+      "$value": "{border radii / absolute.radius-12}",
+      "$type": "borderRadius"
+    },
+    "rounded-md": {
+      "$value": "{border radii / absolute.radius-6}",
+      "$type": "borderRadius"
+    },
+    "rounded-sm": {
+      "$value": "{border radii / absolute.radius-4}",
+      "$type": "borderRadius"
+    },
+    "rounded-full": {
+      "$value": "{border radii / absolute.radius-infinite}",
+      "$type": "borderRadius"
+    },
+    "rounded-2xl": {
+      "$value": "{border radii / absolute.radius-16}",
+      "$type": "borderRadius"
+    },
+    "rounded-3xl": {
+      "$value": "{border radii / absolute.radius-24}",
+      "$type": "borderRadius"
+    },
+    "radius": {
+      "$value": "{border radii / absolute.radius-10}",
+      "$type": "borderRadius"
+    },
+    "rounded-sharp": {
+      "$value": "{border radii / absolute.radius-0}",
+      "$type": "borderRadius"
+    },
+    "rounded-xs": {
+      "$value": "{border radii / absolute.radius-2}",
+      "$type": "borderRadius"
+    }
+  },
+  "width": {
+    "none": {
+      "$value": "{spacing / absolute.0}",
+      "$type": "strokeWidth"
+    },
+    "sm": {
+      "$value": "{spacing / absolute.1}",
+      "$type": "strokeWidth"
+    },
+    "md": {
+      "$value": "{spacing / absolute.1,5}",
+      "$type": "strokeWidth"
+    },
+    "lg": {
+      "$value": "{spacing / absolute.4}",
+      "$type": "strokeWidth"
+    }
+  }
+}

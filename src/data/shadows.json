@@ -1,0 +1,380 @@
+{
+  "2xs": {
+    "x": {
+      "$value": 0,
+      "$type": "number"
+    },
+    "y": {
+      "$value": 1,
+      "$type": "number"
+    },
+    "blur": {
+      "$value": 0,
+      "$type": "number"
+    },
+    "spread": {
+      "$value": 0,
+      "$type": "number"
+    },
+    "color": {
+      "$value": "{utility.overlay-black.200}",
+      "$type": "color"
+    }
+  },
+  "xs": {
+    "x": {
+      "$value": 0,
+      "$type": "number"
+    },
+    "y": {
+      "$value": 1,
+      "$type": "number"
+    },
+    "blur": {
+      "$value": 2,
+      "$type": "number"
+    },
+    "spread": {
+      "$value": 0,
+      "$type": "number"
+    },
+    "color": {
+      "$value": "{utility.overlay-black.200}",
+      "$type": "color"
+    }
+  },
+  "sm": {
+    "shadow 1": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 1,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 3,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": 0,
+        "$type": "number"
+      }
+    },
+    "color": {
+      "$value": "{utility.overlay-black.200}",
+      "$type": "color"
+    },
+    "shadow 2": {
+      "x2": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 1,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 2,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": -1,
+        "$type": "number"
+      }
+    },
+    "shadow-1": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": 0,
+        "$type": "number"
+      }
+    },
+    "shadow-2": {
+      "x2": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": 0,
+        "$type": "number"
+      }
+    }
+  },
+  "2xl": {
+    "x": {
+      "$value": 0,
+      "$type": "number"
+    },
+    "y": {
+      "$value": 25,
+      "$type": "number"
+    },
+    "blur": {
+      "$value": 50,
+      "$type": "number"
+    },
+    "spread": {
+      "$value": -12,
+      "$type": "number"
+    },
+    "color": {
+      "$value": "{utility.overlay-black.500}",
+      "$type": "color"
+    }
+  },
+  "md": {
+    "shadow 1": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 4,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 6,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": -1,
+        "$type": "number"
+      }
+    },
+    "shadow 2": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 2,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": -2,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 4,
+        "$type": "number"
+      }
+    },
+    "color": {
+      "$value": "{utility.overlay-black.300}",
+      "$type": "color"
+    },
+    "shadow-1": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": 0,
+        "$type": "number"
+      }
+    },
+    "shadow-2": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 0,
+        "$type": "number"
+      }
+    }
+  },
+  "lg": {
+    "shadow 1": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 10,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 15,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": -3,
+        "$type": "number"
+      }
+    },
+    "shadow 2": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 4,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": -4,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 6,
+        "$type": "number"
+      }
+    },
+    "color": {
+      "$value": "{utility.overlay-black.400}",
+      "$type": "color"
+    },
+    "shadow-1": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": 0,
+        "$type": "number"
+      }
+    },
+    "shadow-2": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 0,
+        "$type": "number"
+      }
+    }
+  },
+  "xl": {
+    "shadow 1": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 20,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 25,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": -5,
+        "$type": "number"
+      }
+    },
+    "shadow 2": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 8,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": -6,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 10,
+        "$type": "number"
+      }
+    },
+    "color": {
+      "$value": "{utility.overlay-black.400}",
+      "$type": "color"
+    },
+    "shadow-1": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": 0,
+        "$type": "number"
+      }
+    },
+    "shadow-2": {
+      "x": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "y": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "spread": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "blur": {
+        "$value": 0,
+        "$type": "number"
+      }
+    }
+  }
+}
