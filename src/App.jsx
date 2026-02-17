@@ -11,54 +11,75 @@ import { FigmaLibraryPage, JsonExportsPage } from './pages/Resources';
 /* ─── NAV TREE ────────────────────────────────── */
 const NAV = [
   {
-    id: 's', label: 'Get Started', children: [
+    id: 'get-started', label: 'Get Started', children: [
       { id: 'intro', label: 'Introduction' },
       { id: 'principles', label: 'Principles' },
       { id: 'arch', label: 'Token Architecture' },
     ]
   },
   {
-    id: 'f', label: 'Foundations', children: [
+    id: 'foundations', label: 'Foundations', children: [
       { id: 'color', label: 'Color' },
       { id: 'typo', label: 'Typography' },
       { id: 'spacing', label: 'Spacing' },
       { id: 'radii', label: 'Border Radii' },
       { id: 'shadows', label: 'Shadows' },
       { id: 'charts', label: 'Chart Colors' },
+      { id: 'tokens', label: 'Tokens' },
     ]
   },
   {
-    id: 'd', label: 'Design System', children: [
-      { id: 'tokens', label: 'Tokens' },
-      { id: 'comps', label: 'Components' },
+    id: 'components', label: 'Components', children: [
+      { id: 'comps', label: 'Overview' },
       ...componentIds.map(cid => ({
         id: 'c-' + cid, label: componentDocs[cid].name, isComponent: true,
       })),
-      {
-        id: 'patterns', label: 'Patterns', children: [
-          { id: 'patterns-navigation', label: 'Navigation' },
-          { id: 'patterns-cards', label: 'Cards' },
-          { id: 'patterns-forms', label: 'Forms' },
-        ]
-      },
     ]
   },
   {
-    id: 'r', label: 'Resources', children: [
+    id: 'patterns-group', label: 'Patterns', children: [
+      { id: 'patterns-navigation', label: 'Navigation' },
+      { id: 'patterns-cards', label: 'Cards' },
+      { id: 'patterns-forms', label: 'Forms' },
+    ]
+  },
+  {
+    id: 'resources', label: 'Resources', children: [
       { id: 'figma', label: 'Figma Library' },
       { id: 'json', label: 'JSON Exports' },
     ]
   },
 ];
 
+/* ─── ICONS ───────────────────────────────────── */
+const ChevronDown = ({ size = 18, rotated = false }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    style={{
+      transition: 'transform 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+      transform: rotated ? 'rotate(180deg)' : 'rotate(0deg)',
+      color: 'var(--text3)'
+    }}
+  >
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+);
+
 /* ─── APP ─────────────────────────────────────── */
 export default function App() {
   const [page, setPage] = useState('intro');
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [expanded, setExpanded] = useState(['s', 'f', 'd', 'r']);
-  // Auto-expand patterns subcategory if we're on a pattern page
-  const initialExpandedSubs = page.startsWith('patterns-') ? ['patterns'] : [];
-  const [expandedSubs, setExpandedSubs] = useState(initialExpandedSubs);
+
+  // Default expanded sections: Components only
+  const [expanded, setExpanded] = useState(['components']);
+  const [expandedSubs, setExpandedSubs] = useState([]);
 
   const { getCSSVars, brand, mode, radius } = useTheme();
 
@@ -75,15 +96,6 @@ export default function App() {
     );
   };
 
-  // Auto-expand patterns subcategory when navigating to pattern pages
-  useEffect(() => {
-    if (page.startsWith('patterns-')) {
-      if (!expandedSubs.includes('patterns')) {
-        setExpandedSubs(prev => [...prev, 'patterns']);
-      }
-    }
-  }, [page, expandedSubs]);
-
   /* ── Find current breadcrumb ── */
   let currentSection = null;
   let currentChild = null;
@@ -94,7 +106,6 @@ export default function App() {
         currentSection = s;
         currentChild = c;
       } else if (c.children) {
-        // Check for nested children (subcategorías)
         c.children.forEach(sub => {
           if (sub.id === page) {
             currentSection = s;
@@ -168,32 +179,32 @@ export default function App() {
           </div>
 
           {/* Nav Tree */}
-          <nav style={{ flex: 1, overflowY: 'auto', padding: '8px 10px' }}>
+          <nav style={{ flex: 1, overflowY: 'auto', padding: '12px 10px' }}>
             {NAV.map(section => {
               const isOpen = expanded.includes(section.id);
               return (
-                <div key={section.id} style={{ marginBottom: 4 }}>
+                <div key={section.id} style={{ marginBottom: 8 }}>
                   <button
                     onClick={() => toggleSection(section.id)}
                     style={{
                       width: '100%', display: 'flex', justifyContent: 'space-between',
-                      alignItems: 'center', padding: '6px 8px',
-                      borderRadius: 'var(--radius-sm)', fontSize: 10,
-                      fontWeight: 700, textTransform: 'uppercase',
-                      letterSpacing: '0.08em', color: 'var(--text3)',
+                      alignItems: 'center', padding: '4px 8px',
+                      borderRadius: 'var(--radius-sm)', fontSize: 11,
+                      fontWeight: 600, textTransform: 'uppercase',
+                      letterSpacing: '0.06em', color: 'var(--text3)',
                       background: 'none', border: 'none', cursor: 'pointer',
                       fontFamily: 'var(--font)',
+                      transition: 'all 150ms',
                     }}
+                    onMouseEnter={e => { e.currentTarget.style.color = 'var(--text2)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.color = 'var(--text3)'; }}
                   >
                     {section.label}
-                    <span style={{
-                      fontSize: 9, transition: 'transform 200ms',
-                      transform: isOpen ? 'rotate(0)' : 'rotate(-90deg)',
-                    }}>▾</span>
+                    <ChevronDown rotated={isOpen} />
                   </button>
 
                   {isOpen && (
-                    <div style={{ marginLeft: 4 }}>
+                    <div style={{ marginTop: 4 }}>
                       {section.children.map(child => {
                         const isActive = page === child.id;
                         const hasSubChildren = child.children && child.children.length > 0;
@@ -218,36 +229,38 @@ export default function App() {
                                 display: 'flex', width: '100%', textAlign: 'left',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                                padding: '5px 10px',
-                                paddingLeft: child.isComponent ? 22 : 10,
+                                padding: '6px 12px',
                                 borderRadius: 'var(--radius-sm)',
                                 fontSize: 13, fontFamily: 'var(--font)',
                                 color: isActive || isSubChildActive
                                   ? 'var(--accent)'
-                                  : child.isComponent ? 'var(--text3)' : 'var(--text2)',
+                                  : 'var(--text2)',
                                 background: isActive || isSubChildActive
-                                  ? 'color-mix(in srgb, var(--accent) 10%, transparent)'
+                                  ? 'var(--accent-subtle)'
                                   : 'transparent',
                                 border: 'none', cursor: 'pointer',
                                 marginBottom: 1, transition: 'all 120ms',
                               }}
                               onMouseEnter={e => {
-                                if (!isActive && !isSubChildActive) e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                                if (!isActive && !isSubChildActive) {
+                                  e.currentTarget.style.background = 'var(--bg2)';
+                                  e.currentTarget.style.color = 'var(--text)';
+                                }
                               }}
                               onMouseLeave={e => {
-                                if (!isActive && !isSubChildActive) e.currentTarget.style.background = 'transparent';
+                                if (!isActive && !isSubChildActive) {
+                                  e.currentTarget.style.background = 'transparent';
+                                  e.currentTarget.style.color = 'var(--text2)';
+                                }
                               }}
                             >
                               <span>{child.label}</span>
                               {hasSubChildren && (
-                                <span style={{
-                                  fontSize: 9, transition: 'transform 200ms',
-                                  transform: subExpanded ? 'rotate(0)' : 'rotate(-90deg)',
-                                }}>▾</span>
+                                <ChevronDown size={14} rotated={subExpanded} />
                               )}
                             </button>
                             {hasSubChildren && subExpanded && (
-                              <div style={{ marginLeft: 12 }}>
+                              <div style={{ marginLeft: 12, marginTop: 2, borderLeft: '1px solid var(--border)' }}>
                                 {child.children.map(subChild => {
                                   const isSubActive = page === subChild.id;
                                   return (
@@ -256,22 +269,22 @@ export default function App() {
                                       onClick={() => setPage(subChild.id)}
                                       style={{
                                         display: 'block', width: '100%', textAlign: 'left',
-                                        padding: '5px 10px',
-                                        paddingLeft: 22,
+                                        padding: '5px 12px',
+                                        paddingLeft: 16,
                                         borderRadius: 'var(--radius-sm)',
                                         fontSize: 12, fontFamily: 'var(--font)',
                                         color: isSubActive ? 'var(--accent)' : 'var(--text3)',
                                         background: isSubActive
-                                          ? 'color-mix(in srgb, var(--accent) 10%, transparent)'
+                                          ? 'var(--accent-subtle)'
                                           : 'transparent',
                                         border: 'none', cursor: 'pointer',
                                         marginBottom: 1, transition: 'all 120ms',
                                       }}
                                       onMouseEnter={e => {
-                                        if (!isSubActive) e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                                        if (!isSubActive) e.currentTarget.style.color = 'var(--text2)';
                                       }}
                                       onMouseLeave={e => {
-                                        if (!isSubActive) e.currentTarget.style.background = 'transparent';
+                                        if (!isSubActive) e.currentTarget.style.color = 'var(--text3)';
                                       }}
                                     >
                                       {subChild.label}
@@ -289,6 +302,7 @@ export default function App() {
               );
             })}
           </nav>
+
 
           {/* Footer */}
           <div style={{

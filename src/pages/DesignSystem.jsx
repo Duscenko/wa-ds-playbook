@@ -7,15 +7,52 @@ import { BtnPreview, BadgePreview, SwitchPreview, CheckboxPreview, InputPreview,
 import { TopNavigation } from '../components/patterns/TopNavigation';
 
 export function TokensPage() {
-  const { brand, mode } = useTheme();
+  const { brand, mode, setMode } = useTheme();
   const brandData = brands[brand] || brands['wa-default'];
+
+  const toggleMode = () => {
+    setMode(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   return (
     <div>
       <SectionTitle title="Semantic Tokens" sub="Complete reference of semantic tokens resolved for the selected brand and mode." />
-      <div style={{ marginBottom: 16, padding: '6px 10px', borderRadius: 'var(--radius-sm)', background: 'var(--accent-bg)', border: '1px solid color-mix(in srgb, var(--accent), transparent 80%)', display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--accent)' }}>
-        <span style={{ width: 8, height: 8, borderRadius: 9999, background: brandData.color }} />
-        Resolved for: <strong>{brandData.label}</strong> · {mode}
-      </div>
+
+      <button
+        onClick={toggleMode}
+        style={{
+          marginBottom: 16,
+          padding: '8px 14px',
+          borderRadius: 8,
+          background: 'var(--bg2)',
+          border: '1px solid var(--border)',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
+          fontSize: 11,
+          color: 'var(--text)',
+          cursor: 'pointer',
+          transition: 'all 150ms',
+          fontFamily: 'var(--font)'
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.borderColor = 'var(--accent)';
+          e.currentTarget.style.background = 'var(--bg3)';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.borderColor = 'var(--border)';
+          e.currentTarget.style.background = 'var(--bg2)';
+        }}
+      >
+        <span style={{
+          width: 8,
+          height: 8,
+          borderRadius: 9999,
+          background: brandData.color || 'var(--accent)'
+        }} />
+        <span>Resolved for: <strong>{brandData.label}</strong> • {mode === 'dark' ? 'Dark' : 'Light'}</span>
+        <span style={{ fontSize: 10, color: 'var(--text3)' }}>⌄</span>
+      </button>
       <div style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12, fontFamily: 'var(--font)' }}>
           <thead>
@@ -229,13 +266,13 @@ export function PatternsPage({ category }) {
         <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 24, lineHeight: 1.6 }}>
           Main navigation pattern that orchestrates atoms and foundations. Supports Guest and Logged-in states with responsive mobile/desktop layouts.
         </p>
-        
+
         {/* Guest Variant */}
         <div style={{ marginBottom: 32 }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text3)', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Guest State</div>
-          <div style={{ 
-            border: '1px solid var(--border)', 
-            borderRadius: 'var(--radius-lg)', 
+          <div style={{
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-lg)',
             overflow: 'hidden',
             background: 'var(--bg)',
           }}>
@@ -251,17 +288,17 @@ export function PatternsPage({ category }) {
         {/* Logged-in Variant */}
         <div style={{ marginBottom: 32 }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text3)', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Logged-in State</div>
-          <div style={{ 
-            border: '1px solid var(--border)', 
-            borderRadius: 'var(--radius-lg)', 
+          <div style={{
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-lg)',
             overflow: 'hidden',
             background: 'var(--bg)',
           }}>
-            <TopNavigation 
-              isLoggedIn={true} 
-              userName="John Doe" 
-              balance="1,250.50" 
-              currency="USD" 
+            <TopNavigation
+              isLoggedIn={true}
+              userName="John Doe"
+              balance="1,250.50"
+              currency="USD"
             />
             <div style={{ padding: 24, background: 'var(--bg1)', borderTop: '1px solid var(--border)' }}>
               <div style={{ fontSize: 11, color: 'var(--text3)', fontFamily: 'var(--font-mono)' }}>
@@ -273,7 +310,7 @@ export function PatternsPage({ category }) {
 
         {/* Responsive Note */}
         <InfoCard title="Responsive Design" color="var(--accent)">
-          The TopNavigation automatically adapts between desktop and mobile layouts at the 768px breakpoint. 
+          The TopNavigation automatically adapts between desktop and mobile layouts at the 768px breakpoint.
           On mobile, the navigation collapses to a compact 110×28px header with a hamburger menu that expands to show all navigation items and user actions.
         </InfoCard>
       </div>

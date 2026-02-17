@@ -32,12 +32,12 @@ export function BtnPreview({ variant = 'default', size = 'md', children, disable
 export function BadgePreview({ variant = 'default', children }) {
   const { hover, bind } = useHover();
   const colors = {
-    default:  { bg: 'var(--bg2)', fg: 'var(--text)', border: 'var(--border)' },
-    primary:  { bg: 'var(--accent)', fg: '#fff', border: 'var(--accent)' },
-    success:  { bg: '#113b29', fg: '#30a46c', border: '#30a46c33' },
-    warning:  { bg: '#524202', fg: '#ffe629', border: '#ffe62933' },
+    default: { bg: 'var(--bg2)', fg: 'var(--text)', border: 'var(--border)' },
+    primary: { bg: 'var(--accent)', fg: '#fff', border: 'var(--accent)' },
+    success: { bg: '#113b29', fg: '#30a46c', border: '#30a46c33' },
+    warning: { bg: '#524202', fg: '#ffe629', border: '#ffe62933' },
     critical: { bg: '#500f1c', fg: '#e5484d', border: '#e5484d33' },
-    live:     { bg: '#dc262622', fg: '#e5484d', border: '#e5484d44' },
+    live: { bg: '#dc262622', fg: '#e5484d', border: '#e5484d44' },
   };
   const c = colors[variant] || colors.default;
   return (
@@ -64,7 +64,7 @@ export function CheckboxPreview({ label, defaultChecked, error }) {
   return (
     <label {...bind} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 13, color: hover ? 'var(--text)' : 'var(--text2)', fontFamily: 'var(--font)', transition: 'color 120ms' }}>
       <button onClick={() => setChecked(!checked)} style={{ width: 18, height: 18, borderRadius: 4, border: '2px solid ' + (error ? '#e5484d' : checked ? 'var(--accent)' : hover ? 'var(--text3)' : 'var(--border)'), background: checked ? (hover ? 'var(--accent-hover)' : 'var(--accent)') : 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 120ms', boxShadow: hover ? '0 0 0 3px color-mix(in srgb, var(--accent), transparent 85%)' : 'none' }}>
-        {checked && <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+        {checked && <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
       </button>
       {label}
     </label>
