@@ -7,7 +7,7 @@ export function CopyBadge({ text, children }) {
   const [copied, setCopied] = useState(false);
 
   function handleClick() {
-    navigator.clipboard.writeText(text).catch(() => {});
+    navigator.clipboard.writeText(text).catch(() => { });
     setCopied(true);
     setTimeout(() => setCopied(false), 1200);
   }
@@ -68,9 +68,9 @@ export function TabBar({ tabs, active, onChange }) {
       width: 'fit-content', marginBottom: 24,
     }}>
       {tabs.map(t => {
-        const id    = isStrings ? t : t.id;
+        const id = isStrings ? t : t.id;
         const label = isStrings ? t : t.label;
-        const on    = active === id;
+        const on = active === id;
         return (
           <button key={id} onClick={() => onChange(id)} style={{
             padding: '7px 16px', borderRadius: 6,
@@ -106,3 +106,25 @@ export function InfoCard({ icon, title, desc, children, color }) {
     </div>
   );
 }
+
+/* ─── ChevronDown ─────────────────────────────────
+   Standard dropdown arrow. Rotates if `rotated` is true. */
+export const ChevronDown = ({ size = 18, rotated = false, color = 'currentColor' }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    style={{
+      transition: 'transform 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+      transform: rotated ? 'rotate(180deg)' : 'rotate(0deg)',
+      display: 'block'
+    }}
+  >
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+);

@@ -86,6 +86,63 @@ export const brands = {
       "violet-dark": { 100: "#030721", 200: "#091334", 300: "#09126f", 400: "#0f0798", 500: "#140fb4", 600: "#181fc9", 700: "#1e2ae5", 800: "#252fff", 900: "#1717c5", 1000: "#1e2ae6", 1100: "#90b3ff", 1200: "#cfe1ff" }
     }
   },
+  spinpokio: {
+    label: "Spinpokio",
+    color: "#ffba1a", // Updated to the new Yellow-9
+    primitives: {
+      "main-dark": {
+        "100": "#090703",
+        "200": "#1b160e",
+        "300": "#2d2008",
+        "400": "#3d2700",
+        "500": "#4b3100",
+        "600": "#583f08",
+        "700": "#6c511b",
+        "800": "#896725",
+        "900": "#ffba1a",
+        "1000": "#f4b000",
+        "1100": "#ffc537",
+        "1200": "#ffe5b8"
+      },
+      "main-light": {
+        // Keeping previous light scale for consistency unless you provide new light CSS
+        "100": "#fdfdf9",
+        "200": "#f8f6e6",
+        "300": "#fff9db",
+        "400": "#fff4bd",
+        "500": "#fdf0a4",
+        "600": "#f2e394",
+        "700": "#e7d073",
+        "800": "#dab82b",
+        "900": "#ffe629",
+        "1000": "#f5d90a",
+        "1100": "#916a00",
+        "1200": "#342400"
+      },
+      // Keep secondary and neutral as they are
+      "secondary-light": { "100": "#fdfcfe", "200": "#f9f8ff", "300": "#f5f2ff", "400": "#ede9fe", "500": "#e4defc", "600": "#d9d0ff", "700": "#c7b9ff", "800": "#b39eff", "900": "#6e56cf", "1000": "#644fc1", "1100": "#5b49ac", "1200": "#20134b" },
+      "secondary-dark": { "100": "#17151f", "200": "#1c1926", "300": "#2b253d", "400": "#332a4d", "500": "#3b3259", "600": "#473d69", "700": "#5a4f83", "800": "#796eb5", "900": "#6e56cf", "1000": "#7c66dc", "1100": "#9e8cfc", "1200": "#f1eeff" },
+      "neutral-dark": { "100": "#070709", "200": "#1C1C23", "300": "#232323", "400": "#2A2A2A", "500": "#343A47", "600": "#303542", "700": "#373547", "800": "#433E54", "900": "#52427B", "1000": "#534A89", "1100": "#6658A3", "1200": "#B9B6C2" },
+      "neutral-light": { "100": "#FFFFFF", "200": "#F4F4F4", "300": "#E0E0E0", "400": "#D1D1D1", "500": "#B9B6C2", "600": "#8D8D8D", "700": "#6F6F6F", "800": "#525252", "900": "#393939", "1000": "#262626", "1100": "#161616", "1200": "#000000" }
+    },
+    semanticOverrides: {
+      // Main Text: Black in Light mode, White in Dark mode
+      "Content.Primary": {
+        "dark": "neutral-dark.1200",
+        "light": "neutral-light.1200"
+      },
+      // Button Text: Always darkest black for contrast on Yellow
+      "Content.on-action": {
+        "dark": "neutral-dark.100",
+        "light": "neutral-dark.100"
+      },
+      // Action Background: Brand Yellow
+      "Action.primary": {
+        "dark": "main-dark.900",
+        "light": "main-light.900"
+      }
+    }
+  },
 };
 
 // ─── ACTIVE BRAND STATE ──────────────────────────
@@ -155,24 +212,38 @@ export const semantic = {
 
 // ─── RESOLVE TOKEN (brand-aware) ─────────────────
 
-export function resolveToken(ref, brandId, mode = "dark") {
-  const b = brandId || activeBrand;
-  const brandData = brands[b] || brands["wa-default"];
+export function resolveToken(tokenPath, brand, mode) {
+  const brandData = brands[brand] || brands["wa-default"];
 
-  // 1. Check for brand-specific Semantic Overrides first (Highest Priority)
-  if (brandData.semanticOverrides && brandData.semanticOverrides[ref]) {
-    const semanticRef = brandData.semanticOverrides[ref][mode];
-    return resolveToken(semanticRef, b, mode); // Recursively resolve the primitive link
+  // 1. Check for Semantic Overrides in the brand
+  if (brandData.semanticOverrides?.[tokenPath]) {
+    const override = brandData.semanticOverrides[tokenPath][mode];
+    return resolvePrimitive(override, brandData, mode);
   }
 
-  // 2. Resolve as standard Primitive or Utility
-  const [family, step] = ref.split(".");
-  const prims = brandData.primitives;
-  const overrides = brandData.utilityOverrides || {};
-  const all = { ...prims, ...utility, ...overrides };
+  // 2. Resolve from global Semantic mapping
+  const [category, name] = tokenPath.split('.');
+  const path = semantic[category]?.[name]?.[mode];
 
-  if (all[family] && all[family][step]) return all[family][step];
-  return "#555";
+  if (path) {
+    return resolvePrimitive(path, brandData, mode);
+  }
+
+  // 3. Fallback: Check if it's a direct Primitive/Utility link (e.g., "main-dark.900")
+  return resolvePrimitive(tokenPath, brandData, mode);
+}
+
+function resolvePrimitive(path, brandData, mode) {
+  if (!path) return "#000000";
+  if (path.startsWith("#") || path.startsWith("rgba")) return path;
+
+  const [group, scale] = path.split('.');
+
+  // Look in brand primitives first, then global utilities
+  return brandData.primitives?.[group]?.[scale] ||
+    brandData.utilityOverrides?.[group]?.[scale] ||
+    utility[group]?.[scale] ||
+    "#000000";
 }
 
 // ─── FOUNDATIONS DATA ────────────────────────────
@@ -206,14 +277,70 @@ export const radii = [
 ];
 
 export const typography = [
-  { name: "Heading 1", size: 48, lineHeight: 52, letterSpacing: -1.5, weight: "600" },
-  { name: "Heading 2", size: 30, lineHeight: 32, letterSpacing: -1, weight: "600" },
-  { name: "Heading 3", size: 24, lineHeight: 29, letterSpacing: -1, weight: "600" },
-  { name: "Heading 4", size: 20, lineHeight: 24, letterSpacing: 0, weight: "600" },
-  { name: "Paragraph L", size: 18, lineHeight: 22, letterSpacing: 0, weight: "400" },
-  { name: "Paragraph", size: 16, lineHeight: 20, letterSpacing: 0, weight: "400" },
-  { name: "Paragraph S", size: 14, lineHeight: 18, letterSpacing: 0, weight: "400" },
-  { name: "Paragraph XS", size: 12, lineHeight: 14, letterSpacing: 0, weight: "400" },
+  {
+    token: "heading-01",
+    role: "Main page titles and marketing feature headers.",
+    spec: "48px / 52px",
+    weight: "SemiBold (600)",
+    sample: "The quick brown fox"
+  },
+  {
+    token: "heading-02",
+    role: "Section headers and modal titles.",
+    spec: "30px / 32px",
+    weight: "SemiBold (600)",
+    sample: "The quick brown fox"
+  },
+  {
+    token: "heading-03",
+    role: "Card titles and subsection headers.",
+    spec: "24px / 28.8px",
+    weight: "SemiBold (600)",
+    sample: "The quick brown fox"
+  },
+  {
+    token: "heading-04",
+    role: "Labels for heavy UI elements or small titles.",
+    spec: "20px / 24px",
+    weight: "SemiBold (600)",
+    sample: "The quick brown fox"
+  },
+  {
+    token: "paragraph-lg",
+    role: "Lead paragraphs and introductory text.",
+    spec: "18px / 22px",
+    weight: "Regular (400) / Medium (500)",
+    sample: "The quick brown fox jumps over the lazy dog."
+  },
+  {
+    token: "paragraph-md",
+    role: "Default body copy for most components.",
+    spec: "16px / 20px",
+    weight: "Regular (400) / Medium (500)",
+    sample: "The quick brown fox jumps over the lazy dog."
+  },
+  {
+    token: "paragraph-sm",
+    role: "Secondary text, captions, and helper messages.",
+    spec: "14px / 18px",
+    weight: "Regular (400) / Medium (500)",
+    sample: "The quick brown fox jumps over the lazy dog."
+  },
+  {
+    token: "paragraph-xs",
+    role: "Legal text, timestamps, and metadata.",
+    spec: "12px / 14px",
+    weight: "Regular (400) / Medium (500)",
+    sample: "The quick brown fox jumps over the lazy dog."
+  },
+  {
+    token: "monospace",
+    role: "Code snippets, API keys, and financial data alignment.",
+    spec: "16px / 24px",
+    weight: "Regular (400)",
+    family: "Monospace",
+    sample: "r8s9-f2k3-9d2s"
+  }
 ];
 
 export const shadows = [

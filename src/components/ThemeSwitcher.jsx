@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTheme } from './ThemeContext';
 import { brands } from '../data/tokens';
+import { ChevronDown } from './UI';
 
 /* ─── Generic Dropdown ────────────────────────────── */
 function Dropdown({ label, value, options, onChange }) {
@@ -38,7 +39,7 @@ function Dropdown({ label, value, options, onChange }) {
         )}
         <span style={{ fontSize: 9, color: 'var(--text3)', textTransform: 'uppercase' }}>{label}</span>
         <span style={{ fontWeight: 600, fontSize: 11 }}>{current?.label || value}</span>
-        <span>▾</span>
+        <ChevronDown size={14} rotated={open} color="var(--text3)" />
       </button>
 
       {open && (
@@ -58,8 +59,8 @@ function Dropdown({ label, value, options, onChange }) {
                 display: 'flex', alignItems: 'center', gap: 8,
                 width: '100%', padding: '7px 10px', borderRadius: 4,
                 border: 'none', textAlign: 'left',
-                background: value === o.id ? 'rgba(162, 66, 245, 0.1)' : 'transparent',
-                color: value === o.id ? '#a242f5' : 'var(--text2)',
+                background: value === o.id ? 'var(--accent-subtle)' : 'transparent',
+                color: value === o.id ? 'var(--accent)' : 'var(--text2)',
                 cursor: 'pointer', fontSize: 12,
               }}
             >
@@ -77,29 +78,29 @@ function Dropdown({ label, value, options, onChange }) {
 export default function ThemeSwitcher() {
   const { brand, setBrand, mode, setMode, radius, setRadius } = useTheme();
 
-  // Forzamos las opciones para asegurar que Pick'em aparezca
-  const brandOptions = [
-    { id: 'wa-default', label: 'WA Default', dot: '#0090ff' },
-    { id: 'belloa',     label: 'Belloa',     dot: '#12A594' },
-    { id: 'pickem',     label: "Pick'em",    dot: '#a242f5' }
-  ];
+  // Dynamic brand options from tokens.js
+  const brandOptions = Object.entries(brands).map(([key, data]) => ({
+    id: key,
+    label: data.label,
+    dot: data.color
+  }));
 
   const modeOptions = [
-    { id: 'dark',  label: 'Dark',  icon: '🌙' },
+    { id: 'dark', label: 'Dark', icon: '🌙' },
     { id: 'light', label: 'Light', icon: '☀️' },
   ];
 
   const radiusOptions = [
-    { id: 'sharp',   label: 'Sharp'   },
+    { id: 'sharp', label: 'Sharp' },
     { id: 'default', label: 'Default' },
-    { id: 'round',   label: 'Round'   },
-    { id: 'full',    label: 'Full'    },
+    { id: 'round', label: 'Round' },
+    { id: 'full', label: 'Full' },
   ];
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-      <Dropdown label="Brand"  value={brand}  options={brandOptions}  onChange={setBrand}  />
-      <Dropdown label="Mode"   value={mode}   options={modeOptions}   onChange={setMode}   />
+      <Dropdown label="Brand" value={brand} options={brandOptions} onChange={setBrand} />
+      <Dropdown label="Mode" value={mode} options={modeOptions} onChange={setMode} />
       <Dropdown label="Radius" value={radius} options={radiusOptions} onChange={setRadius} />
     </div>
   );

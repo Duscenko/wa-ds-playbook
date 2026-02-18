@@ -1,0 +1,56 @@
+# WA-DS 2 Design System Rules
+
+## 1. System Identity
+- **Name:** WA Design System / wa-ds 2.
+- **Brands:** Multi-brand support for **WA Default**, **Belloa**, and **Pick'em**.
+- **Stack:** React + Vite + shadcn/ui.
+
+## 2. Source of Truth (Tokens)
+- **Review Requirement:** Always read `src/data/tokens.js` and `src/styles.css` before writing any styles.
+- **Implementation:** Use CSS variables (e.g., `var(--token-name)`) for colors, spacing, and radii.
+
+## 3. Component Hierarchy
+- **Atoms:** Use existing components from `src/components/ui/` (shadcn).
+- **Patterns:** Create complex components in `src/components/patterns/[category]/[Name].jsx`.
+- **Playbook:** Register every new pattern in `src/components/LivePreviews.jsx` under its specific subcategory.
+
+## 4. Figma Fidelity (Pixel-Perfect)
+- **MCP Access:** Use Figma MCP to extract exact dimensions: height, gap, and padding.
+- **States:** Strictly respect GUEST and LOGGED-IN variants as shown in Figma.
+- **Mobile:** Mobile versions must be faithful to the 110x28 px frame concept.
+
+## 5. Git Automation
+- **Workflow:** After successfully creating a component, offer the following flow: `git add .` -> `git commit -m "..."` -> `git push origin main`.
+## 2. Source of Truth (Tokens)
+- **Review Requirement:** Always read `src/data/tokens.js` and `src/styles.css` before writing any styles.
+- **Implementation:** Use CSS variables (e.g., `var(--token-name)`) for colors, spacing, and radii.
+
+## 3. Component Hierarchy
+- **Atoms:** Use existing components from `src/components/ui/` (shadcn).
+- **Patterns:** Create complex components in `src/components/patterns/[category]/[Name].jsx`.
+- **Playbook:** Register every new pattern in `src/components/LivePreviews.jsx` under its specific subcategory.
+
+## 4. Figma Fidelity (Pixel-Perfect)
+- **MCP Access:** Use Figma MCP to extract exact dimensions: height, gap, and padding.
+- **States:** Strictly respect GUEST and LOGGED-IN variants as shown in Figma.
+- **Mobile:** Mobile versions must be faithful to the 110x28 px frame concept.
+
+## 5. Git Automation
+- **Workflow:** After successfully creating a component, offer the following flow: `git add .` -> `git commit -m "..."` -> `git push origin main`.
+
+## 2. Source of Truth (Tokens)
+- **Review Requirement:** Always read `src/data/tokens.js` and `src/styles.css` before writing any styles.
+- **Implementation:** Use CSS variables (e.g., `var(--token-name)`) for colors, spacing, and radii.
+
+## 3. Component Hierarchy
+- **Atoms:** Use existing components from `src/components/ui/` (shadcn).
+- **Patterns:** Create complex components in `src/components/patterns/[category]/[Name].jsx`.
+- **Playbook:** Register every new pattern in `src/components/LivePreviews.jsx` under its specific subcategory.
+
+## 4. Figma Fidelity (Pixel-Perfect)
+- **MCP Access:** Use Figma MCP to extract exact dimensions: height, gap, and padding.
+- **States:** Strictly respect GUEST and LOGGED-IN variants as shown in Figma.
+- **Mobile:** Mobile versions must be faithful to the 110x28 px frame concept.
+
+## 5. Git Automation
+- **Workflow:** After successfully creating a component, offer the following flow: `git add .` -> `git commit -m "..."` -> `git push origin main`.

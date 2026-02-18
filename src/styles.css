@@ -1,8 +1,4 @@
-/* ═══════════════════════════════════════════════════
-   WA DESIGN SYSTEM — Global Styles
-   CSS Variables are default (dark, wa-default).
-   ThemeContext.jsx overrides them at runtime via JS.
-   ═══════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&family=Space+Grotesk:wght@600&display=swap');
 
 :root {
   /* ── Colours (defaults = WA Default / dark) ── */
@@ -43,48 +39,119 @@
   --font-display: 'Space Grotesk', 'Inter', sans-serif;
 }
 
+
 /* ── Reset ── */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font);
+  font-family: var(--font) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
 }
 
-::selection { background: var(--accent); color: #fff; }
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
 
 /* ── Animations ── */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideRight {
-  from { transform: translateX(100%); }
-  to   { transform: translateX(0); }
-}
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.4; }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.fade-in     { animation: fadeIn 300ms ease-out; }
-.slide-right { animation: slideRight 250ms ease-out; }
-.slide-up    { animation: slideUp 200ms ease-out; }
-.pulse-dot   { animation: pulse 1.5s infinite; }
+@keyframes slideRight {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 300ms ease-out;
+}
+
+.slide-right {
+  animation: slideRight 250ms ease-out;
+}
+
+.slide-up {
+  animation: slideUp 200ms ease-out;
+}
+
+.pulse-dot {
+  animation: pulse 1.5s infinite;
+}
 
 /* ── TopNavigation Responsive Styles ── */
 .desktop-nav {
@@ -103,11 +170,11 @@ body {
   .desktop-nav {
     display: flex !important;
   }
-  
+
   .mobile-nav {
     display: none !important;
   }
-  
+
   .mobile-menu {
     display: none !important;
   }

@@ -5,7 +5,8 @@ import ThemeSwitcher from './components/ThemeSwitcher';
 
 import { IntroductionPage, PrinciplesPage, TokenArchitecturePage } from './pages/GetStarted';
 import { ColorPage, TypographyPage, SpacingPage, RadiiPage, ShadowsPage, ChartColorsPage } from './pages/Foundations';
-import { TokensPage, ComponentsOverview, ComponentDetailPage, PatternsPage } from './pages/DesignSystem';
+import { ChevronDown } from './components/UI';
+import { ComponentsOverview, ComponentDetailPage, PatternsPage } from './pages/DesignSystem';
 import { FigmaLibraryPage, JsonExportsPage } from './pages/Resources';
 
 /* ─── NAV TREE ────────────────────────────────── */
@@ -25,7 +26,6 @@ const NAV = [
       { id: 'radii', label: 'Border Radii' },
       { id: 'shadows', label: 'Shadows' },
       { id: 'charts', label: 'Chart Colors' },
-      { id: 'tokens', label: 'Tokens' },
     ]
   },
   {
@@ -52,33 +52,15 @@ const NAV = [
 ];
 
 /* ─── ICONS ───────────────────────────────────── */
-const ChevronDown = ({ size = 18, rotated = false }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    style={{
-      transition: 'transform 250ms cubic-bezier(0.4, 0, 0.2, 1)',
-      transform: rotated ? 'rotate(180deg)' : 'rotate(0deg)',
-      color: 'var(--text3)'
-    }}
-  >
-    <path d="m6 9 6 6 6-6" />
-  </svg>
-);
+
 
 /* ─── APP ─────────────────────────────────────── */
 export default function App() {
   const [page, setPage] = useState('intro');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  // Default expanded sections: Components only
-  const [expanded, setExpanded] = useState(['components']);
+  // Force initial state: Get Started open, others closed
+  const [expanded, setExpanded] = useState(['get-started']);
   const [expandedSubs, setExpandedSubs] = useState([]);
 
   const { getCSSVars, brand, mode, radius } = useTheme();
@@ -134,7 +116,6 @@ export default function App() {
   else if (page === 'radii') content = <RadiiPage />;
   else if (page === 'shadows') content = <ShadowsPage />;
   else if (page === 'charts') content = <ChartColorsPage />;
-  else if (page === 'tokens') content = <TokensPage />;
   else if (page === 'comps') content = <ComponentsOverview onNavigate={setPage} />;
   else if (isPatternSubcategory) content = <PatternsPage category={patternCategory} />;
   else if (page === 'patterns') content = <PatternsPage />;

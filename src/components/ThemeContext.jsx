@@ -1,7 +1,9 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react';
-import { brands, setActiveBrand, utility } from '../data/tokens';
+import { brands, setActiveBrand, utility, resolveToken } from '../data/tokens';
 
 const ThemeContext = createContext(null);
+
+
 
 export function ThemeProvider({ children }) {
   const [brand, setBrandState] = useState('wa-default');
@@ -17,20 +19,22 @@ export function ThemeProvider({ children }) {
 
   const getCSSVars = useCallback(() => {
     const brandData = brands[brand] || brands['wa-default'];
-    const p = brandData.primitives;
     const m = mode === 'dark' ? 'main-dark' : 'main-light';
     const n = mode === 'dark' ? 'neutral-dark' : 'neutral-light';
-    const overrides = brandData.utilityOverrides || {};
-    const utils = { ...utility, ...overrides };
 
     const utilityVars = {};
-    // Expose overlay variables (utility + overrides)
-    ['overlay-black', 'overlay-white'].forEach(fam => {
-      if (utils[fam]) {
-        Object.entries(utils[fam]).forEach(([step, val]) => {
-          utilityVars[`--${fam}-${step}`] = val;
-        });
-      }
+    // Families to expose as variables
+    ['overlay-black', 'overlay-white', 'red', 'green', 'yellow', 'blue'].forEach(fam => {
+      const modeSuffix = mode === 'dark' ? '-dark' : '-light';
+      const fullFamily = fam.includes('overlay') ? fam : `${fam}${modeSuffix}`;
+
+      // We'll iterate steps 100-1200
+      [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200].forEach(step => {
+        const val = resolveToken(`${fullFamily}.${step}`, brand, mode);
+        if (val !== '#555') {
+          utilityVars[`--${fullFamily}-${step}`] = val;
+        }
+      });
     });
 
     const radiusMap = {
@@ -43,20 +47,20 @@ export function ThemeProvider({ children }) {
 
     return {
       ...utilityVars,
-      '--accent': p[m]?.[900] || '#0090ff',
-      '--accent-hover': p[m]?.[1000] || '#3b9eff',
-      '--accent-pressed': p[m]?.[800] || '#0077d4',
-      '--accent-subtle': p[m]?.[300] || '#0d2847',
-      '--accent-muted': p[m]?.[1200] || '#c2e6ff',
-      '--bg': p[n]?.[100] || '#111113',
-      '--bg1': p[n]?.[200] || '#18191b',
-      '--bg2': p[n]?.[300] || '#212225',
-      '--bg3': p[n]?.[400] || '#272a2d',
-      '--text': p[n]?.[1200] || '#edeef0',
-      '--text2': p[n]?.[1100] || '#b0b4ba',
-      '--text3': p[n]?.[1000] || '#777b84',
-      '--border': p[n]?.[600] || '#363a3f',
-      '--border-hover': p[n]?.[700] || '#43484e',
+      '--accent': resolveToken(`${m}.900`, brand, mode),
+      '--accent-hover': resolveToken(`${m}.1000`, brand, mode),
+      '--accent-pressed': resolveToken(`${m}.800`, brand, mode),
+      '--accent-subtle': resolveToken(`${m}.300`, brand, mode),
+      '--accent-muted': resolveToken(`${m}.1200`, brand, mode),
+      '--bg': resolveToken(`${n}.100`, brand, mode),
+      '--bg1': resolveToken(`${n}.200`, brand, mode),
+      '--bg2': resolveToken(`${n}.300`, brand, mode),
+      '--bg3': resolveToken(`${n}.400`, brand, mode),
+      '--text': resolveToken(`${n}.1200`, brand, mode),
+      '--text2': resolveToken(`${n}.1100`, brand, mode),
+      '--text3': resolveToken(`${n}.1000`, brand, mode),
+      '--border': resolveToken(`${n}.600`, brand, mode),
+      '--border-hover': resolveToken(`${n}.700`, brand, mode),
       '--radius-sm': r.sm,
       '--radius': r.md,
       '--radius-lg': r.lg,
@@ -69,6 +73,7 @@ export function ThemeProvider({ children }) {
     mode, setMode,
     radius, setRadius,
     accent, getCSSVars,
+    resolveToken,
   }), [brand, setBrand, mode, setMode, radius, setRadius, accent, getCSSVars]);
 
   return (
