@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { brands, utility, semantic, resolveToken, spacing, radii, typography, shadows, chartColors } from '../data/tokens';
 import { useTheme } from '../components/ThemeContext';
 import { CopyBadge, SectionTitle, TabBar } from '../components/UI';
@@ -15,12 +15,12 @@ function SwatchGrid({ scale, label }) {
         {Object.entries(scale).map(([step, hex]) => (
           <CopyBadge key={step} text={hex}>
             <div style={{ width: 56, textAlign: 'center' }}>
-              <div style={{ 
-                width: 56, 
-                height: 40, 
-                borderRadius: 'var(--radius-sm)', 
-                background: hex, 
-                border: '1px solid var(--border)' 
+              <div style={{
+                width: 56,
+                height: 40,
+                borderRadius: 'var(--radius-sm)',
+                background: hex,
+                border: '1px solid var(--border)'
               }} />
               <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 3, fontFamily: 'var(--font-mono)' }}>{step}</div>
               <div style={{ fontSize: 8, color: 'var(--text3)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
@@ -34,10 +34,121 @@ function SwatchGrid({ scale, label }) {
   );
 }
 
+/* ─── Local Dropdown (Styled for Foundations) ─── */
+function Dropdown({ label, value, options, onChange }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    function close(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    }
+    document.addEventListener('mousedown', close);
+    return () => document.removeEventListener('mousedown', close);
+  }, []);
+
+  const current = options.find(o => o.id === value);
+
+  return (
+    <div ref={ref} style={{ position: 'relative' }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          display: 'flex', alignItems: 'center', gap: 8,
+          padding: '6px 10px', height: 32,
+          borderRadius: 'var(--radius-sm)',
+          background: 'var(--bg2)', // Elevated background
+          border: '1px solid var(--border)',
+          cursor: 'pointer', fontSize: 12, fontFamily: 'var(--font)',
+          color: 'var(--text)', transition: 'all 120ms',
+        }}
+      >
+        {current?.dot && (
+          <span style={{
+            width: 8, height: 8, borderRadius: 9999,
+            background: current.dot, flexShrink: 0,
+            boxShadow: '0 0 0 1px rgba(0,0,0,0.1)'
+          }} />
+        )}
+        {label && <span style={{ fontSize: 10, color: 'var(--text3)', textTransform: 'uppercase', marginRight: 2 }}>{label}</span>}
+        <span style={{ fontWeight: 600 }}>{current?.label || value}</span>
+        <span style={{ fontSize: 10, color: 'var(--text3)', marginLeft: 2 }}>▾</span>
+      </button>
+
+      {open && (
+        <div style={{
+          position: 'absolute', top: 'calc(100% + 4px)', left: 0,
+          zIndex: 100, background: 'var(--bg1)',
+          border: '1px solid var(--border)',
+          borderRadius: 'var(--radius)',
+          padding: 4, minWidth: 180,
+          boxShadow: '0 4px 12px -2px rgba(0,0,0,0.2), 0 10px 30px -4px rgba(0,0,0,0.4)',
+        }}>
+          {options.map(o => (
+            <button
+              key={o.id}
+              onClick={() => { onChange(o.id); setOpen(false); }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                width: '100%', padding: '8px 10px', borderRadius: 'var(--radius-sm)',
+                border: 'none', textAlign: 'left',
+                background: value === o.id ? 'var(--bg3)' : 'transparent',
+                color: value === o.id ? 'var(--text)' : 'var(--text2)',
+                cursor: 'pointer', fontSize: 12, fontFamily: 'var(--font)',
+              }}
+            >
+              {o.dot && <span style={{ width: 8, height: 8, borderRadius: 9999, background: o.dot }} />}
+              <span style={{ flex: 1 }}>{o.label}</span>
+              {value === o.id && <span style={{ fontSize: 10 }}>✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─── Brand & Mode Switcher Component ─── */
+function BrandSwitcher({ brand, mode }) {
+  const { setBrand, setMode } = useTheme();
+
+  // Generate brand options dynamically from tokens.js
+  const brandOptions = Object.entries(brands).map(([key, data]) => ({
+    id: key,
+    label: data.label,
+    dot: data.color
+  }));
+
+  const modeOptions = [
+    { id: 'dark', label: 'Dark', dot: '#777b84' },
+    { id: 'light', label: 'Light', dot: '#ffd60a' },
+  ];
+
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 12,
+      marginBottom: 24,
+      padding: 16,
+      background: 'var(--bg1)',
+      border: '1px solid var(--border)',
+      borderRadius: 'var(--radius)',
+    }}>
+      <div style={{ fontSize: 12, fontWeight: 500, color: 'var(--text2)', marginRight: 4 }}>
+        Viewing Environment:
+      </div>
+      <Dropdown label="" value={brand} options={brandOptions} onChange={setBrand} />
+      <div style={{ width: 1, height: 16, background: 'var(--border)' }} />
+      <Dropdown label="" value={mode} options={modeOptions} onChange={setMode} />
+    </div>
+  );
+}
+
 export function ColorPage() {
   const [tab, setTab] = useState('Primitives');
   const { brand, mode } = useTheme();
-  
+
   // Get active brand metadata
   const brandData = brands[brand] || brands['wa-default'];
   const prims = brandData.primitives;
@@ -45,23 +156,9 @@ export function ColorPage() {
   return (
     <div>
       <SectionTitle title="Color" sub="Token-based color system. Primitives change per brand; utility resolves dynamically." />
-      
+
       {/* Brand & Mode Status Indicator */}
-      <div style={{ 
-        marginBottom: 16, 
-        padding: '6px 10px', 
-        borderRadius: 'var(--radius-sm)', 
-        background: 'var(--accent-bg)', 
-        border: '1px solid color-mix(in srgb, var(--accent), transparent 80%)', 
-        display: 'inline-flex', 
-        alignItems: 'center', 
-        gap: 6, 
-        fontSize: 11, 
-        color: 'var(--accent)' 
-      }}>
-        <span style={{ width: 8, height: 8, borderRadius: 9999, background: brandData.color }} />
-        Viewing Environment: <strong>{brandData.label}</strong> · <span style={{ textTransform: 'uppercase' }}>{mode}</span>
-      </div>
+      <BrandSwitcher brand={brand} mode={mode} brandData={brandData} />
 
       <TabBar tabs={['Primitives', 'Utility', 'Semantic']} active={tab} onChange={setTab} />
 
@@ -110,20 +207,20 @@ export function ColorPage() {
                   const resolved = resolveToken(refs[mode], brand, mode);
                   return (
                     <CopyBadge key={name} text={resolved}>
-                      <div style={{ 
-                        width: 140, 
-                        padding: 10, 
-                        borderRadius: 'var(--radius-sm)', 
-                        background: 'var(--bg1)', 
-                        border: '1px solid var(--border)' 
+                      <div style={{
+                        width: 140,
+                        padding: 10,
+                        borderRadius: 'var(--radius-sm)',
+                        background: 'var(--bg1)',
+                        border: '1px solid var(--border)'
                       }}>
-                        <div style={{ 
-                          width: '100%', 
-                          height: 32, 
-                          borderRadius: 4, 
-                          background: resolved, 
-                          border: '1px solid var(--border)', 
-                          marginBottom: 6 
+                        <div style={{
+                          width: '100%',
+                          height: 32,
+                          borderRadius: 4,
+                          background: resolved,
+                          border: '1px solid var(--border)',
+                          marginBottom: 6
                         }} />
                         <div style={{ fontSize: 11, fontWeight: 500, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {name}

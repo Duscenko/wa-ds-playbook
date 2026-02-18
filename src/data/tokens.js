@@ -39,15 +39,15 @@ export const brands = {
       // RED: Using Radix Red values from your JSON
       "red-dark": { 100: "#191111", 200: "#201314", 300: "#3B1219", 400: "#500F1C", 500: "#611623", 600: "#72232D", 700: "#8C333A", 800: "#B54548", 900: "#E5484D", 1000: "#EC5D5E", 1100: "#FF9592", 1200: "#FFD1D9" },
       "red-light": { 100: "#fffcfc", 200: "#fff7f7", 300: "#feebec", 400: "#ffdbdc", 500: "#ffcdce", 600: "#fdbdbe", 700: "#f4a9aa", 800: "#eb8e90", 900: "#e5484d", 1000: "#dc3e42", 1100: "#ce2c31", 1200: "#641723" },
-      
+
       // GREEN (Mapped to Grass/Lime from your JSON): Fixed for Table View
       "green-dark": { 100: "#11130C", 200: "#151A10", 300: "#1F2917", 400: "#29371D", 500: "#334423", 600: "#3D522A", 700: "#3D522A", 800: "#577538", 900: "#BDEE63", 1000: "#D4FF70", 1100: "#BDE56C", 1200: "#E3F7BA" },
       "green-light": { 100: "#fdfefb", 200: "#f8faf3", 300: "#f0f4e1", 400: "#e6edd1", 500: "#d8e5bc", 600: "#c6d9a0", 700: "#afc97e", 800: "#91b54c", 900: "#bdee63", 1000: "#b1e563", 1100: "#3b6500", 1200: "#1b3b28" },
-      
+
       // YELLOW: Using Amber values from your JSON
       "yellow-dark": { 100: "#16120C", 200: "#1D180F", 300: "#302008", 400: "#3F2700", 500: "#4D3000", 600: "#5C3D05", 700: "#714F19", 800: "#8F6424", 900: "#FFC53D", 1000: "#FFD60A", 1100: "#FFCA16", 1200: "#FFE7B3" },
       "yellow-light": { 100: "#fefdfb", 200: "#fef9ed", 300: "#fff4d5", 400: "#ffecbc", 500: "#ffe3a2", 600: "#ffd386", 700: "#f3ba63", 800: "#ee9d2b", 900: "#ffc53d", 1000: "#ffb224", 1100: "#ad5700", 1200: "#4e2009" },
-      
+
       // OVERLAYS: Values from your JSON
       "overlay-black": { 100: "rgba(0,0,0,0.02)", 200: "rgba(0,0,0,0.05)", 300: "rgba(0,0,0,0.10)", 400: "rgba(0,0,0,0.15)", 500: "rgba(0,0,0,0.20)", 600: "rgba(0,0,0,0.30)", 700: "rgba(0,0,0,0.40)", 800: "rgba(0,0,0,0.50)", 900: "rgba(0,0,0,0.60)", 1000: "rgba(0,0,0,0.75)", 1100: "rgba(0,0,0,0.85)", 1200: "rgba(0,0,0,0.95)" },
       "overlay-white": { 100: "rgba(249,250,251,0.03)", 200: "rgba(249,250,251,0.05)", 300: "rgba(249,250,251,0.07)", 400: "rgba(249,250,251,0.11)", 500: "rgba(249,250,251,0.14)", 600: "rgba(249,250,251,0.18)", 700: "rgba(249,250,251,0.24)", 800: "rgba(249,250,251,0.31)", 900: "rgba(249,250,251,0.44)", 1000: "rgba(249,250,251,0.50)", 1100: "rgba(249,250,251,0.65)", 1200: "rgba(249,250,251,0.92)" }
@@ -56,6 +56,34 @@ export const brands = {
       "Action.primary": { dark: "main-dark.700", light: "main-light.900" },
       "Action.secondary": { dark: "main-dark.500", light: "main-light.700" },
       "Surface.accent": { dark: "main-dark.300", light: "main-light.300" }
+    }
+  },
+  "manat": {
+    label: "Manat",
+    color: "#D91414",
+    primitives: {
+      "main-dark": { 100: "#170F0E", 200: "#201311", 300: "#3D120E", 400: "#540A07", 500: "#65110D", 600: "#762019", 700: "#903027", 800: "#BA3F35", 900: "#D91414", 1000: "#C80000", 1100: "#FF9081", 1200: "#FFD1C9" },
+      "main-light": { 100: "#FFF9F8", 200: "#FEF1F0", 300: "#F9E3E1", 400: "#F3D6D2", 500: "#EBB9B2", 600: "#E19D94", 700: "#D67D72", 800: "#C55B4E", 900: "#D91414", 1000: "#C80000", 1100: "#822017", 1200: "#34120F" },
+      "neutral-dark": { 100: "#111113", 200: "#18191B", 300: "#212225", 400: "#272A2D", 500: "#2E3135", 600: "#363A3F", 700: "#43484E", 800: "#5A6169", 900: "#696E77", 1000: "#777B84", 1100: "#B0B4BA", 1200: "#EDEEF0" },
+      "neutral-light": { 100: "#FBFCFD", 200: "#F8F9FA", 300: "#F1F3F5", 400: "#E9ECEF", 500: "#DEE2E6", 600: "#CED4DA", 700: "#ADB5BD", 800: "#868E96", 900: "#495057", 1000: "#343A40", 1100: "#212529", 1200: "#111113" },
+    },
+    utilityOverrides: {
+      "blue-dark": { 100: "#06131B", 200: "#0B1B26", 300: "#022A40", 400: "#003756", 500: "#004569", 600: "#00547D", 700: "#096695", 800: "#096695", 900: "#047BB3", 1000: "#166D9C", 1100: "#75C4F9", 1200: "#C7EEFF" },
+      "blue-light": { 100: "#F0F9FF", 200: "#E0F2FE", 300: "#B9E6FE", 400: "#7DD3FC", 500: "#38BDF8", 600: "#0EA5E9", 700: "#0284C7", 800: "#0369A1", 900: "#047BB3", 1000: "#166D9C", 1100: "#0B4A6B", 1200: "#061D29" },
+    }
+  },
+  "superbetin": {
+    label: "Superbetin",
+    color: "#1717C5",
+    primitives: {
+      "main-dark": { 100: "#030721", 200: "#091334", 300: "#09126f", 400: "#0f0798", 500: "#140fb4", 600: "#181fc9", 700: "#1e2ae5", 800: "#252fff", 900: "#1717c5", 1000: "#1e2ae6", 1100: "#90b3ff", 1200: "#cfe1ff" },
+      "main-light": { 100: "#edeeef", 200: "#e6e9f0", 300: "#dae1f0", 400: "#cbd7f4", 500: "#b9cbf7", 600: "#a4bdf9", 700: "#8ca9f1", 800: "#6c8eea", 900: "#1717c5", 1000: "#2035da", 1100: "#213cc9", 1200: "#192b67" },
+      "neutral-dark": { 100: "#111111", 200: "#191919", 300: "#222222", 400: "#2a2a2a", 500: "#313131", 600: "#3a3a3a", 700: "#484848", 800: "#606060", 900: "#727272", 1000: "#a0a0a0", 1100: "#d1d1d1", 1200: "#f1f1f1" },
+      "neutral-light": { 100: "#f1f1f1", 200: "#e9e9e9", 300: "#e1e1e1", 400: "#d9d9d9", 500: "#cecece", 600: "#bbbbbb", 700: "#8c8c8c", 800: "#666666", 900: "#444444", 1000: "#222222", 1100: "#111111", 1200: "#050505" },
+    },
+    utilityOverrides: {
+      "violet-light": { 100: "#edeeef", 200: "#e6e9f0", 300: "#dae1f0", 400: "#cbd7f4", 500: "#b9cbf7", 600: "#a4bdf9", 700: "#8ca9f1", 800: "#6c8eea", 900: "#1717c5", 1000: "#2035da", 1100: "#213cc9", 1200: "#192b67" },
+      "violet-dark": { 100: "#030721", 200: "#091334", 300: "#09126f", 400: "#0f0798", 500: "#140fb4", 600: "#181fc9", 700: "#1e2ae5", 800: "#252fff", 900: "#1717c5", 1000: "#1e2ae6", 1100: "#90b3ff", 1200: "#cfe1ff" }
     }
   },
 };
@@ -130,7 +158,7 @@ export const semantic = {
 export function resolveToken(ref, brandId, mode = "dark") {
   const b = brandId || activeBrand;
   const brandData = brands[b] || brands["wa-default"];
-  
+
   // 1. Check for brand-specific Semantic Overrides first (Highest Priority)
   if (brandData.semanticOverrides && brandData.semanticOverrides[ref]) {
     const semanticRef = brandData.semanticOverrides[ref][mode];
@@ -142,7 +170,7 @@ export function resolveToken(ref, brandId, mode = "dark") {
   const prims = brandData.primitives;
   const overrides = brandData.utilityOverrides || {};
   const all = { ...prims, ...utility, ...overrides };
-  
+
   if (all[family] && all[family][step]) return all[family][step];
   return "#555";
 }
