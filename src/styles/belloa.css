@@ -1,0 +1,117 @@
+/*
+ * Belloa Design System — Isolated Tailwind Entry Point
+ *
+ * Imported globally in .storybook/preview.js for Storybook.
+ * Imported per-component in the main app to scope styles.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Semantic Color Variables — Light Mode (default) ────────────────────── */
+:root {
+  /* Content */
+  --bl-content-primary:   #11181C;
+  --bl-content-on-action: #FCFCFD;
+  --bl-content-secondary: #313538;
+  --bl-content-subtle:    #4B5156;
+  --bl-content-inverse:   #FCFCFD;
+  --bl-content-accent:    #0BC3AD;
+
+  /* Action */
+  --bl-action-primary:   #0BC3AD;
+  --bl-action-neutral:   #E9ECEF;
+  --bl-action-secondary: #D7DBDF;
+  --bl-action-disabled:  #E9ECEF;
+
+  /* Surface */
+  --bl-surface-page:    #FCFCFD;
+  --bl-surface-layer-1: #F8F9FA;
+  --bl-surface-layer-2: #E9ECEF;
+  --bl-surface-accent:  #067A6F;
+  --bl-surface-inverse: #11181C;
+  --bl-surface-overlay: rgba(0, 0, 0, 0.66);
+
+  /* Border */
+  --bl-border-default:  #D7DBDF;
+  --bl-border-accent:   #0EB39E;
+  --bl-border-subtle:   #E9ECEF;
+  --bl-border-active:   #0BC3AD;
+  --bl-border-critical: #dc3e42;
+  --bl-border-warning:  #d5ae39;
+  --bl-border-success:  #30a46c;
+
+  /* Status */
+  --bl-status-critical-bg: #ce2c31;
+  --bl-status-critical-fg: #dc3e42;
+  --bl-status-warning-bg:  #ffdc00;
+  --bl-status-warning-fg:  #d5ae39;
+  --bl-status-success-bg:  #218358;
+  --bl-status-success-fg:  #30a46c;
+
+  /* Dimensions & Spacing */
+  --bl-spacing-14: 14px;
+  --bl-spacing-10: 10px;
+  --bl-header-height: 72px;
+  --bl-header-logo-container-width: 218px;
+  --bl-header-logo-container-height: 57px;
+  --bl-dropdown-width-lg: 200px;
+  --bl-dropdown-width-md: 163px;
+
+  /* Skeuomorphic Shadows */
+  --bl-shadow-skeuo-inner: inset 0px 0px 0px 1px rgba(10, 13, 18, 0.18), inset 0px -2px 0px 0px rgba(10, 13, 18, 0.05);
+}
+
+/* ── Semantic Color Variables — Dark Mode ───────────────────────────────── */
+.dark {
+  /* Content */
+  --bl-content-primary:   #EDEEF0;
+  --bl-content-on-action: #EDEEF0;
+  --bl-content-secondary: #B0B4BA;
+  --bl-content-subtle:    #717D79;
+  --bl-content-inverse:   #101211;
+  --bl-content-accent:    #12A594;
+
+  /* Action */
+  --bl-action-primary:   #145750;
+  --bl-action-neutral:   #171918;
+  --bl-action-secondary: #EDEEF0;
+  --bl-action-disabled:  rgba(255, 255, 255, 0.05);
+
+  /* Surface */
+  --bl-surface-page:    #101211;
+  --bl-surface-layer-1: #171918;
+  --bl-surface-layer-2: #272A29;
+  --bl-surface-accent:  #0D2D2A;
+  --bl-surface-inverse: #B0B4BA;
+  --bl-surface-overlay: rgba(0, 0, 0, 0.66);
+
+  /* Border */
+  --bl-border-default:  #373B39;
+  --bl-border-accent:   #1C6961;
+  --bl-border-subtle:   rgba(255, 255, 255, 0.07);
+  --bl-border-active:   #12A594;
+  --bl-border-critical: #b54548;
+  --bl-border-warning:  #836a21;
+  --bl-border-success:  #2f7c57;
+
+  /* Status */
+  --bl-status-critical-bg: #500f1c;
+  --bl-status-critical-fg: #ec5d5e;
+  --bl-status-warning-bg:  #524202;
+  --bl-status-warning-fg:  #ffff57;
+  --bl-status-success-bg:  #20573e;
+  --bl-status-success-fg:  #33b074;
+
+  /* Dimensions & Spacing */
+  --bl-spacing-14: 14px;
+  --bl-spacing-10: 10px;
+  --bl-header-height: 72px;
+  --bl-header-logo-container-width: 218px;
+  --bl-header-logo-container-height: 57px;
+  --bl-dropdown-width-lg: 200px;
+  --bl-dropdown-width-md: 163px;
+
+  /* Skeuomorphic Shadows */
+  --bl-shadow-skeuo-inner: inset 0px 0px 0px 1px rgba(10, 13, 18, 0.18), inset 0px -2px 0px 0px rgba(10, 13, 18, 0.05);
+}

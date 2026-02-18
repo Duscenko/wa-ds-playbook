@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useHover } from './useHover';
+import Button from './belloa/atoms/Button';
+import TopNavigation from './belloa/organisms/TopNavigation';
 
 // All components now use CSS variables so they auto-update with brand/mode changes
 
@@ -92,9 +94,9 @@ export function AlertPreview({ variant = 'info', title, children }) {
   const { hover, bind } = useHover();
   const configs = {
     info: { bg: 'color-mix(in srgb, var(--accent), transparent 92%)', border: 'color-mix(in srgb, var(--accent), transparent 70%)', fg: 'var(--accent-hover)', icon: 'ℹ' },
-    success: { bg: '#30a46c10', border: '#30a46c30', fg: '#3dd68c', icon: '✓' },
-    warning: { bg: '#ffe62910', border: '#ffe62930', fg: '#ffe629', icon: '⚠' },
-    critical: { bg: '#e5484d10', border: '#e5484d30', fg: '#ec5d5e', icon: '✕' },
+    success: { bg: 'var(--bl-status-success-bg)', border: 'var(--bl-border-success)', fg: 'var(--bl-status-success-fg)', icon: '✓' },
+    warning: { bg: 'var(--bl-status-warning-bg)', border: 'var(--bl-border-warning)', fg: 'var(--bl-status-warning-fg)', icon: '⚠' },
+    critical: { bg: 'var(--bl-status-critical-bg)', border: 'var(--bl-border-critical)', fg: 'var(--bl-status-critical-fg)', icon: '✕' },
   };
   const c = configs[variant] || configs.info;
   return (
@@ -178,4 +180,14 @@ export function SheetPreview() {
       )}
     </div>
   );
+}
+
+// ── REAL COMPONENT PREVIEWS ──────────────────────────
+
+export function BelloaButtonPreview(props) {
+  return <Button {...props} />;
+}
+
+export function BelloaTopNavPreview(props) {
+  return <TopNavigation {...props} />;
 }
