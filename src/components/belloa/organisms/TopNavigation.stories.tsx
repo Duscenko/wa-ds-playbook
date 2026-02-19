@@ -6,7 +6,7 @@ import TopNavigation from './TopNavigation';
 // ─── Meta ─────────────────────────────────────────────────────────────────────
 
 const meta: Meta<typeof TopNavigation> = {
-  title: 'Belloa / Organisms / TopNavigation',
+  title: 'Patterns/TopNavigation',
   component: TopNavigation,
 
   parameters: {

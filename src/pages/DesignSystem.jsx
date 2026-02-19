@@ -183,6 +183,27 @@ export function PatternsPage({ category }) {
       {/* TopNavigation Pattern */}
       <div style={{ marginBottom: 48 }}>
         <h3 style={{ fontSize: 18, fontWeight: 600, color: 'var(--text)', marginBottom: 16, fontFamily: 'var(--font-display)' }}>TopNavigation</h3>
+        <a
+          href="https://wa-ds-storybook.vercel.app/?path=/docs/patterns-topnavigation--docs"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-block',
+            padding: '8px 16px',
+            marginBottom: '16px',
+            borderRadius: 'var(--radius-sm)',
+            background: 'var(--accent)',
+            color: 'white',
+            fontSize: '12px',
+            fontWeight: '600',
+            textDecoration: 'none',
+            transition: 'opacity 150ms',
+          }}
+          onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
+          onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+        >
+          📖 View in Storybook
+        </a>
         <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 24, lineHeight: 1.6 }}>
           Main navigation pattern that orchestrates atoms and foundations. Supports Guest and Logged-in states with responsive mobile/desktop layouts.
         </p>
