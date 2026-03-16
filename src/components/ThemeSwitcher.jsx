@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTheme } from './ThemeContext';
-import { brands } from '../data/tokens';
 import { ChevronDown } from './UI';
 
 /* ─── Generic Dropdown ────────────────────────────── */
@@ -23,48 +22,63 @@ function Dropdown({ label, value, options, onChange }) {
       <button
         onClick={() => setOpen(!open)}
         style={{
-          display: 'flex', alignItems: 'center', gap: 6,
-          padding: '4px 10px', height: 30,
-          borderRadius: 'var(--radius-sm, 4px)',
+          display: 'flex', alignItems: 'center', gap: 8,
+          padding: '8px 14px', height: 40,
+          borderRadius: 'var(--radius, 6px)',
           background: 'var(--bg2)', border: '1px solid var(--border)',
-          cursor: 'pointer', fontSize: 11, fontFamily: 'var(--font)',
-          color: 'var(--text)', transition: 'all 120ms',
+          cursor: 'pointer', fontSize: 13, fontFamily: 'var(--font)',
+          color: 'var(--text)', transition: 'all 150ms',
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.background = 'var(--bg3)';
+          e.currentTarget.style.borderColor = 'var(--border-hover)';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.background = 'var(--bg2)';
+          e.currentTarget.style.borderColor = 'var(--border)';
         }}
       >
-        {current?.dot && (
-          <span style={{
-            width: 8, height: 8, borderRadius: 9999,
-            background: current.dot, flexShrink: 0,
-          }} />
-        )}
-        <span style={{ fontSize: 9, color: 'var(--text3)', textTransform: 'uppercase' }}>{label}</span>
-        <span style={{ fontWeight: 600, fontSize: 11 }}>{current?.label || value}</span>
-        <ChevronDown size={14} rotated={open} color="var(--text3)" />
+        {current?.icon && <span style={{ fontSize: 16 }}>{current.icon}</span>}
+        <span style={{ fontWeight: 500, fontSize: 13 }}>{current?.label || value}</span>
+        <ChevronDown size={16} rotated={open} color="var(--text3)" />
       </button>
 
       {open && (
         <div style={{
-          position: 'absolute', top: '100%', left: 0, marginTop: 4,
+          position: 'absolute', top: '100%', right: 0, marginTop: 6,
           zIndex: 50, background: 'var(--bg1)',
           border: '1px solid var(--border)',
           borderRadius: 'var(--radius, 6px)',
-          padding: 4, minWidth: 150,
-          boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+          padding: 6, minWidth: 140,
+          boxShadow: '0 12px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3)',
         }}>
           {options.map(o => (
             <button
               key={o.id}
               onClick={() => { onChange(o.id); setOpen(false); }}
               style={{
-                display: 'flex', alignItems: 'center', gap: 8,
-                width: '100%', padding: '7px 10px', borderRadius: 4,
+                display: 'flex', alignItems: 'center', gap: 10,
+                width: '100%', padding: '10px 12px', borderRadius: 5,
                 border: 'none', textAlign: 'left',
                 background: value === o.id ? 'var(--accent-subtle)' : 'transparent',
                 color: value === o.id ? 'var(--accent)' : 'var(--text2)',
-                cursor: 'pointer', fontSize: 12,
+                cursor: 'pointer', fontSize: 13, fontWeight: 500,
+                transition: 'all 120ms',
+              }}
+              onMouseEnter={e => {
+                if (value !== o.id) {
+                  e.currentTarget.style.background = 'var(--bg2)';
+                  e.currentTarget.style.color = 'var(--text)';
+                }
+              }}
+              onMouseLeave={e => {
+                if (value !== o.id) {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.color = 'var(--text2)';
+                }
               }}
             >
-              {o.dot && <span style={{ width: 10, height: 10, borderRadius: 9999, background: o.dot }} />}
+              {o.icon && <span style={{ fontSize: 16 }}>{o.icon}</span>}
               <span style={{ flex: 1 }}>{o.label}</span>
             </button>
           ))}
@@ -74,34 +88,80 @@ function Dropdown({ label, value, options, onChange }) {
   );
 }
 
-/* ─── Theme Switcher (3 controles) ─────────────────── */
-export default function ThemeSwitcher() {
-  const { brand, setBrand, mode, setMode, radius, setRadius } = useTheme();
+/* ─── Search Input ────────────────────────────── */
+function SearchInput({ value, onChange, placeholder = 'Search...' }) {
+  return (
+    <div style={{ position: 'relative', width: 320 }}>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        style={{
+          width: '100%',
+          height: 40,
+          padding: '0 16px 0 44px',
+          borderRadius: 'var(--radius, 6px)',
+          background: 'var(--bg2)',
+          border: '1px solid var(--border)',
+          color: 'var(--text)',
+          fontSize: 13,
+          fontFamily: 'var(--font)',
+          outline: 'none',
+          transition: 'all 200ms',
+        }}
+        onFocus={(e) => {
+          e.target.style.borderColor = 'var(--accent)';
+          e.target.style.background = 'var(--bg3)';
+          e.target.style.boxShadow = '0 0 0 3px rgba(var(--accent-raw), 0.1)';
+        }}
+        onBlur={(e) => {
+          e.target.style.borderColor = 'var(--border)';
+          e.target.style.background = 'var(--bg2)';
+          e.target.style.boxShadow = 'none';
+        }}
+      />
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="var(--text3)"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        style={{
+          position: 'absolute',
+          left: 16,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          pointerEvents: 'none',
+        }}
+      >
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+    </div>
+  );
+}
 
-  // Dynamic brand options from tokens.js
-  const brandOptions = Object.entries(brands).map(([key, data]) => ({
-    id: key,
-    label: data.label,
-    dot: data.color
-  }));
+/* ─── Theme Switcher (Mode + Search) ─────────────────── */
+export default function ThemeSwitcher({ searchValue, onSearchChange }) {
+  const { mode, setMode } = useTheme();
 
   const modeOptions = [
     { id: 'dark', label: 'Dark', icon: '🌙' },
     { id: 'light', label: 'Light', icon: '☀️' },
   ];
 
-  const radiusOptions = [
-    { id: 'sharp', label: 'Sharp' },
-    { id: 'default', label: 'Default' },
-    { id: 'round', label: 'Round' },
-    { id: 'full', label: 'Full' },
-  ];
-
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-      <Dropdown label="Brand" value={brand} options={brandOptions} onChange={setBrand} />
-      <Dropdown label="Mode" value={mode} options={modeOptions} onChange={setMode} />
-      <Dropdown label="Radius" value={radius} options={radiusOptions} onChange={setRadius} />
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+      <SearchInput 
+        value={searchValue} 
+        onChange={onSearchChange} 
+        placeholder="Search documentation..." 
+      />
+      <Dropdown value={mode} options={modeOptions} onChange={setMode} />
     </div>
   );
 }

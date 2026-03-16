@@ -7,7 +7,7 @@ import { IntroductionPage, PrinciplesPage, TokenArchitecturePage } from './pages
 import { ColorPage, TypographyPage, SpacingPage, RadiiPage, ShadowsPage, ChartColorsPage } from './pages/Foundations';
 import { ChevronDown } from './components/UI';
 import { ComponentsOverview, ComponentDetailPage, PatternsPage } from './pages/DesignSystem';
-import { FigmaLibraryPage, JsonExportsPage } from './pages/Resources';
+import { ResourcesOverviewPage, FigmaLibraryPage, JsonExportsPage } from './pages/Resources';
 
 /* ─── NAV TREE ────────────────────────────────── */
 const NAV = [
@@ -45,6 +45,7 @@ const NAV = [
   },
   {
     id: 'resources', label: 'Resources', children: [
+      { id: 'resources-overview', label: 'Overview' },
       { id: 'figma', label: 'Figma Library' },
       { id: 'json', label: 'JSON Exports' },
     ]
@@ -58,12 +59,13 @@ const NAV = [
 export default function App() {
   const [page, setPage] = useState('intro');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Force initial state: Get Started open, others closed
   const [expanded, setExpanded] = useState(['get-started']);
   const [expandedSubs, setExpandedSubs] = useState([]);
 
-  const { getCSSVars, brand, mode, radius } = useTheme();
+  const { getCSSVars, mode } = useTheme();
 
   /* ── Inject CSS variables whenever theme changes ── */
   useEffect(() => {
@@ -76,6 +78,11 @@ export default function App() {
     setExpanded(prev =>
       prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]
     );
+    
+    // Navigate to overview when opening Resources section
+    if (id === 'resources' && !expanded.includes(id)) {
+      setPage('resources-overview');
+    }
   };
 
   /* ── Find current breadcrumb ── */
@@ -119,6 +126,7 @@ export default function App() {
   else if (page === 'comps') content = <ComponentsOverview onNavigate={setPage} />;
   else if (isPatternSubcategory) content = <PatternsPage category={patternCategory} />;
   else if (page === 'patterns') content = <PatternsPage />;
+  else if (page === 'resources-overview') content = <ResourcesOverviewPage onNavigate={setPage} />;
   else if (page === 'figma') content = <FigmaLibraryPage />;
   else if (page === 'json') content = <JsonExportsPage />;
 
@@ -301,35 +309,12 @@ export default function App() {
         {/* ── Header with ThemeSwitcher ── */}
         <header style={{
           position: 'sticky', top: 0, zIndex: 10,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '8px 28px', height: 48,
+          display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
+          padding: '16px 28px', height: 64,
           borderBottom: '1px solid var(--border)',
           background: 'var(--bg)',
           backdropFilter: 'blur(12px)',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            {/* Collapse toggle */}
-            <button
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              style={{
-                width: 28, height: 28, borderRadius: 'var(--radius-sm)',
-                background: 'var(--bg2)', border: '1px solid var(--border)',
-                cursor: 'pointer', display: 'flex', alignItems: 'center',
-                justifyContent: 'center', color: 'var(--text3)',
-                fontSize: 11, transition: 'all 120ms',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--border-hover)'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; }}
-            >
-              {sidebarOpen ? '◀' : '▶'}
-            </button>
-
-            {/* Breadcrumb */}
-            <span style={{ fontSize: 12, color: 'var(--text3)', fontFamily: 'var(--font-mono)' }}>
-              {currentSection?.label || ''} / {currentChild?.label || ''}{currentSubChild ? ` / ${currentSubChild.label}` : ''}
-            </span>
-          </div>
-
           {/* ★ Theme Controls ★ */}
           <ThemeSwitcher />
         </header>
