@@ -7,6 +7,7 @@ import { IntroductionPage, PrinciplesPage, TokenArchitecturePage } from './pages
 import { ColorPage, TypographyPage, SpacingPage, RadiiPage, ShadowsPage, ChartColorsPage } from './pages/Foundations';
 import { ChevronDown } from './components/UI';
 import { ComponentsOverview, ComponentDetailPage, PatternsPage } from './pages/DesignSystem';
+// Resources pages  
 import { ResourcesOverviewPage, FigmaLibraryPage, JsonExportsPage } from './pages/Resources';
 
 /* ─── NAV TREE ────────────────────────────────── */
