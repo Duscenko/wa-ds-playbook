@@ -3,13 +3,13 @@ import '../../../styles/belloa.css';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
+export type ButtonVariant = 'primary' | 'secondary' | 'stroke' | 'ghost' | 'link' | 'destructive';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Visual style of the button. Default: `primary`. */
   variant?: ButtonVariant;
-  /** Height / padding scale. Default: `md` (matches Figma spec: px-[14px] py-[10px]). */
+  /** Height / padding scale. Default: `md`. */
   size?: ButtonSize;
   /** Stretches the button to the full width of its container. */
   fullWidth?: boolean;
@@ -26,33 +26,44 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 /**
  * Outer shell classes per variant.
- * The skeuomorphic depth overlay (absolute inset div) is rendered for solid
- * variants (primary, destructive) to match the Figma shadow-xs-skeuomorphic spec.
+ * Matches Figma WA-Belloa-Library UI KIT button specs.
  */
 const VARIANT_BASE: Record<ButtonVariant, string> = {
+  // PRIMARY: Teal solid background
   primary: [
     'bl-bg-action-primary',
     'bl-border-2 bl-border-white/[0.12]',
     'bl-shadow-xs',
   ].join(' '),
 
+  // SECONDARY: Neutral/gray background
   secondary: [
     'bl-bg-action-neutral',
     'bl-border bl-border-border-default',
     'bl-shadow-xs',
   ].join(' '),
 
-  outline: [
+  // STROKE: Outlined button (previously "outline")
+  stroke: [
     'bl-bg-transparent',
     'bl-border bl-border-border-default',
     'bl-shadow-xs',
   ].join(' '),
 
+  // GHOST / NEUTRAL: No background, no border
   ghost: [
     'bl-bg-transparent',
     'bl-border bl-border-transparent',
   ].join(' '),
 
+  // LINK: Text button with arrow
+  link: [
+    'bl-bg-transparent',
+    'bl-border bl-border-transparent',
+    'bl-p-0',
+  ].join(' '),
+
+  // DESTRUCTIVE: Red background for abort/delete actions
   destructive: [
     'bl-bg-status-critical-fg',
     'bl-border-2 bl-border-white/[0.12]',
@@ -64,8 +75,9 @@ const VARIANT_BASE: Record<ButtonVariant, string> = {
 const VARIANT_TEXT: Record<ButtonVariant, string> = {
   primary: 'bl-text-content-on-action',
   secondary: 'bl-text-content-secondary',
-  outline: 'bl-text-content-primary',
+  stroke: 'bl-text-content-primary',
   ghost: 'bl-text-content-primary',
+  link: 'bl-text-content-accent',
   destructive: 'bl-text-content-on-action',
 };
 
@@ -73,8 +85,9 @@ const VARIANT_TEXT: Record<ButtonVariant, string> = {
 const VARIANT_HOVER: Record<ButtonVariant, string> = {
   primary: 'hover:bl-opacity-90',
   secondary: 'hover:bl-text-content-primary hover:bl-opacity-90',
-  outline: 'hover:bl-bg-surface-layer-2',
+  stroke: 'hover:bl-bg-surface-layer-2',
   ghost: 'hover:bl-bg-surface-layer-2',
+  link: 'hover:bl-opacity-75',
   destructive: 'hover:bl-opacity-90',
 };
 
@@ -82,19 +95,23 @@ const VARIANT_HOVER: Record<ButtonVariant, string> = {
 const HAS_SKEUO: Record<ButtonVariant, boolean> = {
   primary: true,
   secondary: false,
-  outline: false,
+  stroke: false,
   ghost: false,
+  link: false,
   destructive: true,
 };
 
 /**
  * Size: padding + gap + font-size.
- * md matches Figma exactly: px-[14px] py-[10px], paragraph-sm (14px/18px).
+ * Matches Figma specs:
+ * - sm: Compact mobile contexts
+ * - md: Default (px-[14px] py-[10px], paragraph-sm 14px/18px)
+ * - lg: Prominent CTAs
  */
 const SIZE_CLASSES: Record<ButtonSize, string> = {
-  sm: 'bl-px-3    bl-py-1.5  bl-gap-1   bl-text-paragraph-xs bl-font-semibold',
+  sm: 'bl-px-3 bl-py-1.5 bl-gap-1   bl-text-paragraph-xs bl-font-semibold',
   md: 'bl-px-[var(--bl-spacing-14)] bl-py-[var(--bl-spacing-10)] bl-gap-1 bl-text-paragraph-sm bl-font-semibold',
-  lg: 'bl-px-4    bl-py-3    bl-gap-1.5 bl-text-paragraph-md bl-font-semibold',
+  lg: 'bl-px-4 bl-py-3 bl-gap-1.5 bl-text-paragraph-md bl-font-semibold',
 };
 
 // ─── Spinner ──────────────────────────────────────────────────────────────────
@@ -145,12 +162,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 ) {
   const isDisabled = disabled || isLoading;
 
+  // Link variant uses special sizing (no padding on link)
+  const sizeClass = variant === 'link' ? '' : SIZE_CLASSES[size];
+
   const classes = [
     // Layout
     'bl-relative bl-inline-flex bl-items-center bl-justify-center bl-overflow-hidden',
-    'bl-rounded-lg bl-transition-all bl-duration-150',
-    // Size
-    SIZE_CLASSES[size],
+    // CRITICAL: rounded-xl (12px) per Figma spec
+    'bl-rounded-xl bl-transition-all bl-duration-150',
+    // Size (skip for link variant)
+    sizeClass,
     // Variant shell
     VARIANT_BASE[variant],
     // Variant text colour

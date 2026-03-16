@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { Plus, ArrowRight, Download, Trash2 } from 'lucide-react';
+import { Plus, ArrowRight, Download, Trash2, ChevronRight } from 'lucide-react';
 import '../../../styles/belloa.css';
 import Button from './Button';
 
@@ -24,7 +24,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'outline', 'ghost', 'destructive'],
+      options: ['primary', 'secondary', 'stroke', 'ghost', 'link', 'destructive'],
       description: 'Visual style.',
       table: { category: 'Appearance' },
     },
@@ -70,34 +70,43 @@ type Story = StoryObj<typeof meta>;
 // ─── 1 · Figma reference — Primary ───────────────────────────────────────────
 
 /**
- * Pixel-faithful to the Figma node 58046-92508.
- * bg-action-primary · border-2 white/12 · skeuomorphic depth overlay.
+ * Pixel-faithful to the Figma WA-Belloa-Library UI KIT.
+ * bg-action-primary (#145750 dark) · border-2 white/12 · rounded-xl (12px) · skeuomorphic depth overlay.
  */
 export const Primary: Story = {
-  name: '1 · Primary (Figma ref)',
-  args: { variant: 'primary' },
+  name: '1 · PRIMARY (Figma ref)',
+  args: { variant: 'primary', children: 'Deposit Now' },
 };
 
 // ─── 2 · All variants ────────────────────────────────────────────────────────
 
 export const Secondary: Story = {
-  name: '2a · Secondary',
-  args: { variant: 'secondary' },
+  name: '2a · SECONDARY',
+  args: { variant: 'secondary', children: 'My Bets' },
 };
 
-export const Outline: Story = {
-  name: '2b · Outline',
-  args: { variant: 'outline' },
+export const Stroke: Story = {
+  name: '2b · STROKE (outline)',
+  args: { variant: 'stroke', children: 'Learn More' },
 };
 
 export const Ghost: Story = {
-  name: '2c · Ghost',
-  args: { variant: 'ghost' },
+  name: '2c · GHOST / NEUTRAL',
+  args: { variant: 'ghost', children: 'Log In' },
+};
+
+export const Link: Story = {
+  name: '2d · LINK',
+  args: { 
+    variant: 'link', 
+    children: 'See All Games',
+    trailingIcon: <ChevronRight size={16} />
+  },
 };
 
 export const Destructive: Story = {
-  name: '2d · Destructive',
-  args: { variant: 'destructive', children: 'Delete account' },
+  name: '2e · DESTRUCTIVE',
+  args: { variant: 'destructive', children: 'My Bets' },
 };
 
 // ─── 3 · Sizes ───────────────────────────────────────────────────────────────
@@ -108,7 +117,7 @@ export const SizeSmall: Story = {
 };
 
 export const SizeMedium: Story = {
-  name: '3b · Size — md  (Figma default)',
+  name: '3b · Size — md (Figma default)',
   args: { variant: 'primary', size: 'md' },
 };
 
@@ -129,11 +138,11 @@ export const WithLeadingIcon: Story = {
 };
 
 export const WithTrailingIcon: Story = {
-  name: '4b · Trailing icon',
+  name: '4b · Trailing icon (Link style)',
   args: {
-    variant: 'outline',
-    children: 'Continue',
-    trailingIcon: <ArrowRight size={16} />,
+    variant: 'link',
+    children: 'See All Games',
+    trailingIcon: <ChevronRight size={16} />,
   },
 };
 
@@ -174,13 +183,14 @@ export const FullWidth: Story = {
 // ─── 6 · Variant matrix ──────────────────────────────────────────────────────
 
 /**
- * All 5 variants side-by-side at md size — useful for visual regression.
+ * All 6 variants side-by-side at md size — useful for visual regression.
+ * Matches Figma WA-Belloa-Library UI KIT button spec.
  */
 export const VariantMatrix: Story = {
   name: '6 · Variant matrix',
   render: () => (
     <div className="bl-flex bl-flex-col bl-gap-xs">
-      {(['primary', 'secondary', 'outline', 'ghost', 'destructive'] as const).map(
+      {(['primary', 'secondary', 'stroke', 'ghost', 'link', 'destructive'] as const).map(
         (variant) => (
           <div key={variant} className="bl-flex bl-items-center bl-gap-md">
             <span className="bl-text-content-subtle bl-text-paragraph-xs bl-w-[90px] bl-text-right bl-shrink-0">
@@ -189,7 +199,11 @@ export const VariantMatrix: Story = {
             <Button variant={variant}>Button CTA</Button>
             <Button variant={variant} disabled>Disabled</Button>
             <Button variant={variant} isLoading>Loading</Button>
-            <Button variant={variant} leadingIcon={<Plus size={14} />}>With icon</Button>
+            {variant === 'link' ? (
+              <Button variant={variant} trailingIcon={<ChevronRight size={14} />}>With icon</Button>
+            ) : (
+              <Button variant={variant} leadingIcon={<Plus size={14} />}>With icon</Button>
+            )}
           </div>
         ),
       )}

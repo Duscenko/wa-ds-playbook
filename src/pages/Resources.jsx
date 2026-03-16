@@ -1,5 +1,4 @@
 import { SectionTitle } from '../components/UI';
-import { SectionTitle } from '../components/UI';
 import primitives from '../data/primitives.json';
 import semanticColors from '../data/semantic-colors.json';
 import utility from '../data/utility.json';

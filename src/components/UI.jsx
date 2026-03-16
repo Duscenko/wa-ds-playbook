@@ -47,12 +47,13 @@ export function CopyBadge({ text, children }) {
    Accepts `title` (string) OR `children`. */
 export function SectionTitle({ title, children, sub }) {
   return (
-    <div style={{ marginBottom: 28 }}>
+    <div style={{ marginBottom: 32 }}>
       <h2 style={{
-        fontSize: 26, fontWeight: 700, color: 'var(--text)',
-        fontFamily: 'var(--font-display)', letterSpacing: '-0.5px',
+        fontSize: 28, fontWeight: 700, color: 'var(--text)',
+        fontFamily: 'var(--font-display)', letterSpacing: '-0.6px',
+        lineHeight: 1.2,
       }}>{title || children}</h2>
-      {sub && <p style={{ fontSize: 14, color: 'var(--text3)', marginTop: 4 }}>{sub}</p>}
+      {sub && <p style={{ fontSize: 14, color: 'var(--text3)', marginTop: 6, lineHeight: 1.6 }}>{sub}</p>}
     </div>
   );
 }
@@ -91,16 +92,31 @@ export function TabBar({ tabs, active, onChange }) {
 export function InfoCard({ icon, title, desc, children, color }) {
   return (
     <div style={{
-      padding: 18, borderRadius: 10,
+      padding: 20, borderRadius: 'var(--radius-lg)',
       border: '1px solid var(--border)', background: 'var(--bg1)',
-      transition: 'border-color 200ms',
-    }}>
-      {icon && <div style={{ fontSize: 20, marginBottom: 8 }}>{icon}</div>}
+      transition: 'all var(--transition-slow)',
+      cursor: 'default',
+      position: 'relative',
+      overflow: 'hidden',
+    }}
+    onMouseEnter={e => {
+      e.currentTarget.style.borderColor = 'var(--border-hover)';
+      e.currentTarget.style.transform = 'translateY(-2px)';
+      e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+    }}
+    onMouseLeave={e => {
+      e.currentTarget.style.borderColor = 'var(--border)';
+      e.currentTarget.style.transform = 'translateY(0)';
+      e.currentTarget.style.boxShadow = 'none';
+    }}
+    >
+      {icon && <div style={{ fontSize: 24, marginBottom: 12, opacity: 0.9 }}>{icon}</div>}
       <div style={{
-        fontWeight: 600, fontSize: 14, marginBottom: 4,
+        fontWeight: 600, fontSize: 14, marginBottom: 6,
         color: color || 'var(--accent)', fontFamily: 'var(--font-display)',
+        letterSpacing: '-0.2px',
       }}>{title}</div>
-      <p style={{ fontSize: 12, color: 'var(--text3)', lineHeight: 1.5 }}>
+      <p style={{ fontSize: 13, color: 'var(--text3)', lineHeight: 1.6 }}>
         {desc || children}
       </p>
     </div>

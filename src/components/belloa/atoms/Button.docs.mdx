@@ -1,0 +1,236 @@
+import { Meta, Typeset } from '@storybook/blocks';
+
+<Meta title="Belloa / Atoms / Button / Documentation" />
+
+<style>{`
+  .component-header {
+    border-left: 4px solid #0EB39E;
+    padding-left: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .component-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #EDEEF0;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .component-owner {
+    font-size: 14px;
+    color: #717D79;
+    margin-bottom: 1rem;
+  }
+  
+  .section {
+    margin-bottom: 3rem;
+  }
+  
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #EDEEF0;
+    margin: 0 0 1rem 0;
+    border-bottom: 1px solid rgba(249, 250, 251, 0.07);
+    padding-bottom: 0.5rem;
+  }
+  
+  .section-content {
+    color: #B0B4BA;
+    line-height: 1.6;
+  }
+  
+  .properties-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  .properties-table th {
+    background: #171918;
+    color: #EDEEF0;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px;
+    border: 1px solid rgba(249, 250, 251, 0.07);
+    font-size: 14px;
+  }
+  
+  .properties-table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(249, 250, 251, 0.07);
+    color: #B0B4BA;
+    font-size: 14px;
+  }
+  
+  .properties-table code {
+    background: rgba(14, 179, 158, 0.1);
+    color: #0EB39E;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Menlo', monospace;
+    font-size: 12px;
+  }
+  
+  .usage-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .usage-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(249, 250, 251, 0.07);
+    color: #B0B4BA;
+  }
+  
+  .usage-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .related-link {
+    color: #0EB39E;
+    text-decoration: none;
+  }
+  
+  .related-link:hover {
+    text-decoration: underline;
+  }
+`}</style>
+
+<div className="component-header">
+  <h1 className="component-title">Button</h1>
+  <div className="component-owner">Owner: WA Design Team · Belloa Atoms</div>
+</div>
+
+<div className="section">
+  <h2 className="section-title">What problem does it solve?</h2>
+  <div className="section-content">
+    <p>
+      The Button component provides a consistent, accessible, and visually distinct way to trigger actions across the Belloa iGaming platform. 
+      It solves the challenge of maintaining brand consistency while supporting multiple interaction patterns (primary actions, secondary actions, destructive operations, and navigation).
+    </p>
+    <p>
+      By standardizing button styling, states, and behaviors, it ensures users can instantly recognize actionable elements and understand their relative importance through visual hierarchy.
+    </p>
+  </div>
+</div>
+
+<div className="section">
+  <h2 className="section-title">When & how to use it?</h2>
+  <div className="section-content">
+    <p><strong>Use Button when you need to:</strong></p>
+    <ul className="usage-list">
+      <li>✓ Trigger an immediate action (submit form, open modal, confirm operation)</li>
+      <li>✓ Navigate to another page or section (when styled as 'link' variant)</li>
+      <li>✓ Perform a destructive action (delete, cancel, remove) with visual warning</li>
+      <li>✓ Provide a secondary or tertiary action alongside a primary CTA</li>
+      <li>✓ Create icon-only controls in toolbars or compact interfaces</li>
+    </ul>
+    
+    <p style={{ marginTop: '1.5rem' }}><strong>Choose the right variant:</strong></p>
+    <ul className="usage-list">
+      <li><code>primary</code> → Main action, highest emphasis (deposits, bets, confirmations)</li>
+      <li><code>secondary</code> → Supporting actions with moderate emphasis</li>
+      <li><code>stroke</code> → Outline style for alternative actions</li>
+      <li><code>ghost</code> → Low emphasis, minimal visual weight</li>
+      <li><code>link</code> → Text-only, for inline navigation</li>
+      <li><code>destructive</code> → Destructive actions (delete, cancel, remove)</li>
+    </ul>
+  </div>
+</div>
+
+<div className="section">
+  <h2 className="section-title">Current usage</h2>
+  <div className="section-content">
+    <ul className="usage-list">
+      <li>Authentication flows (Login, Register)</li>
+      <li>Cashier/Deposit flows (Deposit CTAs, payment confirmations)</li>
+      <li>TopNavigation (Login/Register buttons, Deposit CTA)</li>
+      <li>Modals and confirmation dialogs</li>
+      <li>Game launch triggers</li>
+      <li>Bet placement and confirmation</li>
+    </ul>
+  </div>
+</div>
+
+<div className="section">
+  <h2 className="section-title">Related components</h2>
+  <div className="section-content">
+    <ul className="usage-list">
+      <li><a href="?path=/docs/belloa-atoms-textfield--docs" className="related-link">TextField</a> — Often used together in forms</li>
+      <li><a href="?path=/docs/belloa-atoms-searchbar--docs" className="related-link">SearchBar</a> — Search interfaces with action buttons</li>
+      <li><a href="?path=/docs/belloa-organisms-topnavigation--docs" className="related-link">TopNavigation</a> — Uses Button for Login/Register/Deposit</li>
+    </ul>
+  </div>
+</div>
+
+<div className="section">
+  <h2 className="section-title">Properties</h2>
+  
+  <table className="properties-table">
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>variant</code></td>
+        <td><code>'primary' | 'secondary' | 'stroke' | 'ghost' | 'link' | 'destructive'</code></td>
+        <td><code>'primary'</code></td>
+        <td>Visual style and emphasis level</td>
+      </tr>
+      <tr>
+        <td><code>size</code></td>
+        <td><code>'sm' | 'md' | 'lg'</code></td>
+        <td><code>'md'</code></td>
+        <td>Button size (affects padding and font size)</td>
+      </tr>
+      <tr>
+        <td><code>disabled</code></td>
+        <td><code>boolean</code></td>
+        <td><code>false</code></td>
+        <td>Disables interaction and applies disabled styling</td>
+      </tr>
+      <tr>
+        <td><code>loading</code></td>
+        <td><code>boolean</code></td>
+        <td><code>false</code></td>
+        <td>Shows loading spinner, disables interaction</td>
+      </tr>
+      <tr>
+        <td><code>leftIcon</code></td>
+        <td><code>React.ReactNode</code></td>
+        <td><code>undefined</code></td>
+        <td>Icon displayed before text</td>
+      </tr>
+      <tr>
+        <td><code>rightIcon</code></td>
+        <td><code>React.ReactNode</code></td>
+        <td><code>undefined</code></td>
+        <td>Icon displayed after text</td>
+      </tr>
+      <tr>
+        <td><code>fullWidth</code></td>
+        <td><code>boolean</code></td>
+        <td><code>false</code></td>
+        <td>Stretches button to full container width</td>
+      </tr>
+      <tr>
+        <td><code>onClick</code></td>
+        <td><code>() => void</code></td>
+        <td><code>undefined</code></td>
+        <td>Click event handler</td>
+      </tr>
+      <tr>
+        <td><code>children</code></td>
+        <td><code>React.ReactNode</code></td>
+        <td><code>—</code></td>
+        <td>Button label text or content</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

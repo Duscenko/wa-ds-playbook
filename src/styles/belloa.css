@@ -1,5 +1,10 @@
 /*
- * Belloa Design System — Isolated Tailwind Entry Point
+ * Belloa Design System — Token-Based CSS Variables
+ *
+ * Auto-generated from DTCG token files:
+ * - primitives-global.belloa (main-dark, main-light, neutral-dark, neutral-light)
+ * - utility (overlay-black, overlay-white, red, green, yellow, blue)
+ * - semantic-colors (resolved per brand mode)
  *
  * Imported globally in .storybook/preview.js for Storybook.
  * Imported per-component in the main app to scope styles.
@@ -8,48 +13,73 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Semantic Color Variables — Light Mode (default) ────────────────────── */
+/* ══════════════════════════════════════════════════════════════════════════
+   LIGHT MODE (default) — belloa-light
+   ══════════════════════════════════════════════════════════════════════════ */
 :root {
-  /* Content */
-  --bl-content-primary:   #11181C;
-  --bl-content-on-action: #FCFCFD;
-  --bl-content-secondary: #313538;
-  --bl-content-subtle:    #4B5156;
-  --bl-content-inverse:   #FCFCFD;
-  --bl-content-accent:    #0BC3AD;
+  /* ── Content ──────────────────────────────────────────────────────────── */
+  --bl-content-primary:   #11181c;     /* neutral-light.1200 */
+  --bl-content-on-action: #fcfcfd;     /* neutral-light.100 */
+  --bl-content-secondary: #4b5156;     /* neutral-light.1000 */
+  --bl-content-subtle:    #687076;     /* neutral-light.900 */
+  --bl-content-inverse:   #fcfcfd;     /* neutral-light.100 */
+  --bl-content-accent:    #067a6f;     /* main-light.1100 */
 
-  /* Action */
-  --bl-action-primary:   #0BC3AD;
-  --bl-action-neutral:   #E9ECEF;
-  --bl-action-secondary: #D7DBDF;
-  --bl-action-disabled:  #E9ECEF;
+  /* ── Action ───────────────────────────────────────────────────────────── */
+  --bl-action-primary:    #0bc3ad;     /* main-light.900 */
+  --bl-action-neutral:    #e9ecef;     /* neutral-light.400 */
+  --bl-action-secondary:  rgba(0, 204, 153, 0.314); /* main-light-alpha.600 */
+  --bl-action-disabled:   #e9ecef;     /* neutral-light.400 */
 
-  /* Surface */
-  --bl-surface-page:    #FCFCFD;
-  --bl-surface-layer-1: #F8F9FA;
-  --bl-surface-layer-2: #E9ECEF;
-  --bl-surface-accent:  #067A6F;
-  --bl-surface-inverse: #11181C;
-  --bl-surface-overlay: rgba(0, 0, 0, 0.66);
+  /* ── Surface ──────────────────────────────────────────────────────────── */
+  --bl-surface-page:      #fcfcfd;     /* neutral-light.100 */
+  --bl-surface-layer-1:   #f1f3f5;     /* neutral-light.300 */
+  --bl-surface-layer-2:   #e9ecef;     /* neutral-light.400 */
+  --bl-surface-accent:    #d6f1eb;     /* main-light.400 */
+  --bl-surface-inverse:   #313538;     /* neutral-light.1100 */
+  --bl-surface-overlay:   rgba(0, 0, 0, 0.75); /* overlay-black.1000 */
 
-  /* Border */
-  --bl-border-default:  #D7DBDF;
-  --bl-border-accent:   #0EB39E;
-  --bl-border-subtle:   #E9ECEF;
-  --bl-border-active:   #0BC3AD;
-  --bl-border-critical: #dc3e42;
-  --bl-border-warning:  #d5ae39;
-  --bl-border-success:  #30a46c;
+  /* ── Border ───────────────────────────────────────────────────────────── */
+  --bl-border-default:    #d7dbdf;     /* neutral-light.600 */
+  --bl-border-accent:     #09b29e;     /* main-light.1000 */
+  --bl-border-subtle:     rgba(249, 250, 251, 0.07); /* overlay-white.300 */
+  --bl-border-active:     #0bc3ad;     /* main-light.900 */
+  --bl-border-focus:      rgba(0, 204, 153, 0.447); /* main-light-alpha.700 */
+  --bl-border-critical:   #dc3d43;     /* red-light.1000 */
+  --bl-border-success:    #299764;     /* green-light.1000 */
+  --bl-border-warning:    #f7ce00;     /* yellow-light.1000 */
 
-  /* Status */
-  --bl-status-critical-bg: #ce2c31;
-  --bl-status-critical-fg: #dc3e42;
-  --bl-status-warning-bg:  #ffdc00;
-  --bl-status-warning-fg:  #d5ae39;
-  --bl-status-success-bg:  #218358;
-  --bl-status-success-fg:  #30a46c;
+  /* ── State ────────────────────────────────────────────────────────────── */
+  --bl-state-layer-hover:   rgba(249, 250, 251, 0.05); /* overlay-white.200 */
+  --bl-state-layer-pressed: rgba(0, 0, 0, 0.2);        /* overlay-black.500 */
 
-  /* Dimensions & Spacing */
+  /* ── Status ───────────────────────────────────────────────────────────── */
+  --bl-status-critical-bg: #ffe5e5;    /* red-light.400 */
+  --bl-status-critical-fg: #dc3d43;    /* red-light.1000 */
+  --bl-status-success-bg:  #ddf3e4;    /* green-light.400 */
+  --bl-status-success-fg:  #299764;    /* green-light.1000 */
+  --bl-status-warning-bg:  rgba(255, 216, 0, 0.271); /* yellow-light-alpha.400 */
+  --bl-status-warning-fg:  #f7ce00;    /* yellow-light.1000 */
+
+  /* ── Brand Gradients ──────────────────────────────────────────────────── */
+  --bl-brand-gd-start:    #0bd8b6;     /* main-dark.1100 */
+  --bl-brand-gd-end:      #12a594;     /* main-dark.900 */
+
+  /* ── Promo Gradients ──────────────────────────────────────────────────── */
+  --bl-promo-gd-start:    #e5484d;     /* red-light.900 */
+  --bl-promo-gd-end:      #f5d90a;     /* yellow-light.900 */
+
+  /* ── Overlay Gradients ────────────────────────────────────────────────── */
+  --bl-overlay-soft-gd-start: rgba(249, 250, 251, 0.11); /* overlay-white.400 */
+  --bl-overlay-soft-gd-end:   rgba(249, 250, 251, 0.5);  /* overlay-white.1000 */
+
+  --bl-overlay-image-gd-start: rgba(0, 0, 0, 0.02);  /* overlay-black.100 */
+  --bl-overlay-image-gd-end:   rgba(0, 0, 0, 0.2);   /* overlay-black.500 */
+
+  --bl-secondary-gd-start:     #ffffff;
+  --bl-secondary-gd-end:       #ffffff;
+
+  /* ── Dimensions & Spacing ─────────────────────────────────────────────── */
   --bl-spacing-14: 14px;
   --bl-spacing-10: 10px;
   --bl-header-height: 72px;
@@ -58,52 +88,77 @@
   --bl-dropdown-width-lg: 200px;
   --bl-dropdown-width-md: 163px;
 
-  /* Skeuomorphic Shadows */
+  /* ── Skeuomorphic Shadows ─────────────────────────────────────────────── */
   --bl-shadow-skeuo-inner: inset 0px 0px 0px 1px rgba(10, 13, 18, 0.18), inset 0px -2px 0px 0px rgba(10, 13, 18, 0.05);
 }
 
-/* ── Semantic Color Variables — Dark Mode ───────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════════════════
+   DARK MODE — belloa-default
+   ══════════════════════════════════════════════════════════════════════════ */
 .dark {
-  /* Content */
-  --bl-content-primary:   #EDEEF0;
-  --bl-content-on-action: #EDEEF0;
-  --bl-content-secondary: #B0B4BA;
-  --bl-content-subtle:    #717D79;
-  --bl-content-inverse:   #101211;
-  --bl-content-accent:    #12A594;
+  /* ── Content ──────────────────────────────────────────────────────────── */
+  --bl-content-primary:   #edeef0;     /* neutral-dark.1200 */
+  --bl-content-on-action: #edeef0;     /* neutral-dark.1200 */
+  --bl-content-secondary: #b0b4ba;     /* neutral-dark.1100 */
+  --bl-content-subtle:    #717d79;     /* neutral-dark.1000 */
+  --bl-content-inverse:   #101211;     /* neutral-dark.100 */
+  --bl-content-accent:    #0eb39e;     /* main-dark.1000 */
 
-  /* Action */
-  --bl-action-primary:   #145750;
-  --bl-action-neutral:   #171918;
-  --bl-action-secondary: #EDEEF0;
-  --bl-action-disabled:  rgba(255, 255, 255, 0.05);
+  /* ── Action ───────────────────────────────────────────────────────────── */
+  --bl-action-primary:    #145750;     /* main-dark.600 */
+  --bl-action-neutral:    rgba(249, 250, 251, 0.07); /* overlay-white.300 */
+  --bl-action-secondary:  rgba(0, 222, 171, 0.02);   /* main-dark-alpha.100 */
+  --bl-action-disabled:   rgba(249, 250, 251, 0.05); /* overlay-white.200 */
 
-  /* Surface */
-  --bl-surface-page:    #101211;
-  --bl-surface-layer-1: #171918;
-  --bl-surface-layer-2: #272A29;
-  --bl-surface-accent:  #0D2D2A;
-  --bl-surface-inverse: #B0B4BA;
-  --bl-surface-overlay: rgba(0, 0, 0, 0.66);
+  /* ── Surface ──────────────────────────────────────────────────────────── */
+  --bl-surface-page:      #101211;     /* neutral-dark.100 */
+  --bl-surface-layer-1:   #171918;     /* neutral-dark.200 */
+  --bl-surface-layer-2:   #202221;     /* neutral-dark.300 */
+  --bl-surface-accent:    #0d2d2a;     /* main-dark.300 */
+  --bl-surface-inverse:   #b0b4ba;     /* neutral-dark.1100 */
+  --bl-surface-overlay:   rgba(0, 0, 0, 0.85); /* overlay-black.1100 */
 
-  /* Border */
-  --bl-border-default:  #373B39;
-  --bl-border-accent:   #1C6961;
-  --bl-border-subtle:   rgba(255, 255, 255, 0.07);
-  --bl-border-active:   #12A594;
-  --bl-border-critical: #b54548;
-  --bl-border-warning:  #836a21;
-  --bl-border-success:  #2f7c57;
+  /* ── Border ───────────────────────────────────────────────────────────── */
+  --bl-border-default:    rgba(249, 250, 251, 0.31); /* overlay-white.800 */
+  --bl-border-accent:     #1c6961;     /* main-dark.700 */
+  --bl-border-subtle:     rgba(249, 250, 251, 0.07); /* overlay-white.300 */
+  --bl-border-active:     #0eb39e;     /* main-dark.1000 */
+  --bl-border-focus:      rgba(0, 222, 171, 0.373);  /* main-dark-alpha.700 */
+  --bl-border-critical:   #b54548;     /* red-dark.800 */
+  --bl-border-success:    #236e4a;     /* green-dark.800 */
+  --bl-border-warning:    #836a21;     /* yellow-dark.800 */
 
-  /* Status */
-  --bl-status-critical-bg: #500f1c;
-  --bl-status-critical-fg: #ec5d5e;
-  --bl-status-warning-bg:  #524202;
-  --bl-status-warning-fg:  #ffff57;
-  --bl-status-success-bg:  #20573e;
-  --bl-status-success-fg:  #33b074;
+  /* ── State ────────────────────────────────────────────────────────────── */
+  --bl-state-layer-hover:   rgba(249, 250, 251, 0.05); /* overlay-white.200 */
+  --bl-state-layer-pressed: rgba(0, 0, 0, 0.2);        /* overlay-black.500 */
 
-  /* Dimensions & Spacing */
+  /* ── Status ───────────────────────────────────────────────────────────── */
+  --bl-status-critical-bg: #500f1c;    /* red-dark.400 */
+  --bl-status-critical-fg: #ec5d5e;    /* red-dark.1000 */
+  --bl-status-success-bg:  #113123;    /* green-dark.400 */
+  --bl-status-success-fg:  #3cb179;    /* green-dark.1000 */
+  --bl-status-warning-bg:  rgba(255, 170, 0, 0.118); /* yellow-dark-alpha.300 */
+  --bl-status-warning-fg:  #ffff57;    /* yellow-dark.1000 */
+
+  /* ── Brand Gradients ──────────────────────────────────────────────────── */
+  --bl-brand-gd-start:    #0bd8b6;     /* main-dark.1100 */
+  --bl-brand-gd-end:      #12a594;     /* main-dark.900 */
+
+  /* ── Promo Gradients ──────────────────────────────────────────────────── */
+  --bl-promo-gd-start:    #e5484d;     /* red-dark.900 */
+  --bl-promo-gd-end:      #ffe629;     /* yellow-dark.900 */
+
+  /* ── Overlay Gradients ────────────────────────────────────────────────── */
+  --bl-overlay-soft-gd-start: rgba(249, 250, 251, 0.11); /* overlay-white.400 */
+  --bl-overlay-soft-gd-end:   rgba(249, 250, 251, 0.5);  /* overlay-white.1000 */
+
+  --bl-overlay-image-gd-start: rgba(0, 0, 0, 0.02);  /* overlay-black.100 */
+  --bl-overlay-image-gd-end:   rgba(0, 0, 0, 0.3);   /* overlay-black.600 */
+
+  --bl-secondary-gd-start:     #ffffff;
+  --bl-secondary-gd-end:       #ffffff;
+
+  /* ── Dimensions & Spacing (unchanged) ─────────────────────────────────── */
   --bl-spacing-14: 14px;
   --bl-spacing-10: 10px;
   --bl-header-height: 72px;
@@ -112,6 +167,6 @@
   --bl-dropdown-width-lg: 200px;
   --bl-dropdown-width-md: 163px;
 
-  /* Skeuomorphic Shadows */
+  /* ── Skeuomorphic Shadows (unchanged) ─────────────────────────────────── */
   --bl-shadow-skeuo-inner: inset 0px 0px 0px 1px rgba(10, 13, 18, 0.18), inset 0px -2px 0px 0px rgba(10, 13, 18, 0.05);
 }

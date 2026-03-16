@@ -1,0 +1,339 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Getting Started/Introduction" />
+
+<style>{`
+  .wa-hero {
+    background: #000000;
+    padding: 6rem 3rem;
+    margin: -1rem -1rem 3rem -1rem;
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .wa-hero-content {
+    max-width: 100%;
+  }
+  
+  .wa-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .wa-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 25%, #6BCB77 50%, #4D96FF 75%, #9D4EDD 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #FFFFFF;
+    flex-shrink: 0;
+  }
+  
+  .wa-icon-slashes {
+    width: 64px;
+    height: 64px;
+    background: #2A2A2A;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+  }
+  
+  .wa-icon-slashes::before,
+  .wa-icon-slashes::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 32px;
+    background: #E5E5E5;
+    border-radius: 3px;
+  }
+  
+  .wa-icon-slashes::before {
+    transform: rotate(20deg) translateX(-8px);
+  }
+  
+  .wa-icon-slashes::after {
+    transform: rotate(20deg) translateX(8px);
+  }
+  
+  .wa-badge {
+    background: #2A2A2A;
+    border-radius: 100px;
+    padding: 8px 20px;
+    display: inline-block;
+    margin-left: auto;
+  }
+  
+  .wa-badge-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: #B0B4BA;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  .wa-title {
+    font-size: 56px;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin: 0 0 1rem 0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  .wa-subtitle {
+    font-size: 18px;
+    color: #717D79;
+    margin: 0 0 3rem 0;
+    line-height: 1.6;
+  }
+  
+  .wa-cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  
+  .wa-btn-primary {
+    background: #0EB39E;
+    color: #FFFFFF;
+  }
+  
+  .wa-btn-primary:hover {
+    background: #0BC3AD;
+    transform: translateY(-1px);
+  }
+  
+  .wa-btn-secondary {
+    background: transparent;
+    color: #EDEEF0;
+    border: 1px solid rgba(249, 250, 251, 0.31);
+  }
+  
+  .wa-btn-secondary:hover {
+    border-color: rgba(249, 250, 251, 0.5);
+    background: rgba(249, 250, 251, 0.05);
+  }
+  
+  .wa-section {
+    margin-bottom: 3rem;
+  }
+  
+  .wa-section-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #EDEEF0;
+    margin: 0 0 1.5rem 0;
+  }
+  
+  .wa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  
+  .wa-card {
+    background: #171918;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(249, 250, 251, 0.07);
+  }
+  
+  .wa-card-title {
+    margin: 0 0 0.5rem 0;
+    color: #EDEEF0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .wa-card-text {
+    margin: 0;
+    color: #717D79;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .wa-footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: #717D79;
+    font-size: 14px;
+    border-top: 1px solid rgba(249, 250, 251, 0.07);
+    margin-top: 4rem;
+  }
+`}</style>
+
+<div className="wa-hero">
+  <div className="wa-hero-content">
+    <div className="wa-logo-row">
+      <div className="wa-logo">WA</div>
+      <div className="wa-icon-slashes"></div>
+      <div className="wa-badge">
+        <span className="wa-badge-text">Updated February 2026</span>
+      </div>
+    </div>
+    
+    <h1 className="wa-title">WA Design System</h1>
+    
+    <p className="wa-subtitle">
+      Figma component library based on shadcn/ui.
+      <br />
+      Production-ready components for multi-brand iGaming platforms.
+    </p>
+    
+    <div className="wa-cta-row">
+      <a 
+        href="https://wa-ds-playbook.vercel.app/" 
+        target="_blank"
+        rel="noopener noreferrer"
+        className="wa-btn wa-btn-primary"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8.5 1a.5.5 0 00-1 0v5.293L5.354 4.146a.5.5 0 10-.708.708l3 3a.5.5 0 00.708 0l3-3a.5.5 0 00-.708-.708L8.5 6.293V1zM3 9.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0 3a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5z"/>
+        </svg>
+        View Playbook
+      </a>
+      
+      <a 
+        href="https://www.figma.com/design/wrvnJAE17VDXukPSYeua2r/WA-Design-system--Beta---Obra-shadcn" 
+        target="_blank"
+        rel="noopener noreferrer"
+        className="wa-btn wa-btn-secondary"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M5.5 1A2.5 2.5 0 003 3.5v9A2.5 2.5 0 005.5 15h7a2.5 2.5 0 002.5-2.5v-9A2.5 2.5 0 0012.5 1h-7zM4 3.5A1.5 1.5 0 015.5 2h7A1.5 1.5 0 0114 3.5v9a1.5 1.5 0 01-1.5 1.5h-7A1.5 1.5 0 014 12.5v-9z"/>
+        </svg>
+        Open in Figma
+      </a>
+    </div>
+  </div>
+</div>
+
+<div className="wa-section">
+  <h2 className="wa-section-title">Architecture</h2>
+  <p style={{ color: '#B0B4BA', marginBottom: '1.5rem' }}>
+    The WA Design System uses a 3-tier token architecture powering <strong>6 iGaming brands</strong>: Belloa, Superbetin, Manat, Spinpokio, Pick'em, and WA Default.
+  </p>
+  
+  <div style={{ 
+    background: '#171918', 
+    padding: '1.5rem', 
+    borderRadius: '8px', 
+    border: '1px solid rgba(249, 250, 251, 0.07)',
+    fontFamily: 'monospace',
+    fontSize: '14px',
+    color: '#B0B4BA',
+    marginBottom: '2rem'
+  }}>
+    <div>Tier 1 — Primitives (brand-specific raw values)</div>
+    <div style={{ paddingLeft: '2rem', margin: '0.5rem 0' }}>↓</div>
+    <div>Tier 2 — Semantic (intent-based aliases)</div>
+    <div style={{ paddingLeft: '2rem', margin: '0.5rem 0' }}>↓</div>
+    <div>Tier 3 — Component tokens (resolved per component)</div>
+  </div>
+</div>
+
+<div className="wa-section">
+  <h2 className="wa-section-title">Current Components</h2>
+  
+  <div className="wa-grid">
+    <div className="wa-card">
+      <h3 className="wa-card-title">Atoms</h3>
+      <p className="wa-card-text">
+        Button, TextField, SearchBar — Foundational UI elements with full token integration.
+      </p>
+    </div>
+    
+    <div className="wa-card">
+      <h3 className="wa-card-title">Organisms</h3>
+      <p className="wa-card-text">
+        TopNavigation, Login (coming soon) — Complex patterns for iGaming platforms.
+      </p>
+    </div>
+    
+    <div className="wa-card">
+      <h3 className="wa-card-title">Status</h3>
+      <p className="wa-card-text">
+        Active development — Published to Chromatic for visual regression testing.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div className="wa-section">
+  <h2 className="wa-section-title">Quick Links</h2>
+  
+  <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+    <li style={{ marginBottom: '0.75rem' }}>
+      <a 
+        href="https://wa-ds-playbook.vercel.app/" 
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: '#0EB39E', textDecoration: 'none', fontSize: '16px' }}
+      >
+        <strong>View Playbook →</strong>
+      </a>
+      <p style={{ margin: '0.25rem 0 0 0', color: '#717D79', fontSize: '14px' }}>
+        Complete design guidelines, token documentation, and usage patterns
+      </p>
+    </li>
+    
+    <li style={{ marginBottom: '0.75rem' }}>
+      <a 
+        href="https://www.figma.com/design/wrvnJAE17VDXukPSYeua2r/" 
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: '#0EB39E', textDecoration: 'none', fontSize: '16px' }}
+      >
+        <strong>Figma Library →</strong>
+      </a>
+      <p style={{ margin: '0.25rem 0 0 0', color: '#717D79', fontSize: '14px' }}>
+        Obra-shadcn base library and Belloa UI Kit
+      </p>
+    </li>
+    
+    <li>
+      <a 
+        href="https://www.chromatic.com/build?appId=69b7d9b662538807801f2c61" 
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: '#0EB39E', textDecoration: 'none', fontSize: '16px' }}
+      >
+        <strong>Chromatic Builds →</strong>
+      </a>
+      <p style={{ margin: '0.25rem 0 0 0', color: '#717D79', fontSize: '14px' }}>
+        Visual regression testing and component snapshots
+      </p>
+    </li>
+  </ul>
+</div>
+
+<div className="wa-footer">
+  Built by WA Technology Design Team · Updated February 2026
+</div>
