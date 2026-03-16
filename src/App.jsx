@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from './components/ThemeContext';
 import ThemeSwitcher from './components/ThemeSwitcher';
-import { PanelLeft } from 'lucide-react';
+import { PanelLeft, Hand, Beaker, Layers, Palette, Type, Maximize, CornerUpRight, Copy, PieChart, Book, PenTool, FileJson } from 'lucide-react';
 
 import { IntroductionPage, PrinciplesPage, TokenArchitecturePage } from './pages/GetStarted';
 import { ColorPage, TypographyPage, SpacingPage, RadiiPage, ShadowsPage, ChartColorsPage } from './pages/Foundations';
@@ -13,26 +13,26 @@ import { ResourcesOverviewPage, FigmaLibraryPage, JsonExportsPage } from './page
 const NAV = [
   {
     id: 'get-started', label: 'Get Started', children: [
-      { id: 'intro', label: 'Introduction' },
-      { id: 'principles', label: 'Principles' },
-      { id: 'arch', label: 'Token Architecture' },
+      { id: 'intro', label: 'Introduction', icon: Hand },
+      { id: 'principles', label: 'Principles', icon: Beaker },
+      { id: 'arch', label: 'Token Architecture', icon: Layers },
     ]
   },
   {
     id: 'foundations', label: 'Foundations', children: [
-      { id: 'color', label: 'Color' },
-      { id: 'typo', label: 'Typography' },
-      { id: 'spacing', label: 'Spacing' },
-      { id: 'radii', label: 'Border Radii' },
-      { id: 'shadows', label: 'Shadows' },
-      { id: 'charts', label: 'Chart Colors' },
+      { id: 'color', label: 'Color', icon: Palette },
+      { id: 'typo', label: 'Typography', icon: Type },
+      { id: 'spacing', label: 'Spacing', icon: Maximize },
+      { id: 'radii', label: 'Border Radii', icon: CornerUpRight },
+      { id: 'shadows', label: 'Shadows', icon: Copy },
+      { id: 'charts', label: 'Chart Colors', icon: PieChart },
     ]
   },
   {
     id: 'resources', label: 'Resources', children: [
-      { id: 'resources-overview', label: 'Overview' },
-      { id: 'figma', label: 'Figma Library' },
-      { id: 'json', label: 'JSON Exports' },
+      { id: 'resources-overview', label: 'Overview', icon: Book },
+      { id: 'figma', label: 'Figma Library', icon: PenTool },
+      { id: 'json', label: 'JSON Exports', icon: FileJson },
     ]
   },
 ];
@@ -193,18 +193,18 @@ export default function App() {
                               style={{
                                 display: 'flex', width: '100%', textAlign: 'left',
                                 alignItems: 'center',
-                                justifyContent: 'space-between',
-                                padding: '6px 12px',
+                                gap: 8,
+                                padding: '8px 12px',
                                 borderRadius: 'var(--radius-sm)',
                                 fontSize: 13, fontFamily: 'var(--font)',
                                 color: isActive || isSubChildActive
-                                  ? 'var(--accent)'
+                                  ? '#ffffff'
                                   : 'var(--text2)',
                                 background: isActive || isSubChildActive
-                                  ? 'var(--accent-subtle)'
+                                  ? 'var(--accent)'
                                   : 'transparent',
                                 border: 'none', cursor: 'pointer',
-                                marginBottom: 1, transition: 'all 120ms',
+                                marginBottom: 2, transition: 'all 120ms',
                               }}
                               onMouseEnter={e => {
                                 if (!isActive && !isSubChildActive) {
@@ -219,7 +219,8 @@ export default function App() {
                                 }
                               }}
                             >
-                              <span>{child.label}</span>
+                              {child.icon && <child.icon size={16} strokeWidth={1.5} color={isActive || isSubChildActive ? '#ffffff' : 'var(--text3)'} />}
+                              <span style={{ flex: 1, fontWeight: isActive || isSubChildActive ? 500 : 400 }}>{child.label}</span>
                               {hasSubChildren && (
                                 <ChevronDown size={14} rotated={subExpanded} />
                               )}

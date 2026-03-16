@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Overview" />
+
+<style>{`
+  /* Reset de layout para documentación full-width */
+  .sbdocs-wrapper {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  
+  .sbdocs-content {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  
+  /* Hero section con gradiente brand */
+  .wa-hero-section {
+    background: linear-gradient(180deg, #0D2D2A 0%, #101211 100%);
+    padding: 6rem 4rem;
+    margin: -1rem -1rem 0 -1rem;
+    border-bottom: 1px solid rgba(13, 216, 182, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Pattern de fondo sutil */
+  .wa-hero-section::before {
+    content: '';
