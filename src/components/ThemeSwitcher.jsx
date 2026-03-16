@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTheme } from './ThemeContext';
 import { ChevronDown } from './UI';
+import { Search, Moon, Sun } from 'lucide-react';
 
 /* ─── Generic Dropdown ────────────────────────────── */
 function Dropdown({ label, value, options, onChange }) {
@@ -90,57 +91,94 @@ function Dropdown({ label, value, options, onChange }) {
 
 /* ─── Search Input ────────────────────────────── */
 function SearchInput({ value, onChange, placeholder = 'Search...' }) {
+  const [expanded, setExpanded] = useState(false);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (expanded && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [expanded]);
+
+  // Click outside to collapse
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (inputRef.current && !inputRef.current.parentElement.contains(e.target)) {
+        if (!value) setExpanded(false); // only collapse if empty
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [value]);
+
   return (
-    <div style={{ position: 'relative', width: 320 }}>
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        style={{
-          width: '100%',
-          height: 40,
-          padding: '0 16px 0 44px',
-          borderRadius: 'var(--radius, 6px)',
-          background: 'var(--bg2)',
-          border: '1px solid var(--border)',
-          color: 'var(--text)',
-          fontSize: 13,
-          fontFamily: 'var(--font)',
-          outline: 'none',
-          transition: 'all 200ms',
-        }}
-        onFocus={(e) => {
-          e.target.style.borderColor = 'var(--accent)';
-          e.target.style.background = 'var(--bg3)';
-          e.target.style.boxShadow = '0 0 0 3px rgba(var(--accent-raw), 0.1)';
-        }}
-        onBlur={(e) => {
-          e.target.style.borderColor = 'var(--border)';
-          e.target.style.background = 'var(--bg2)';
-          e.target.style.boxShadow = 'none';
-        }}
-      />
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="var(--text3)"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        style={{
-          position: 'absolute',
-          left: 16,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          pointerEvents: 'none',
-        }}
-      >
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.35-4.35" />
-      </svg>
+    <div style={{ position: 'relative', display: 'flex', alignItems: 'center', height: 40 }}>
+      {expanded ? (
+        <div style={{ position: 'relative', width: 320 }}>
+          <input
+            ref={inputRef}
+            type="text"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder={placeholder}
+            style={{
+              width: '100%',
+              height: 40,
+              padding: '0 16px 0 44px',
+              borderRadius: 'var(--radius, 6px)',
+              background: 'var(--bg2)',
+              border: '1px solid var(--border)',
+              color: 'var(--text)',
+              fontSize: 13,
+              fontFamily: 'var(--font)',
+              outline: 'none',
+              transition: 'all 200ms',
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = 'var(--accent)';
+              e.target.style.background = 'var(--bg3)';
+              e.target.style.boxShadow = '0 0 0 3px rgba(var(--accent-raw), 0.1)';
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = 'var(--border)';
+              e.target.style.background = 'var(--bg2)';
+              e.target.style.boxShadow = 'none';
+            }}
+          />
+          <Search
+            size={16}
+            color="var(--text3)"
+            style={{
+              position: 'absolute',
+              left: 16,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              pointerEvents: 'none',
+            }}
+          />
+        </div>
+      ) : (
+        <button
+          onClick={() => setExpanded(true)}
+          style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            width: 40, height: 40,
+            borderRadius: 'var(--radius, 6px)',
+            background: 'var(--bg2)', border: '1px solid var(--border)',
+            cursor: 'pointer', color: 'var(--text)', transition: 'all 150ms',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'var(--bg3)';
+            e.currentTarget.style.borderColor = 'var(--border-hover)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'var(--bg2)';
+            e.currentTarget.style.borderColor = 'var(--border)';
+          }}
+        >
+          <Search size={16} color="var(--text)" />
+        </button>
+      )}
     </div>
   );
 }
@@ -150,8 +188,8 @@ export default function ThemeSwitcher({ searchValue, onSearchChange }) {
   const { mode, setMode } = useTheme();
 
   const modeOptions = [
-    { id: 'dark', label: 'Dark', icon: '🌙' },
-    { id: 'light', label: 'Light', icon: '☀️' },
+    { id: 'dark', label: 'Dark', icon: <Moon size={16} /> },
+    { id: 'light', label: 'Light', icon: <Sun size={16} /> },
   ];
 
   return (

@@ -125,8 +125,8 @@ export default function App() {
           <div style={{ padding: '16px 18px', borderBottom: '1px solid var(--border)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <img
-                src="/logo-wa.png"
-                alt="WA Logo"
+                src="/logo-watech.png"
+                alt="WA Tech Logo"
                 style={{
                   width: 32,
                   height: 32,
