@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from './components/ThemeContext';
 import ThemeSwitcher from './components/ThemeSwitcher';
+import { PanelLeft } from 'lucide-react';
 
 import { IntroductionPage, PrinciplesPage, TokenArchitecturePage } from './pages/GetStarted';
 import { ColorPage, TypographyPage, SpacingPage, RadiiPage, ShadowsPage, ChartColorsPage } from './pages/Foundations';
@@ -116,10 +117,11 @@ export default function App() {
         width: sidebarOpen ? 240 : 0, flexShrink: 0,
         transition: 'width 200ms ease', overflow: 'hidden',
         borderRight: '1px solid var(--border)', background: 'var(--bg1)',
+        position: 'sticky', top: 0, height: '100vh',
       }}>
         <div style={{
           width: 240, height: '100vh', display: 'flex',
-          flexDirection: 'column', position: 'sticky', top: 0,
+          flexDirection: 'column',
         }}>
           {/* Logo */}
           <div style={{ padding: '16px 18px', borderBottom: '1px solid var(--border)' }}>
@@ -283,12 +285,57 @@ export default function App() {
         {/* ── Header with ThemeSwitcher ── */}
         <header style={{
           position: 'sticky', top: 0, zIndex: 10,
-          display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
-          padding: '16px 28px', height: 64,
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '0 28px', height: 64,
           borderBottom: '1px solid var(--border)',
           background: 'var(--bg)',
           backdropFilter: 'blur(12px)',
         }}>
+          {/* Left: Sidebar Toggle + Breadcrumbs */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                width: 32, height: 32, borderRadius: 6,
+                background: 'transparent', border: '1px solid transparent',
+                cursor: 'pointer', color: 'var(--text2)', transition: 'all 150ms'
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'var(--bg2)';
+                e.currentTarget.style.borderColor = 'var(--border)';
+                e.currentTarget.style.color = 'var(--text)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.borderColor = 'transparent';
+                e.currentTarget.style.color = 'var(--text2)';
+              }}
+            >
+              <PanelLeft size={18} />
+            </button>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--text2)', fontFamily: 'var(--font)' }}>
+              {currentSection ? (
+                <>
+                  <span style={{ fontWeight: 500 }}>{currentSection.label}</span>
+                  <span style={{ color: 'var(--border)' }}>/</span>
+                  <span style={{ color: currentSubChild ? 'var(--text2)' : 'var(--text)', fontWeight: currentSubChild ? 400 : 500 }}>
+                    {currentChild?.label}
+                  </span>
+                  {currentSubChild && (
+                    <>
+                      <span style={{ color: 'var(--border)' }}>/</span>
+                      <span style={{ color: 'var(--text)', fontWeight: 500 }}>{currentSubChild.label}</span>
+                    </>
+                  )}
+                </>
+              ) : (
+                <span style={{ color: 'var(--text)', fontWeight: 500 }}>Playbook</span>
+              )}
+            </div>
+          </div>
+
           {/* ★ Theme Controls ★ */}
           <ThemeSwitcher searchValue={searchQuery} onSearchChange={setSearchQuery} />
         </header>
