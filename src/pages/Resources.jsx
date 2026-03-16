@@ -531,7 +531,7 @@ export function StorybookPage() {
           </div>
           
           <a 
-            href="http://localhost:6006" 
+            href="https://www.chromatic.com/library?appId=69b7d9b662538807801f2c61" 
             target="_blank" 
             rel="noopener noreferrer"
             style={{
@@ -557,7 +557,7 @@ export function StorybookPage() {
               e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            View Full Storybook
+            View Full Storybook (Chromatic)
             <span style={{ fontSize: 16 }}>↗</span>
           </a>
         </div>
@@ -580,14 +580,18 @@ export function StorybookPage() {
           overflow: 'hidden',
           position: 'relative',
         }}>
+          {/* Note: In production, use the hosted Chromatic URL. For local dev, use http://localhost:6006 */}
           <iframe 
-            src="http://localhost:6006/iframe.html?id=getting-started-introduction--docs&viewMode=docs"
+            src="https://main--69b7d9b662538807801f2c61.chromatic.com/iframe.html?id=getting-started-introduction--docs&viewMode=docs"
             style={{
               width: '100%',
               height: '100%',
               border: 'none',
             }}
             title="WA Technology Storybook Embed"
+            onError={(e) => {
+               // Fallback or message if hosted version is unavailable
+            }}
           />
         </div>
 
