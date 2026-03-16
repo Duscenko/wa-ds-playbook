@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { componentDocs, componentIds } from './data/components';
 import { useTheme } from './components/ThemeContext';
 import ThemeSwitcher from './components/ThemeSwitcher';
@@ -72,7 +73,7 @@ export default function App() {
     const vars = getCSSVars();
     const root = document.documentElement;
     Object.entries(vars).forEach(([k, v]) => root.style.setProperty(k, v));
-  }, [getCSSVars, brand, mode, radius]);
+  }, [getCSSVars, mode]);
 
   const toggleSection = (id) => {
     setExpanded(prev =>
@@ -316,13 +317,13 @@ export default function App() {
           backdropFilter: 'blur(12px)',
         }}>
           {/* ★ Theme Controls ★ */}
-          <ThemeSwitcher />
+          <ThemeSwitcher searchValue={searchQuery} onSearchChange={setSearchQuery} />
         </header>
 
         {/* ── Page Content ── */}
         <div
           className="fade-in"
-          key={`${page}-${brand}-${mode}-${radius}`}
+          key={`${page}-${mode}`}
           style={{ padding: '36px 44px', flex: 1 }}
         >
           {content}
