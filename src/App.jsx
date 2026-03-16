@@ -7,7 +7,7 @@ import { IntroductionPage, PrinciplesPage, TokenArchitecturePage } from './pages
 import { ColorPage, TypographyPage, SpacingPage, RadiiPage, ShadowsPage, ChartColorsPage } from './pages/Foundations';
 import { ChevronDown } from './components/UI';
 // Resources pages  
-import { ResourcesOverviewPage, FigmaLibraryPage, JsonExportsPage } from './pages/Resources';
+import { ResourcesOverviewPage, FigmaLibraryPage, JsonExportsPage, StorybookPage } from './pages/Resources';
 
 /* ─── NAV TREE ────────────────────────────────── */
 const NAV = [
@@ -32,6 +32,7 @@ const NAV = [
     id: 'resources', label: 'Resources', children: [
       { id: 'resources-overview', label: 'Overview', icon: Book },
       { id: 'figma', label: 'Figma Library', icon: PenTool },
+      { id: 'storybook', label: 'Storybook', icon: Layers },
       { id: 'json', label: 'JSON Exports', icon: FileJson },
     ]
   },
@@ -104,6 +105,7 @@ export default function App() {
   else if (page === 'resources-overview') content = <ResourcesOverviewPage onNavigate={setPage} />;
   else if (page === 'figma') content = <FigmaLibraryPage />;
   else if (page === 'json') content = <JsonExportsPage />;
+  else if (page === 'storybook') content = <StorybookPage />;
 
   return (
     <div style={{
@@ -124,7 +126,7 @@ export default function App() {
           flexDirection: 'column',
         }}>
           {/* Logo */}
-          <div style={{ padding: '16px 18px', borderBottom: '1px solid var(--border)' }}>
+          <div style={{ height: 69, padding: '0 18px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <img
                 src="/logo-watech.png"
@@ -137,7 +139,7 @@ export default function App() {
                 }}
               />
               <div>
-                <div style={{ fontSize: 14, fontWeight: 600, fontFamily: 'var(--font-display)' }}>WA Design System</div>
+                <div style={{ fontSize: 14, fontWeight: 600, fontFamily: 'var(--font-display)', color: 'var(--text)' }}>WA Design System</div>
                 <div style={{ fontSize: 10, color: 'var(--text3)', fontFamily: 'var(--font-mono)' }}>v1.0 Playbook</div>
               </div>
             </div>
@@ -287,7 +289,7 @@ export default function App() {
         <header style={{
           position: 'sticky', top: 0, zIndex: 10,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '0 28px', height: 64,
+          padding: '0 28px', height: 69,
           borderBottom: '1px solid var(--border)',
           background: 'var(--bg)',
           backdropFilter: 'blur(12px)',

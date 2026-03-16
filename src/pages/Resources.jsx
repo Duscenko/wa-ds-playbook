@@ -473,3 +473,120 @@ export function JsonExportsPage() {
     </div>
   );
 }
+/* ─── STORYBOOK PAGE ─── */
+export function StorybookPage() {
+  return (
+    <div style={{ width: '100%', maxWidth: 900 }}>
+      {/* Visual Cover */}
+      <div style={{
+        marginBottom: 40,
+        borderRadius: 16,
+        overflow: 'hidden',
+        aspectRatio: '16/7',
+        background: 'linear-gradient(135deg, #111113 0%, #212225 100%)',
+        border: '1px solid var(--border)',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        {/* Decorative elements */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          opacity: 0.1,
+          backgroundImage: 'radial-gradient(var(--accent) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+        }} />
+        
+        <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+          <div style={{ 
+            fontSize: 12, 
+            fontWeight: 700, 
+            color: 'var(--accent)', 
+            textTransform: 'uppercase', 
+            letterSpacing: '0.1em',
+            marginBottom: 12
+          }}>
+            Component Library
+          </div>
+          <h1 style={{ 
+            fontSize: 48, 
+            fontWeight: 800, 
+            color: '#fff', 
+            fontFamily: 'var(--font-display)',
+            margin: 0
+          }}>
+            WA TECHNOLOGY
+          </h1>
+          <div style={{ 
+            fontSize: 24, 
+            fontWeight: 300, 
+            color: 'rgba(255,255,255,0.6)', 
+            letterSpacing: '0.3em',
+            marginTop: -4
+          }}>
+            STORYBOOK
+          </div>
+        </div>
+      </div>
+
+      <SectionTitle sub="Interactive sandbox for WA Technology UI components">Storybook</SectionTitle>
+      
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, marginTop: 24 }}>
+        <p style={{ fontSize: 16, color: 'var(--text2)', lineHeight: 1.7 }}>
+          Storybook serves as our centralized, interactive component library. It allows developers and designers to build, test, and document UI components in isolation, ensuring that every element of the WA Design System is functional and consistent across all brands.
+        </p>
+
+        <div style={{ 
+          padding: 24, 
+          borderRadius: 12, 
+          background: 'var(--bg1)', 
+          border: '1px solid var(--border)',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: 20
+        }}>
+          <div>
+            <h4 style={{ fontWeight: 600, color: 'var(--text)', marginBottom: 8 }}>For Developers</h4>
+            <p style={{ fontSize: 13, color: 'var(--text3)', lineHeight: 1.6 }}>
+              Browse props, test event handlers, and see real-time code snippets for every atomic component.
+            </p>
+          </div>
+          <div>
+            <h4 style={{ fontWeight: 600, color: 'var(--text)', marginBottom: 8 }}>For Designers</h4>
+            <p style={{ fontSize: 13, color: 'var(--text3)', lineHeight: 1.6 }}>
+              Inspect visual states, responsiveness, and spacing without touching the main application code.
+            </p>
+          </div>
+        </div>
+
+        <div style={{ 
+          marginTop: 12,
+          padding: '20px 24px',
+          borderRadius: 10,
+          background: 'var(--accent-bg)',
+          border: '1px solid var(--border-hover)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <div>
+            <div style={{ fontWeight: 600, color: 'var(--text)', fontSize: 15 }}>Launch Local Sandbox</div>
+            <div style={{ fontSize: 12, color: 'var(--text3)' }}>Requires development environment</div>
+          </div>
+          <code style={{ 
+            background: 'rgba(0,0,0,0.3)', 
+            padding: '6px 12px', 
+            borderRadius: 6, 
+            fontSize: 12, 
+            fontFamily: 'var(--font-mono)',
+            color: 'var(--accent)'
+          }}>
+            npm run storybook
+          </code>
+        </div>
+      </div>
+    </div>
+  );
+}
