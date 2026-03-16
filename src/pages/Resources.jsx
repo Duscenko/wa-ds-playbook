@@ -515,28 +515,81 @@ export function StorybookPage() {
             fontWeight: 800, 
             color: '#fff', 
             fontFamily: 'var(--font-display)',
-            margin: 0
+            margin: '0 0 20px 0'
           }}>
             WA TECHNOLOGY
           </h1>
-          <div style={{ 
-            fontSize: 24, 
-            fontWeight: 300, 
-            color: 'rgba(255,255,255,0.6)', 
-            letterSpacing: '0.3em',
-            marginTop: -4
-          }}>
-            STORYBOOK
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 16 }}>
+            <div style={{ 
+              fontSize: 24, 
+              fontWeight: 300, 
+              color: 'rgba(255,255,255,0.6)', 
+              letterSpacing: '0.3em',
+            }}>
+              STORYBOOK
+            </div>
           </div>
+          
+          <a 
+            href="http://localhost:6006" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{
+              marginTop: 32,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '10px 24px',
+              borderRadius: 8,
+              background: 'var(--accent)',
+              color: '#fff',
+              fontSize: 14,
+              fontWeight: 600,
+              textDecoration: 'none',
+              transition: 'all 200ms ease',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(0, 144, 255, 0.4)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            View Full Storybook
+            <span style={{ fontSize: 16 }}>↗</span>
+          </a>
         </div>
       </div>
 
       <SectionTitle sub="Interactive sandbox for WA Technology UI components">Storybook</SectionTitle>
       
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, marginTop: 24 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 32, marginTop: 24 }}>
         <p style={{ fontSize: 16, color: 'var(--text2)', lineHeight: 1.7 }}>
           Storybook serves as our centralized, interactive component library. It allows developers and designers to build, test, and document UI components in isolation, ensuring that every element of the WA Design System is functional and consistent across all brands.
         </p>
+
+        {/* Embedded Storybook Iframe */}
+        <div style={{
+          width: '100%',
+          height: 600,
+          borderRadius: 16,
+          border: '1px solid var(--border)',
+          background: 'var(--bg1)',
+          overflow: 'hidden',
+          position: 'relative',
+        }}>
+          <iframe 
+            src="http://localhost:6006/iframe.html?id=getting-started-introduction--docs&viewMode=docs"
+            style={{
+              width: '100%',
+              height: '100%',
+              border: 'none',
+            }}
+            title="WA Technology Storybook Embed"
+          />
+        </div>
 
         <div style={{ 
           padding: 24, 
