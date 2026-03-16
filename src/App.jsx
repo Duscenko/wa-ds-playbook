@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useState, useEffect } from 'react';
 import { componentDocs, componentIds } from './data/components';
 import { useTheme } from './components/ThemeContext';
 import ThemeSwitcher from './components/ThemeSwitcher';
