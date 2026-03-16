@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import { componentDocs, componentIds } from './data/components';
 import { useTheme } from './components/ThemeContext';
 import ThemeSwitcher from './components/ThemeSwitcher';
 
 import { IntroductionPage, PrinciplesPage, TokenArchitecturePage } from './pages/GetStarted';
 import { ColorPage, TypographyPage, SpacingPage, RadiiPage, ShadowsPage, ChartColorsPage } from './pages/Foundations';
 import { ChevronDown } from './components/UI';
-import { ComponentsOverview, ComponentDetailPage, PatternsPage } from './pages/DesignSystem';
 // Resources pages  
 import { ResourcesOverviewPage, FigmaLibraryPage, JsonExportsPage } from './pages/Resources';
 
@@ -27,21 +25,6 @@ const NAV = [
       { id: 'radii', label: 'Border Radii' },
       { id: 'shadows', label: 'Shadows' },
       { id: 'charts', label: 'Chart Colors' },
-    ]
-  },
-  {
-    id: 'components', label: 'Components', children: [
-      { id: 'comps', label: 'Overview' },
-      ...componentIds.map(cid => ({
-        id: 'c-' + cid, label: componentDocs[cid].name, isComponent: true,
-      })),
-    ]
-  },
-  {
-    id: 'patterns-group', label: 'Patterns', children: [
-      { id: 'patterns-navigation', label: 'Navigation' },
-      { id: 'patterns-cards', label: 'Cards' },
-      { id: 'patterns-forms', label: 'Forms' },
     ]
   },
   {
@@ -107,15 +90,8 @@ export default function App() {
     });
   });
 
-  /* ── Route to page content ── */
-  const isComponentPage = page.startsWith('c-');
-  const componentKey = isComponentPage ? page.slice(2) : null;
-  const isPatternSubcategory = page.startsWith('patterns-');
-  const patternCategory = isPatternSubcategory ? page.replace('patterns-', '') : null;
-
   let content = null;
-  if (isComponentPage && componentKey) content = <ComponentDetailPage componentId={componentKey} />;
-  else if (page === 'intro') content = <IntroductionPage />;
+  if (page === 'intro') content = <IntroductionPage />;
   else if (page === 'principles') content = <PrinciplesPage />;
   else if (page === 'arch') content = <TokenArchitecturePage />;
   else if (page === 'color') content = <ColorPage />;
@@ -124,9 +100,6 @@ export default function App() {
   else if (page === 'radii') content = <RadiiPage />;
   else if (page === 'shadows') content = <ShadowsPage />;
   else if (page === 'charts') content = <ChartColorsPage />;
-  else if (page === 'comps') content = <ComponentsOverview onNavigate={setPage} />;
-  else if (isPatternSubcategory) content = <PatternsPage category={patternCategory} />;
-  else if (page === 'patterns') content = <PatternsPage />;
   else if (page === 'resources-overview') content = <ResourcesOverviewPage onNavigate={setPage} />;
   else if (page === 'figma') content = <FigmaLibraryPage />;
   else if (page === 'json') content = <JsonExportsPage />;
