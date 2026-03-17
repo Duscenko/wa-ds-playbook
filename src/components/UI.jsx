@@ -65,7 +65,7 @@ export function TabBar({ tabs, active, onChange }) {
   return (
     <div style={{
       display: 'flex', gap: 2, padding: 3,
-      borderRadius: 8, background: 'var(--bg2)',
+      borderRadius: 8, background: '#111111', // Darker background for the track
       width: 'fit-content',
     }}>
       {tabs.map(t => {
@@ -77,10 +77,10 @@ export function TabBar({ tabs, active, onChange }) {
             padding: '7px 16px', borderRadius: 6,
             fontSize: 13, fontWeight: 500, border: 'none',
             cursor: 'pointer', fontFamily: 'var(--font)',
-            background: on ? 'var(--accent)' : 'transparent',
-            color: on ? '#ffffff' : 'var(--text3)',
+            background: on ? 'color-mix(in srgb, var(--accent), transparent 85%)' : 'transparent',
+            color: on ? 'var(--accent)' : 'var(--text3)',
             boxShadow: on 
-              ? 'inset 0 0 0 0.5px rgba(255,255,255,0.4), 0 0 12px color-mix(in srgb, var(--accent), transparent 60%)' 
+              ? 'inset 0 0 0 1px color-mix(in srgb, var(--accent), transparent 80%)' 
               : 'none',
             zIndex: on ? 1 : 0,
             transition: 'all 120ms',

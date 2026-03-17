@@ -129,10 +129,7 @@ function BrandSwitcher({ brand, mode }) {
       display: 'flex',
       alignItems: 'center',
       gap: 12,
-      padding: 16,
-      background: 'var(--bg1)',
-      border: '1px solid var(--border)',
-      borderRadius: 'var(--radius)',
+      padding: '8px 0',
     }}>
       <div style={{ fontSize: 12, fontWeight: 500, color: 'var(--text2)', marginRight: 4 }}>
         Viewing Environment:
@@ -320,13 +317,13 @@ export function ColorPage() {
         top: 69, // Header height
         zIndex: 20,
         margin: '0 -44px 24px -44px', // Counter-act parent padding
-        padding: '12px 44px',
-        background: 'color-mix(in srgb, var(--bg), transparent 20%)',
+        padding: '10px 44px',
+        background: 'rgba(10, 10, 11, 0.9)', // Solid dark with slight transparency
         backdropFilter: 'blur(20px)',
         borderBottom: '1px solid var(--border)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 12,
+        gap: 4,
       }}>
         <BrandSwitcher brand={brand} mode={mode} brandData={brandData} />
         <TabBar tabs={['Primitives', 'Utility', 'Semantic Tokens', 'JSON Export']} active={tab} onChange={setTab} />
