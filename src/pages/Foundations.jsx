@@ -299,11 +299,11 @@ const PLAY_BRANDS = [
   { id: 'superbetin',     label: 'Superbetin',    dataKey: 'superbetin'  },
   { id: 'manat',          label: 'Manat',          dataKey: 'manat'       },
   { id: 'spinpokio',      label: 'Spinpokio',     dataKey: 'spinpokio'   },
-  { id: 'turkbet',        label: 'Turkbet',        dataKey: 'wa-default'  },
-  { id: 'betsat',         label: 'Betsat',         dataKey: 'wa-default'  },
-  { id: 'f12',            label: 'F12',            dataKey: 'wa-default'  },
-  { id: 'spin',           label: 'Spin',           dataKey: 'wa-default'  },
-  { id: 'livescore',      label: 'Livescore',      dataKey: 'wa-default'  },
+  { id: 'turkbet',        label: 'Turkbet',        dataKey: 'turkbet'     },
+  { id: 'betsat',         label: 'Betsat',         dataKey: 'betsat'      },
+  { id: 'f12',            label: 'F12',            dataKey: 'f12'         },
+  { id: 'spin',           label: 'Spin',           dataKey: 'spin'        },
+  { id: 'livescore',      label: 'Livescore',      dataKey: 'livescore'   },
 ]
 
 export function ColorPage() {
