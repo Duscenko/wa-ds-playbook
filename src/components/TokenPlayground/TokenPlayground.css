@@ -23,62 +23,64 @@
 }
 .tp-root * { box-sizing: border-box; transition: background-color .35s, color .25s, border-color .3s; }
 
-/* ── STICKY HEADER — TASK #2 + #3 ───────────────
-   Height increased to 72px (was 60px) for better visual weight
-   top set via inline style from stickyTop prop
+/* ── STICKY HEADER — TASK #1 + #2 ───────────────
+   Height reduced to 52px to match the Color page filter bar
+   style (same visual weight as "WA Default | Dark | Primitives…")
+   Both this bar and the Playbook top bar are sticky →
+   this one offset by stickyTop prop so they stack cleanly.
    ─────────────────────────────────────────────── */
 .tp-hdr {
   position: sticky;
-  /* top is set inline via stickyTop prop — default 0 */
   z-index: 100;
-  height: 72px;  /* TASK #2: taller bar */
+  height: 52px;
   background: var(--pg-sl1);
   border-bottom: 1px solid var(--pg-bsu);
   display: flex; align-items: center;
-  padding: 0 24px; gap: 16px;
+  padding: 0 20px; gap: 14px;
 }
-.tp-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.tp-logo { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
 .tp-lm {
-  width: 40px; height: 40px; border-radius: 10px;
+  width: 36px; height: 36px; border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 15px; font-weight: 800; color: #0D1514; flex-shrink: 0;
+  font-size: 14px; font-weight: 800; color: #0D1514; flex-shrink: 0;
   transition: background .4s;
 }
-.tp-lt { font-size: 13px; font-weight: 700; color: var(--pg-cp); letter-spacing: -.2px; }
+.tp-lt { font-size: 12px; font-weight: 700; color: var(--pg-cp); letter-spacing: -.2px; }
 .tp-ls { font-size: 10px; color: var(--pg-csu); margin-top: 1px; }
-.tp-div { width: 1px; height: 32px; background: var(--pg-bsu); flex-shrink: 0; }
+.tp-div { width: 1px; height: 26px; background: var(--pg-bsu); flex-shrink: 0; }
 
-/* TASK #2 — Larger brand selector scroll area */
+/* TASK #2 — compact brand selector */
 .tp-bs {
   display: flex; align-items: center;
-  gap: 4px; flex: 1; overflow-x: auto; padding: 4px 0;
+  gap: 2px; flex: 1; overflow-x: auto; padding: 2px 0;
   scrollbar-width: none;
 }
 .tp-bs::-webkit-scrollbar { display: none; }
 
-/* TASK #2 — Half-circle swatch — larger (was 38px, now 44px) */
+/* TASK #2 — smaller half-circle swatches (28px, was 44px)
+   Consistent with the Color page pill buttons */
 .tp-bsw {
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
   cursor: pointer; flex-shrink: 0; background: none; border: none;
-  padding: 5px 7px; border-radius: 12px; transition: background .2s;
+  padding: 4px 5px; border-radius: 8px; transition: background .2s;
 }
 .tp-bsw:hover { background: var(--pg-bsu); }
 .tp-bsw-c {
-  width: 44px; height: 44px; border-radius: 50%;
+  width: 28px; height: 28px; border-radius: 50%;
   overflow: hidden; flex-shrink: 0;
-  border: 2.5px solid transparent;
-  transition: border-color .25s, transform .2s;
+  border: 2px solid transparent;
+  transition: border-color .2s, transform .2s;
   box-shadow: 0 0 0 1px rgba(255,255,255,.06);
 }
 .tp-bsw.active .tp-bsw-c {
   border-color: var(--pg-cp);
   transform: scale(1.1);
-  box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 2px 12px rgba(0,0,0,.3);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 2px 8px rgba(0,0,0,.3);
 }
-.tp-bsw-n { font-size: 9px; color: var(--pg-csu); white-space: nowrap; font-weight: 500; letter-spacing: .01em; }
+.tp-bsw-n { font-size: 9px; color: var(--pg-csu); white-space: nowrap; font-weight: 500; }
 .tp-bsw.active .tp-bsw-n { color: var(--pg-cp); font-weight: 600; }
 .tp-pill {
-  padding: 6px 14px; border-radius: 999px;
+  padding: 5px 12px; border-radius: 999px;
   background: var(--pg-as);
   border: 1px solid color-mix(in srgb, var(--pg-ca) 25%, transparent);
   font-size: 11px; font-weight: 700; color: var(--pg-ca);
@@ -233,6 +235,7 @@
 .tp-picks { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
 .tp-pick { display: flex; align-items: flex-start; gap: 7px; }
 .tp-pick-ico { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; background: var(--pg-sl1); border-radius: 3px; border: 1px solid var(--pg-bsu); display: flex; align-items: center; justify-content: center; color: var(--pg-csu); }
+.tp-pick-ico svg { fill: var(--pg-csu); }
 .tp-pick-ico i[data-lucide] { width: 10px; height: 10px; }
 .tp-pt { font-size: 11px; font-weight: 600; color: var(--pg-cp); line-height: 1.2; }
 .tp-pm { font-size: 10px; color: var(--pg-csu); }
