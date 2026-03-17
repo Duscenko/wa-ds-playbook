@@ -292,12 +292,27 @@ function SemanticTokensPage() {
   );
 }
 
+// Same brand list as TokenPlayground — maps display ID → tokens.js key for data lookup
+const PLAY_BRANDS = [
+  { id: 'belloa-default', label: 'Belloa',        dataKey: 'belloa'      },
+  { id: 'belloa-light',   label: 'Belloa Light',  dataKey: 'belloa'      },
+  { id: 'superbetin',     label: 'Superbetin',    dataKey: 'superbetin'  },
+  { id: 'manat',          label: 'Manat',          dataKey: 'manat'       },
+  { id: 'spinpokio',      label: 'Spinpokio',     dataKey: 'spinpokio'   },
+  { id: 'turkbet',        label: 'Turkbet',        dataKey: 'wa-default'  },
+  { id: 'betsat',         label: 'Betsat',         dataKey: 'wa-default'  },
+  { id: 'f12',            label: 'F12',            dataKey: 'wa-default'  },
+  { id: 'spin',           label: 'Spin',           dataKey: 'wa-default'  },
+  { id: 'livescore',      label: 'Livescore',      dataKey: 'wa-default'  },
+]
+
 export function ColorPage() {
   const [tab, setTab] = useState('Primitives');
   const { brand, mode, setBrand, setMode } = useTheme();
 
-  // Get active brand metadata
-  const brandData = brands[brand] || brands['wa-default'];
+  // Get active brand metadata — map display brand to tokens.js data key
+  const playBrand = PLAY_BRANDS.find(b => b.id === brand) || PLAY_BRANDS[0];
+  const brandData = brands[playBrand.dataKey] || brands['wa-default'];
   const prims = brandData.primitives;
 
   return (
@@ -330,8 +345,8 @@ export function ColorPage() {
           }}>
             <Dropdown 
               label="" 
-              value={brand || 'wa-default'} 
-              options={Object.entries(brands).map(([key, data]) => ({ id: key, label: data.label }))} 
+              value={brand || 'belloa-default'}
+              options={PLAY_BRANDS.map(b => ({ id: b.id, label: b.label }))}
               onChange={setBrand}
               minimal
             />
@@ -370,7 +385,7 @@ export function ColorPage() {
           marginBottom: 20,
           letterSpacing: '-0.3px',
         }}>
-          {brandData.label} Colors
+          {playBrand.label} Colors
         </h1>
 
         <div className="fade-in">
