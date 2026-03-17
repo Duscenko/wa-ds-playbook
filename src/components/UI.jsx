@@ -66,7 +66,7 @@ export function TabBar({ tabs, active, onChange }) {
     <div style={{
       display: 'flex', gap: 2, padding: 3,
       borderRadius: 8, background: 'var(--bg2)',
-      width: 'fit-content', marginBottom: 24,
+      width: 'fit-content',
     }}>
       {tabs.map(t => {
         const id = isStrings ? t : t.id;
@@ -77,8 +77,12 @@ export function TabBar({ tabs, active, onChange }) {
             padding: '7px 16px', borderRadius: 6,
             fontSize: 13, fontWeight: 500, border: 'none',
             cursor: 'pointer', fontFamily: 'var(--font)',
-            background: on ? 'rgba(255,255,255,0.08)' : 'transparent',
-            color: on ? 'var(--text)' : 'var(--text3)',
+            background: on ? 'var(--accent)' : 'transparent',
+            color: on ? '#ffffff' : 'var(--text3)',
+            boxShadow: on 
+              ? 'inset 0 0 0 0.5px rgba(255,255,255,0.4), 0 0 12px color-mix(in srgb, var(--accent), transparent 60%)' 
+              : 'none',
+            zIndex: on ? 1 : 0,
             transition: 'all 120ms',
           }}>{label}</button>
         );

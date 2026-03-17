@@ -129,7 +129,6 @@ function BrandSwitcher({ brand, mode }) {
       display: 'flex',
       alignItems: 'center',
       gap: 12,
-      marginBottom: 24,
       padding: 16,
       background: 'var(--bg1)',
       border: '1px solid var(--border)',
@@ -313,12 +312,25 @@ export function ColorPage() {
 
   return (
     <div>
-      <SectionTitle title="Color" sub="Token-based color system. Primitives change per brand; utility resolves dynamically." />
+      <SectionTitle title={`${brandData.label} Colors`} sub="Token-based color system. Primitives change per brand; utility resolves dynamically." />
 
-      {/* Brand & Mode Status Indicator */}
-      <BrandSwitcher brand={brand} mode={mode} brandData={brandData} />
-
-      <TabBar tabs={['Primitives', 'Utility', 'Semantic Tokens', 'JSON Export']} active={tab} onChange={setTab} />
+      {/* Sticky Bar for Brand Selector & Tabs */}
+      <div style={{
+        position: 'sticky',
+        top: 69, // Header height
+        zIndex: 20,
+        margin: '0 -44px 24px -44px', // Counter-act parent padding
+        padding: '12px 44px',
+        background: 'color-mix(in srgb, var(--bg), transparent 20%)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: '1px solid var(--border)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+      }}>
+        <BrandSwitcher brand={brand} mode={mode} brandData={brandData} />
+        <TabBar tabs={['Primitives', 'Utility', 'Semantic Tokens', 'JSON Export']} active={tab} onChange={setTab} />
+      </div>
 
       {/* TAB: PRIMITIVES */}
       {tab === 'Primitives' && (
