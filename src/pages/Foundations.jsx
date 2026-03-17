@@ -294,7 +294,7 @@ function SemanticTokensPage() {
 
 export function ColorPage() {
   const [tab, setTab] = useState('Primitives');
-  const { brand, mode } = useTheme();
+  const { brand, mode, setBrand, setMode } = useTheme();
 
   // Get active brand metadata
   const brandData = brands[brand] || brands['wa-default'];
@@ -345,7 +345,7 @@ export function ColorPage() {
               label="" 
               value={brand || 'wa-default'} 
               options={Object.entries(brands).map(([key, data]) => ({ id: key, label: data.label }))} 
-              onChange={(val) => useTheme().setBrand(val)}
+              onChange={setBrand}
               minimal
             />
             <div style={{ width: 1, height: 16, background: 'rgba(255, 255, 255, 0.08)', margin: '0 4px' }} />
@@ -356,7 +356,7 @@ export function ColorPage() {
                 { id: 'dark', label: 'Dark' },
                 { id: 'light', label: 'Light' },
               ]} 
-              onChange={(val) => useTheme().setMode(val)}
+              onChange={setMode}
               minimal
             />
           </div>
