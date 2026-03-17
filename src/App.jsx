@@ -353,7 +353,7 @@ export default function App() {
         <div
           className="fade-in"
           key={`${page}-${mode}`}
-          style={{ padding: page === 'play-layout' ? 0 : '36px 44px', flex: 1 }}
+          style={{ padding: (page === 'play-layout' || page === 'color') ? 0 : '36px 44px', flex: 1 }}
         >
           {content}
         </div>

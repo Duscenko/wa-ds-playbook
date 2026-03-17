@@ -301,44 +301,31 @@ export function ColorPage() {
   const prims = brandData.primitives;
 
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-      {/* Layered Hierarchy: Title above Ribbon */}
-      <h1 style={{
-        fontSize: 22,
-        fontWeight: 600,
-        color: 'var(--text)',
-        fontFamily: 'var(--font-display)',
-        marginBottom: 12,
-        letterSpacing: '-0.3px',
-      }}>
-        {brandData.label} Colors
-      </h1>
-
-      {/* Floating Island Control Bar (Geometric Refinement) */}
+    <div style={{ width: '100%', margin: 0 }}>
+      {/* Sticky Bar edge-to-edge */}
       <div style={{
         position: 'sticky',
         top: 69,
-        zIndex: 100,
-        margin: '0 auto 40px auto',
-        padding: '0 8px',
-        width: 'fit-content',
-        height: 40, // Strictly 40px
-        background: 'var(--bg3)', // Geometric surface
-        backdropFilter: 'blur(20px)',
-        borderRadius: 6, // Strictly 6px
-        border: '1px solid var(--border-hover)',
+        zIndex: 90,
+        height: 52,
+        background: 'var(--bg2)',
+        borderBottom: '1px solid var(--border1)',
         display: 'flex',
         alignItems: 'center',
-        gap: 8, // Strictly 8px gap
-        boxShadow: '0 12px 32px -8px rgba(0, 0, 0, 0.5)',
+        padding: '0 20px',
+        gap: 8,
+        borderRadius: 0,
+        margin: 0,
+        width: '100%',
+        boxSizing: 'border-box',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-          {/* Grouped Dropdowns (Soft-rounded Island Group) */}
+        <div style={{ display: 'flex', alignItems: 'center', height: '100%', width: '100%' }}>
+          {/* Grouped Dropdowns */}
           <div style={{ 
             display: 'flex', 
             alignItems: 'center', 
             gap: 4,
-            padding: '0 8px 0 16px',
+            padding: '0 8px 0 0',
             height: '100%',
           }}>
             <Dropdown 
@@ -361,16 +348,8 @@ export function ColorPage() {
             />
           </div>
 
-          {/* Subtle Aesthetic Divider */}
-          <div style={{ 
-            width: 1, 
-            height: 24, 
-            background: 'rgba(255, 255, 255, 0.05)', 
-            margin: '0 12px' 
-          }} />
-
-          {/* Tab Control (Island Variant) */}
-          <div style={{ paddingRight: 8 }}>
+          {/* Tab Control */}
+          <div style={{ marginLeft: 12 }}>
             <TabBar 
               tabs={['Primitives', 'Utility', 'Semantic Tokens', 'JSON Export']} 
               active={tab} 
@@ -382,35 +361,48 @@ export function ColorPage() {
       </div>
 
       {/* Content Area */}
-      <div style={{ padding: '0 0 64px 0' }}>
-        {tab === 'Primitives' && (
-          <div className="fade-in">
-            <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>
-              Brand-specific core palettes. These are the raw ingredients that vary between brands.
-            </p>
-            {Object.entries(prims).map(([name, scale]) => (
-              <SwatchGrid key={name} label={name} scale={scale} />
-            ))}
-          </div>
-        )}
+      <div style={{ maxWidth: 1216, margin: '0 auto', padding: '32px 44px 64px 44px' }}>
+        <h1 style={{
+          fontSize: 22,
+          fontWeight: 600,
+          color: 'var(--text)',
+          fontFamily: 'var(--font-display)',
+          marginBottom: 20,
+          letterSpacing: '-0.3px',
+        }}>
+          {brandData.label} Colors
+        </h1>
 
-        {tab === 'Utility' && (
-          <div className="fade-in">
-            <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>
-              Functional shared colors. This view dynamically resolves overrides when the brand is active.
-            </p>
-            {Object.entries(utility).map(([name, scale]) => {
-              const resolvedScale = Object.keys(scale).reduce((acc, step) => {
-                acc[step] = resolveToken(`${name}.${step}`, brand, mode);
-                return acc;
-              }, {});
-              return <SwatchGrid key={name} label={name} scale={resolvedScale} />;
-            })}
-          </div>
-        )}
+        <div className="fade-in">
+          {tab === 'Primitives' && (
+            <div>
+              <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 24 }}>
+                Brand-specific core palettes. These are the raw ingredients that vary between brands.
+              </p>
+              {Object.entries(prims).map(([name, scale]) => (
+                <SwatchGrid key={name} label={name} scale={scale} />
+              ))}
+            </div>
+          )}
 
-        {tab === 'Semantic Tokens' && <SemanticTokensPage />}
-        {tab === 'JSON Export' && <JsonExportPage />}
+          {tab === 'Utility' && (
+            <div>
+              <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 24 }}>
+                Functional shared colors. This view dynamically resolves overrides when the brand is active.
+              </p>
+              {Object.entries(utility).map(([name, scale]) => {
+                const resolvedScale = Object.keys(scale).reduce((acc, step) => {
+                  acc[step] = resolveToken(`${name}.${step}`, brand, mode);
+                  return acc;
+                }, {});
+                return <SwatchGrid key={name} label={name} scale={resolvedScale} />;
+              })}
+            </div>
+          )}
+
+          {tab === 'Semantic Tokens' && <SemanticTokensPage />}
+          {tab === 'JSON Export' && <JsonExportPage />}
+        </div>
       </div>
     </div>
   );
