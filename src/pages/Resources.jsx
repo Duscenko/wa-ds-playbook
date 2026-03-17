@@ -270,7 +270,7 @@ export function StorybookPage() {
           </div>
           
           <a 
-            href="https://www.chromatic.com/library?appId=69b7d9b662538807801f2c61" 
+            href="https://wa-ds-storybook.vercel.app/" 
             target="_blank" 
             rel="noopener noreferrer"
             style={{
@@ -296,7 +296,7 @@ export function StorybookPage() {
               e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            View Full Storybook (Chromatic)
+            View Full Storybook (Vercel)
             <span style={{ fontSize: 16 }}>↗</span>
           </a>
         </div>
@@ -321,7 +321,7 @@ export function StorybookPage() {
           transition: 'all 300ms ease',
         }}>
           <iframe 
-            src="https://main--69b7d9b662538807801f2c61.chromatic.com/iframe.html?id=getting-started-introduction--docs&viewMode=docs"
+            src="https://wa-ds-storybook.vercel.app/iframe.html?id=getting-started-introduction--docs&viewMode=docs"
             style={{
               width: '100%',
               height: '100%',
