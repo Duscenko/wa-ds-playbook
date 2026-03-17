@@ -331,7 +331,7 @@ export default function TokenPlayground({ stickyTop = 0, bannerImage = '/image-b
             <BrandSwatch key={id} id={id} brand={b} active={activeBrand === id} onClick={() => setActiveBrand(id)} />
           ))}
         </div>
-        <div className="tp-pill">{activeBrand}</div>
+        <div className="tp-pill" style={{display:'none'}}>{activeBrand}</div>
 
         {/* ── SHAPE SWITCHER ─────────────────────────────────────
             Desktop (≥640px): 3 inline icon+label buttons
