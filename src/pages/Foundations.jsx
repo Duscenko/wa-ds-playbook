@@ -36,7 +36,7 @@ function SwatchGrid({ scale, label }) {
 }
 
 /* ─── Local Dropdown (Styled for Foundations) ─── */
-function Dropdown({ label, value, options, onChange }) {
+function Dropdown({ label, value, options, onChange, minimal }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -55,16 +55,17 @@ function Dropdown({ label, value, options, onChange }) {
       <button
         onClick={() => setOpen(!open)}
         style={{
-          display: 'flex', alignItems: 'center', gap: 8,
-          padding: '6px 10px', height: 32,
-          borderRadius: 'var(--radius-sm)',
-          background: 'var(--bg2)', // Elevated background
-          border: '1px solid var(--border)',
+          display: 'flex', alignItems: 'center', gap: 6,
+          padding: minimal ? '2px 0' : '6px 10px', height: minimal ? 'auto' : 32,
+          borderRadius: minimal ? 0 : 'var(--radius-sm)',
+          background: minimal ? 'transparent' : 'var(--bg2)',
+          border: minimal ? 'none' : '1px solid var(--border)',
           cursor: 'pointer', fontSize: 12, fontFamily: 'var(--font)',
           color: 'var(--text)', transition: 'all 120ms',
+          opacity: 0.9,
         }}
       >
-        {current?.dot && (
+        {current?.dot && !minimal && (
           <span style={{
             width: 8, height: 8, borderRadius: 9999,
             background: current.dot, flexShrink: 0,
@@ -78,12 +79,12 @@ function Dropdown({ label, value, options, onChange }) {
 
       {open && (
         <div style={{
-          position: 'absolute', top: 'calc(100% + 4px)', left: 0,
-          zIndex: 100, background: 'var(--bg1)',
+          position: 'absolute', top: 'calc(100% + 8px)', left: 0,
+          zIndex: 1000, background: 'var(--bg1)',
           border: '1px solid var(--border)',
-          borderRadius: 'var(--radius)',
-          padding: 4, minWidth: 180,
-          boxShadow: '0 4px 12px -2px rgba(0,0,0,0.2), 0 10px 30px -4px rgba(0,0,0,0.4)',
+          borderRadius: 8,
+          padding: 4, minWidth: 160,
+          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
         }}>
           {options.map(o => (
             <button
@@ -91,16 +92,16 @@ function Dropdown({ label, value, options, onChange }) {
               onClick={() => { onChange(o.id); setOpen(false); }}
               style={{
                 display: 'flex', alignItems: 'center', gap: 10,
-                width: '100%', padding: '8px 10px', borderRadius: 'var(--radius-sm)',
+                width: '100%', padding: '8px 10px', borderRadius: 6,
                 border: 'none', textAlign: 'left',
-                background: value === o.id ? 'var(--bg3)' : 'transparent',
-                color: value === o.id ? 'var(--text)' : 'var(--text2)',
-                cursor: 'pointer', fontSize: 12, fontFamily: 'var(--font)',
+                background: value === o.id ? 'rgba(0,144,255,0.1)' : 'transparent',
+                color: value === o.id ? '#0090ff' : 'var(--text2)',
+                cursor: 'pointer', fontSize: 13, fontFamily: 'var(--font)',
               }}
             >
               {o.dot && <span style={{ width: 8, height: 8, borderRadius: 9999, background: o.dot }} />}
-              <span style={{ flex: 1 }}>{o.label}</span>
-              {value === o.id && <span style={{ fontSize: 10 }}>✓</span>}
+              <span style={{ flex: 1, fontWeight: value === o.id ? 600 : 400 }}>{o.label}</span>
+              {value === o.id && <span style={{ fontSize: 12 }}>✓</span>}
             </button>
           ))}
         </div>
@@ -304,100 +305,153 @@ export function ColorPage() {
   const prims = brandData.primitives;
 
   return (
-    <div>
-      <SectionTitle title={`${brandData.label} Colors`} sub="Token-based color system. Primitives change per brand; utility resolves dynamically." />
+    <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      {/* Layered Hierarchy: Title above Ribbon */}
+      <h1 style={{
+        fontSize: 22,
+        fontWeight: 600,
+        color: 'var(--text)',
+        fontFamily: 'var(--font-display)',
+        marginBottom: 12,
+        letterSpacing: '-0.3px',
+      }}>
+        {brandData.label} Colors
+      </h1>
 
-      {/* Sticky Top Bar with Brand Selector and Tab Bar */}
+      {/* Unified Control Ribbon */}
       <div style={{
         position: 'sticky',
-        top: 69, // Header height
-        zIndex: 100, // Higher z-index for the main interactive bar
-        margin: '0 -44px 32px -44px',
-        padding: '16px 44px 12px 44px',
-        background: 'rgba(10, 10, 11, 0.98)', 
-        backdropFilter: 'blur(16px)',
+        top: 69,
+        zIndex: 100,
+        margin: '0 -24px 32px -24px',
+        padding: '0 12px',
+        height: 36, // Minimal height
+        background: 'rgba(10, 10, 11, 0.85)',
+        backdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
         display: 'flex',
-        flexDirection: 'column',
-        gap: 16,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderRadius: '0 0 12px 12px',
       }}>
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'space-between',
-          gap: 20
-        }}>
-          {/* Environment Controls Container */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-            padding: '4px 12px 4px 4px',
-            background: 'rgba(255, 255, 255, 0.03)',
-            borderRadius: 12,
-            border: '1px solid rgba(255, 255, 255, 0.04)',
+        <div style={{ display: 'flex', alignItems: 'center', height: '100%', flex: 1 }}>
+          {/* Grouped Selectors */}
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 16,
+            padding: '0 8px',
+            height: '100%',
           }}>
-            <div style={{ 
-              paddingLeft: 8, 
-              fontSize: 12, 
-              fontWeight: 500, 
-              color: 'var(--text3)',
-              textTransform: 'none',
-            }}>
-              Viewing Environment:
+            {/* Brand Selector with Active Light */}
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+              <div style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: '#0090ff',
+                boxShadow: '0 0 10px #0090ff',
+                marginRight: 8,
+              }} />
+              <Dropdown 
+                label="" 
+                value={brand || 'wa-default'} 
+                options={Object.entries(brands).map(([key, data]) => ({ id: key, label: data.label }))} 
+                onChange={(val) => useTheme().setBrand(val)}
+                minimal
+              />
             </div>
-            <BrandSwitcher brand={brand} mode={mode} brandData={brandData} />
+            
+            <Dropdown 
+              label="" 
+              value={mode || 'dark'} 
+              options={[
+                { id: 'dark', label: 'Dark' },
+                { id: 'light', label: 'Light' },
+              ]} 
+              onChange={(val) => useTheme().setMode(val)}
+              minimal
+            />
           </div>
 
-          {/* Navigation Bar / Menu */}
-          <div style={{
-            background: '#111111',
-            padding: '2px',
-            borderRadius: 10,
-            border: '1px solid rgba(255, 255, 255, 0.03)',
+          {/* Subtle Vertical Divider */}
+          <div style={{ 
+            width: 1, 
+            height: 16, 
+            background: 'rgba(255, 255, 255, 0.08)', 
+            margin: '0 16px' 
+          }} />
+
+          {/* Segmented Tab Control (Flush Style) */}
+          <div style={{ 
+            display: 'flex', 
+            height: '100%', 
+            alignItems: 'stretch', // Stretch buttons to full height
+            flex: 1,
           }}>
-            <TabBar 
-              tabs={['Primitives', 'Utility', 'Semantic Tokens', 'JSON Export']} 
-              active={tab} 
-              onChange={setTab} 
-            />
+            {['Primitives', 'Utility', 'Semantic Tokens', 'JSON Export'].map((t, idx, arr) => {
+              const active = tab === t;
+              return (
+                <button
+                  key={t}
+                  onClick={() => setTab(t)}
+                  style={{
+                    height: '100%',
+                    padding: '0 20px',
+                    fontSize: 11,
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    color: active ? '#fff' : 'rgba(255, 255, 255, 0.4)',
+                    background: active ? '#0090ff' : 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font)',
+                    transition: 'all 120ms ease',
+                    borderRight: (idx < arr.length - 1 && !active && tab !== arr[idx+1]) 
+                      ? '1px solid rgba(255, 255, 255, 0.03)' 
+                      : 'none',
+                  }}
+                >
+                  {t}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* TAB: PRIMITIVES */}
-      {tab === 'Primitives' && (
-        <div className="fade-in">
-          <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>
-            Brand-specific core palettes. These are the raw ingredients that vary between brands.
-          </p>
-          {Object.entries(prims).map(([name, scale]) => (
-            <SwatchGrid key={name} label={name} scale={scale} />
-          ))}
-        </div>
-      )}
+      {/* Content Area */}
+      <div style={{ padding: '0 0 64px 0' }}>
+        {tab === 'Primitives' && (
+          <div className="fade-in">
+            <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>
+              Brand-specific core palettes. These are the raw ingredients that vary between brands.
+            </p>
+            {Object.entries(prims).map(([name, scale]) => (
+              <SwatchGrid key={name} label={name} scale={scale} />
+            ))}
+          </div>
+        )}
 
-      {/* TAB: UTILITY */}
-      {tab === 'Utility' && (
-        <div className="fade-in">
-          <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>
-            Functional shared colors. This view dynamically resolves overrides when the brand is active.
-          </p>
-          {Object.entries(utility).map(([name, scale]) => {
-            const resolvedScale = Object.keys(scale).reduce((acc, step) => {
-              acc[step] = resolveToken(`${name}.${step}`, brand, mode);
-              return acc;
-            }, {});
-            return <SwatchGrid key={name} label={name} scale={resolvedScale} />;
-          })}
-        </div>
-      )}
+        {tab === 'Utility' && (
+          <div className="fade-in">
+            <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 20 }}>
+              Functional shared colors. This view dynamically resolves overrides when the brand is active.
+            </p>
+            {Object.entries(utility).map(([name, scale]) => {
+              const resolvedScale = Object.keys(scale).reduce((acc, step) => {
+                acc[step] = resolveToken(`${name}.${step}`, brand, mode);
+                return acc;
+              }, {});
+              return <SwatchGrid key={name} label={name} scale={resolvedScale} />;
+            })}
+          </div>
+        )}
 
-      {/* TAB: SEMANTIC */}
-      {tab === 'Semantic Tokens' && <SemanticTokensPage />}
-
-      {/* TAB: JSON EXPORT */}
-      {tab === 'JSON Export' && <JsonExportPage />}
+        {tab === 'Semantic Tokens' && <SemanticTokensPage />}
+        {tab === 'JSON Export' && <JsonExportPage />}
+      </div>
     </div>
   );
 }
