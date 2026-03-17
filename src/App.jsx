@@ -108,7 +108,7 @@ export default function App() {
   else if (page === 'radii') content = <RadiiPage />;
   else if (page === 'shadows') content = <ShadowsPage />;
   else if (page === 'charts') content = <ChartColorsPage />;
-  else if (page === 'play-layout') content = <TokenPlayground />;
+  else if (page === 'play-layout') content = <TokenPlayground stickyTop={69} />;
   else if (page === 'storybook') content = <StorybookPage />;
   else if (page === 'figma') content = <FigmaLibraryPage />;
   else if (page === 'json') content = <JsonExportsPage />;
