@@ -312,25 +312,23 @@ export function StorybookPage() {
         {/* Embedded Storybook Iframe */}
         <div style={{
           width: '100%',
-          height: 600,
+          height: 800, // Increased height for better visibility
           borderRadius: 16,
           border: '1px solid var(--border)',
           background: 'var(--bg1)',
           overflow: 'hidden',
           position: 'relative',
+          transition: 'all 300ms ease',
         }}>
-          {/* Note: In production, use the hosted Chromatic URL. For local dev, use http://localhost:6006 */}
           <iframe 
             src="https://main--69b7d9b662538807801f2c61.chromatic.com/iframe.html?id=getting-started-introduction--docs&viewMode=docs"
             style={{
               width: '100%',
               height: '100%',
               border: 'none',
+              background: '#000', // Match dark theme while loading
             }}
             title="WA Technology Storybook Embed"
-            onError={(e) => {
-               // Fallback or message if hosted version is unavailable
-            }}
           />
         </div>
 

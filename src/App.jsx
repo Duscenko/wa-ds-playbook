@@ -47,8 +47,8 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Force initial state: Get Started open, others closed
-  const [expanded, setExpanded] = useState(['get-started']);
+  // Force initial state: All sections expanded
+  const [expanded, setExpanded] = useState(['get-started', 'foundations', 'resources']);
   const [expandedSubs, setExpandedSubs] = useState([]);
 
   const { getCSSVars, mode } = useTheme();

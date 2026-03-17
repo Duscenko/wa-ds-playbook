@@ -7,7 +7,7 @@ const theme = create({
   // Branding
   brandTitle: 'WA Design System',
   brandUrl: 'https://wa-ds-playbook.vercel.app/',
-  brandImage: '/logo-wa.svg', // Logo WA Technology
+  brandImage: '/logo-watech.png', // Logo WA Technology
   brandTarget: '_blank',
   
   // Colors
