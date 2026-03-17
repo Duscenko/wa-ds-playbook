@@ -296,7 +296,7 @@ export function StorybookPage() {
               e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            View Full Storybook (Vercel)
+            View Full Storybook
             <span style={{ fontSize: 16 }}>↗</span>
           </a>
         </div>

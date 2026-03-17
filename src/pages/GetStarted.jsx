@@ -5,9 +5,9 @@ export function IntroductionPage() {
     <div style={{ width: '100%', maxWidth: 900 }}>
       {/* Hero Section */}
       <div style={{
-        marginBottom: 48,
-        padding: '65px 41px',
-        borderRadius: 16,
+        marginBottom: 32,
+        padding: '56px 48px', // Slightly more compact
+        borderRadius: 24,
         background: 'linear-gradient(132.01deg, rgb(24, 25, 27) 0%, rgb(33, 34, 37) 100%)',
         border: '1px solid var(--border)',
         position: 'relative',
@@ -17,87 +17,71 @@ export function IntroductionPage() {
         <div style={{
           position: 'absolute',
           inset: '0 0 -0.48px 0',
-          opacity: 0.1,
+          opacity: 0.08,
           backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.04) 2.5%, rgba(255, 255, 255, 0) 2.5%), linear-gradient(90deg, rgba(255, 255, 255, 0.04) 2.5%, rgba(255, 255, 255, 0) 2.5%)',
-          backgroundSize: '40px 40px',
+          backgroundSize: '32px 32px',
         }} />
         <div style={{
           position: 'absolute',
-          opacity: 0.15,
-          right: -40,
-          top: -40,
-          width: 200,
-          height: 200,
-          borderRadius: 100,
+          opacity: 0.1,
+          right: -20,
+          top: -20,
+          width: 240,
+          height: 240,
+          borderRadius: 120,
           background: 'radial-gradient(circle, #0090ff 0%, transparent 70%)',
+          filter: 'blur(40px)',
         }} />
 
         {/* Content */}
         <div style={{ position: 'relative', zIndex: 1 }}>
           <div style={{
             display: 'inline-block',
-            padding: '7px 15px',
-            borderRadius: 9999,
-            background: 'rgba(0, 144, 255, 0.08)',
-            border: '1px solid #0090ff',
-            fontSize: 11,
+            padding: '6px 14px',
+            borderRadius: 999,
+            background: 'rgba(0, 144, 255, 0.1)',
+            border: '1px solid rgba(0, 144, 255, 0.3)',
+            fontSize: 10,
             fontWeight: 600,
             color: '#0090ff',
             textTransform: 'uppercase',
-            letterSpacing: '0.55px',
-            marginBottom: 20,
+            letterSpacing: '1px',
+            marginBottom: 24,
           }}>
             Introduction
           </div>
 
           <h1 style={{
-            fontSize: 48,
+            fontSize: 56,
             fontWeight: 600,
-            color: '#edeef0',
+            color: '#fff',
             fontFamily: 'var(--font-display)',
-            letterSpacing: '-1.5px',
-            lineHeight: 1,
-            marginBottom: 8,
+            letterSpacing: '-2px',
+            lineHeight: 1.1,
+            marginBottom: 24,
+            maxWidth: 600,
           }}>
-            WA Design System
+            WA Design System Resources Hub
           </h1>
-          <h2 style={{
-            fontSize: 48,
-            fontWeight: 600,
-            color: '#edeef0',
-            fontFamily: 'var(--font-display)',
-            letterSpacing: '-1.5px',
-            lineHeight: 1,
-            marginBottom: 20,
-          }}>
-            Resources Hub
-          </h2>
 
           <p style={{
-            fontSize: 15,
-            color: '#edeef0',
-            lineHeight: 1.7,
-            maxWidth: 700,
-            marginBottom: 17,
+            fontSize: 16,
+            color: 'rgba(255, 255, 255, 0.7)',
+            lineHeight: 1.6,
+            maxWidth: 680,
+            marginBottom: 0,
           }}>
-            The WA Design System is the single source of truth for building consistent, accessible, and scalable user interfaces across all WA Technology products — Casino, Sportsbook, and Lottery.
-          </p>
-          <p style={{
-            fontSize: 14,
-            color: '#edeef0',
-            lineHeight: 1.7,
-            maxWidth: 700,
-          }}>
-            Built on <strong style={{ fontWeight: 700 }}>shadcn/ui</strong> with <strong style={{ fontWeight: 700 }}>Figma Variables</strong>, it supports white-label theming across multiple brands (Belloa, Pick'em, and more) while maintaining WCAG 2.1 AA compliance in both dark and light modes.
+            The single source of truth for building consistent, accessible, and scalable user interfaces across all WA Technology products — Casino, Sportsbook, and Lottery.
           </p>
         </div>
       </div>
 
-      {/* Feature Cards */}
+      {/* Feature Cards Grid */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: 16,
+        marginBottom: 48,
       }}>
         {[
           { title: "Scalable", desc: "3-tier token architecture enables unlimited brand themes by swapping only primitive values.", color: "#0090ff" },
@@ -105,25 +89,27 @@ export function IntroductionPage() {
           { title: "Consistent", desc: "Shared utility colors across all brands. Only the 'main' primitive changes per theme.", color: "#ffe629" },
         ].map(feat => (
           <div key={feat.title} style={{
-            padding: 25,
-            borderRadius: 13,
+            padding: '28px 24px',
+            borderRadius: 20,
             border: '1px solid #2a2a30',
             background: '#141416',
-            height: 162,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12,
+            transition: 'all 200ms ease',
           }}>
             <h3 style={{
-              fontSize: 18.6,
+              fontSize: 20,
               fontWeight: 700,
               color: feat.color,
               fontFamily: 'var(--font-display)',
-              marginBottom: 6,
             }}>
               {feat.title}
             </h3>
             <p style={{
-              fontSize: 16,
-              color: '#6b6b76',
-              lineHeight: 1.5,
+              fontSize: 14,
+              color: 'rgba(255, 255, 255, 0.5)',
+              lineHeight: 1.6,
             }}>
               {feat.desc}
             </p>

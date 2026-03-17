@@ -129,14 +129,10 @@ function BrandSwitcher({ brand, mode }) {
       display: 'flex',
       alignItems: 'center',
       gap: 12,
-      padding: '8px 0',
     }}>
-      <div style={{ fontSize: 12, fontWeight: 500, color: 'var(--text2)', marginRight: 4 }}>
-        Viewing Environment:
-      </div>
-      <Dropdown label="" value={brand} options={brandOptions} onChange={setBrand} />
-      <div style={{ width: 1, height: 16, background: 'var(--border)' }} />
-      <Dropdown label="" value={mode} options={modeOptions} onChange={setMode} />
+      <Dropdown label="" value={brand || 'wa-default'} options={brandOptions} onChange={setBrand} />
+      <div style={{ width: 1, height: 16, background: 'rgba(255,255,255,0.1)' }} />
+      <Dropdown label="" value={mode || 'dark'} options={modeOptions} onChange={setMode} />
     </div>
   );
 }
@@ -311,22 +307,62 @@ export function ColorPage() {
     <div>
       <SectionTitle title={`${brandData.label} Colors`} sub="Token-based color system. Primitives change per brand; utility resolves dynamically." />
 
-      {/* Sticky Bar for Brand Selector & Tabs */}
+      {/* Sticky Top Bar with Brand Selector and Tab Bar */}
       <div style={{
         position: 'sticky',
         top: 69, // Header height
-        zIndex: 20,
-        margin: '0 -44px 24px -44px', // Counter-act parent padding
-        padding: '10px 44px',
-        background: 'rgba(10, 10, 11, 0.9)', // Solid dark with slight transparency
-        backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid var(--border)',
+        zIndex: 100, // Higher z-index for the main interactive bar
+        margin: '0 -44px 32px -44px',
+        padding: '16px 44px 12px 44px',
+        background: 'rgba(10, 10, 11, 0.98)', 
+        backdropFilter: 'blur(16px)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 4,
+        gap: 16,
       }}>
-        <BrandSwitcher brand={brand} mode={mode} brandData={brandData} />
-        <TabBar tabs={['Primitives', 'Utility', 'Semantic Tokens', 'JSON Export']} active={tab} onChange={setTab} />
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between',
+          gap: 20
+        }}>
+          {/* Environment Controls Container */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            padding: '4px 12px 4px 4px',
+            background: 'rgba(255, 255, 255, 0.03)',
+            borderRadius: 12,
+            border: '1px solid rgba(255, 255, 255, 0.04)',
+          }}>
+            <div style={{ 
+              paddingLeft: 8, 
+              fontSize: 12, 
+              fontWeight: 500, 
+              color: 'var(--text3)',
+              textTransform: 'none',
+            }}>
+              Viewing Environment:
+            </div>
+            <BrandSwitcher brand={brand} mode={mode} brandData={brandData} />
+          </div>
+
+          {/* Navigation Bar / Menu */}
+          <div style={{
+            background: '#111111',
+            padding: '2px',
+            borderRadius: 10,
+            border: '1px solid rgba(255, 255, 255, 0.03)',
+          }}>
+            <TabBar 
+              tabs={['Primitives', 'Utility', 'Semantic Tokens', 'JSON Export']} 
+              active={tab} 
+              onChange={setTab} 
+            />
+          </div>
+        </div>
       </div>
 
       {/* TAB: PRIMITIVES */}
