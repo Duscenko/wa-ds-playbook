@@ -60,31 +60,52 @@ export function SectionTitle({ title, children, sub }) {
 
 /* ─── TabBar ──────────────────────────────────────
    Accepts tabs as string[] OR {id, label}[]. */
-export function TabBar({ tabs, active, onChange }) {
+export function TabBar({ tabs, active, onChange, variant = 'ribbon' }) {
   const isStrings = typeof tabs[0] === 'string';
+  const isIsland = variant === 'island';
+
   return (
     <div style={{
-      display: 'flex', gap: 2, padding: 3,
-      borderRadius: 8, background: '#111111', // Darker background for the track
+      display: 'flex', 
+      gap: 4, 
+      padding: isIsland ? 4 : 2,
+      borderRadius: isIsland ? 12 : 8, 
+      background: isIsland ? 'rgba(255, 255, 255, 0.03)' : '#111111',
       width: 'fit-content',
     }}>
       {tabs.map(t => {
         const id = isStrings ? t : t.id;
         const label = isStrings ? t : t.label;
         const on = active === id;
+        
         return (
-          <button key={id} onClick={() => onChange(id)} style={{
-            padding: '7px 16px', borderRadius: 6,
-            fontSize: 13, fontWeight: 500, border: 'none',
-            cursor: 'pointer', fontFamily: 'var(--font)',
-            background: on ? 'color-mix(in srgb, var(--accent), transparent 85%)' : 'transparent',
-            color: on ? 'var(--accent)' : 'var(--text3)',
-            boxShadow: on 
-              ? 'inset 0 0 0 1px color-mix(in srgb, var(--accent), transparent 80%)' 
-              : 'none',
-            zIndex: on ? 1 : 0,
-            transition: 'all 120ms',
-          }}>{label}</button>
+          <button 
+            key={id} 
+            onClick={() => onChange(id)} 
+            style={{
+              padding: isIsland ? '6px 16px' : '7px 16px', 
+              borderRadius: isIsland ? 8 : 6,
+              fontSize: 12, 
+              fontWeight: 600, 
+              border: 'none',
+              cursor: 'pointer', 
+              fontFamily: 'var(--font)',
+              textTransform: isIsland ? 'none' : 'uppercase',
+              letterSpacing: isIsland ? '0' : '0.05em',
+              background: on 
+                ? (isIsland ? 'rgba(0, 144, 255, 0.12)' : 'color-mix(in srgb, var(--accent), transparent 85%)') 
+                : 'transparent',
+              color: on 
+                ? (isIsland ? '#0090ff' : 'var(--accent)') 
+                : 'var(--text3)',
+              boxShadow: (on && isIsland)
+                ? '0 0 0 1px rgba(0, 144, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.05)'
+                : (on ? 'inset 0 0 0 1px color-mix(in srgb, var(--accent), transparent 80%)' : 'none'),
+              transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          >
+            {label}
+          </button>
         );
       })}
     </div>

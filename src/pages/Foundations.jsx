@@ -56,23 +56,18 @@ function Dropdown({ label, value, options, onChange, minimal }) {
         onClick={() => setOpen(!open)}
         style={{
           display: 'flex', alignItems: 'center', gap: 6,
-          padding: minimal ? '2px 0' : '6px 10px', height: minimal ? 'auto' : 32,
-          borderRadius: minimal ? 0 : 'var(--radius-sm)',
-          background: minimal ? 'transparent' : 'var(--bg2)',
-          border: minimal ? 'none' : '1px solid var(--border)',
-          cursor: 'pointer', fontSize: 12, fontFamily: 'var(--font)',
-          color: 'var(--text)', transition: 'all 120ms',
-          opacity: 0.9,
+          padding: minimal ? '4px 8px' : '6px 12px', 
+          height: minimal ? 32 : 36,
+          borderRadius: minimal ? 10 : 12, // Softer radii
+          background: minimal ? 'transparent' : 'rgba(255, 255, 255, 0.03)',
+          border: minimal ? 'none' : '1px solid rgba(255, 255, 255, 0.05)',
+          cursor: 'pointer', fontSize: 13, fontWeight: 500, fontFamily: 'var(--font)',
+          color: 'var(--text)', transition: 'all 150ms ease',
+          opacity: open ? 1 : 0.8,
         }}
+        onMouseEnter={e => { if (minimal) e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; }}
+        onMouseLeave={e => { if (minimal && !open) e.currentTarget.style.background = 'transparent'; }}
       >
-        {current?.dot && !minimal && (
-          <span style={{
-            width: 8, height: 8, borderRadius: 9999,
-            background: current.dot, flexShrink: 0,
-            boxShadow: '0 0 0 1px rgba(0,0,0,0.1)'
-          }} />
-        )}
-        {label && <span style={{ fontSize: 10, color: 'var(--text3)', textTransform: 'uppercase', marginRight: 2 }}>{label}</span>}
         <span style={{ fontWeight: 600 }}>{current?.label || value}</span>
         <ChevronDown size={14} rotated={open} color="var(--text3)" />
       </button>
@@ -80,11 +75,12 @@ function Dropdown({ label, value, options, onChange, minimal }) {
       {open && (
         <div style={{
           position: 'absolute', top: 'calc(100% + 8px)', left: 0,
-          zIndex: 1000, background: 'var(--bg1)',
-          border: '1px solid var(--border)',
-          borderRadius: 8,
-          padding: 4, minWidth: 160,
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+          zIndex: 1000, background: '#1e1e20',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
+          borderRadius: 16, // Large soft radius for menu
+          padding: 6, minWidth: 160,
+          boxShadow: '0 12px 32px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3)',
+          animation: 'fadeUp 200ms ease-out',
         }}>
           {options.map(o => (
             <button
@@ -92,11 +88,12 @@ function Dropdown({ label, value, options, onChange, minimal }) {
               onClick={() => { onChange(o.id); setOpen(false); }}
               style={{
                 display: 'flex', alignItems: 'center', gap: 10,
-                width: '100%', padding: '8px 10px', borderRadius: 6,
+                width: '100%', padding: '8px 12px', borderRadius: 10,
                 border: 'none', textAlign: 'left',
-                background: value === o.id ? 'rgba(0,144,255,0.1)' : 'transparent',
+                background: value === o.id ? 'rgba(0, 144, 255, 0.08)' : 'transparent',
                 color: value === o.id ? '#0090ff' : 'var(--text2)',
                 cursor: 'pointer', fontSize: 13, fontFamily: 'var(--font)',
+                transition: 'all 120ms ease',
               }}
             >
               {o.dot && <span style={{ width: 8, height: 8, borderRadius: 9999, background: o.dot }} />}
@@ -318,50 +315,45 @@ export function ColorPage() {
         {brandData.label} Colors
       </h1>
 
-      {/* Unified Control Ribbon */}
+      {/* Floating Island Control Bar */}
       <div style={{
         position: 'sticky',
         top: 69,
         zIndex: 100,
-        margin: '0 -24px 32px -24px',
-        padding: '0 12px',
-        height: 36, // Minimal height
-        background: 'rgba(10, 10, 11, 0.85)',
+        margin: '0 auto 40px auto',
+        padding: '0 8px',
+        width: 'fit-content',
+        height: 48,
+        background: '#1e1e20', // Island surface color
         backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+        borderRadius: 24, // Large soft radius
+        border: '1px solid rgba(255, 255, 255, 0.05)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        borderRadius: '0 0 12px 12px',
+        gap: 0,
+        boxShadow: `
+          0 12px 32px -8px rgba(0, 0, 0, 0.5),
+          0 4px 12px -2px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05)
+        `,
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', height: '100%', flex: 1 }}>
-          {/* Grouped Selectors */}
+        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+          {/* Grouped Dropdowns (Soft-rounded Island Group) */}
           <div style={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: 16,
-            padding: '0 8px',
+            gap: 4,
+            padding: '0 8px 0 16px',
             height: '100%',
           }}>
-            {/* Brand Selector with Active Light */}
-            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-              <div style={{
-                width: 6,
-                height: 6,
-                borderRadius: '50%',
-                background: '#0090ff',
-                boxShadow: '0 0 10px #0090ff',
-                marginRight: 8,
-              }} />
-              <Dropdown 
-                label="" 
-                value={brand || 'wa-default'} 
-                options={Object.entries(brands).map(([key, data]) => ({ id: key, label: data.label }))} 
-                onChange={(val) => useTheme().setBrand(val)}
-                minimal
-              />
-            </div>
-            
+            <Dropdown 
+              label="" 
+              value={brand || 'wa-default'} 
+              options={Object.entries(brands).map(([key, data]) => ({ id: key, label: data.label }))} 
+              onChange={(val) => useTheme().setBrand(val)}
+              minimal
+            />
+            <div style={{ width: 1, height: 16, background: 'rgba(255, 255, 255, 0.08)', margin: '0 4px' }} />
             <Dropdown 
               label="" 
               value={mode || 'dark'} 
@@ -374,49 +366,22 @@ export function ColorPage() {
             />
           </div>
 
-          {/* Subtle Vertical Divider */}
+          {/* Subtle Aesthetic Divider */}
           <div style={{ 
             width: 1, 
-            height: 16, 
-            background: 'rgba(255, 255, 255, 0.08)', 
-            margin: '0 16px' 
+            height: 24, 
+            background: 'rgba(255, 255, 255, 0.05)', 
+            margin: '0 12px' 
           }} />
 
-          {/* Segmented Tab Control (Flush Style) */}
-          <div style={{ 
-            display: 'flex', 
-            height: '100%', 
-            alignItems: 'stretch', // Stretch buttons to full height
-            flex: 1,
-          }}>
-            {['Primitives', 'Utility', 'Semantic Tokens', 'JSON Export'].map((t, idx, arr) => {
-              const active = tab === t;
-              return (
-                <button
-                  key={t}
-                  onClick={() => setTab(t)}
-                  style={{
-                    height: '100%',
-                    padding: '0 20px',
-                    fontSize: 11,
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    color: active ? '#fff' : 'rgba(255, 255, 255, 0.4)',
-                    background: active ? '#0090ff' : 'transparent',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontFamily: 'var(--font)',
-                    transition: 'all 120ms ease',
-                    borderRight: (idx < arr.length - 1 && !active && tab !== arr[idx+1]) 
-                      ? '1px solid rgba(255, 255, 255, 0.03)' 
-                      : 'none',
-                  }}
-                >
-                  {t}
-                </button>
-              );
-            })}
+          {/* Tab Control (Island Variant) */}
+          <div style={{ paddingRight: 8 }}>
+            <TabBar 
+              tabs={['Primitives', 'Utility', 'Semantic Tokens', 'JSON Export']} 
+              active={tab} 
+              onChange={setTab} 
+              variant="island"
+            />
           </div>
         </div>
       </div>
