@@ -58,9 +58,9 @@ function Dropdown({ label, value, options, onChange, minimal }) {
           display: 'flex', alignItems: 'center', gap: 6,
           padding: minimal ? '4px 8px' : '6px 12px', 
           height: minimal ? 32 : 36,
-          borderRadius: minimal ? 10 : 12, // Softer radii
-          background: minimal ? 'transparent' : 'rgba(255, 255, 255, 0.03)',
-          border: minimal ? 'none' : '1px solid rgba(255, 255, 255, 0.05)',
+          borderRadius: 6, // Strictly 6px
+          background: minimal ? 'transparent' : 'var(--bg3)',
+          border: minimal ? 'none' : '1px solid var(--border-hover)',
           cursor: 'pointer', fontSize: 13, fontWeight: 500, fontFamily: 'var(--font)',
           color: 'var(--text)', transition: 'all 150ms ease',
           opacity: open ? 1 : 0.8,
@@ -75,12 +75,11 @@ function Dropdown({ label, value, options, onChange, minimal }) {
       {open && (
         <div style={{
           position: 'absolute', top: 'calc(100% + 8px)', left: 0,
-          zIndex: 1000, background: '#1e1e20',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          borderRadius: 16, // Large soft radius for menu
+          zIndex: 1000, background: 'var(--bg3)',
+          border: '1px solid var(--border-hover)',
+          borderRadius: 6, // Strictly 6px
           padding: 6, minWidth: 160,
-          boxShadow: '0 12px 32px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3)',
-          animation: 'fadeUp 200ms ease-out',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
         }}>
           {options.map(o => (
             <button
@@ -88,7 +87,7 @@ function Dropdown({ label, value, options, onChange, minimal }) {
               onClick={() => { onChange(o.id); setOpen(false); }}
               style={{
                 display: 'flex', alignItems: 'center', gap: 10,
-                width: '100%', padding: '8px 12px', borderRadius: 10,
+                width: '100%', padding: '8px 12px', borderRadius: 4,
                 border: 'none', textAlign: 'left',
                 background: value === o.id ? 'rgba(0, 144, 255, 0.08)' : 'transparent',
                 color: value === o.id ? '#0090ff' : 'var(--text2)',
@@ -315,7 +314,7 @@ export function ColorPage() {
         {brandData.label} Colors
       </h1>
 
-      {/* Floating Island Control Bar */}
+      {/* Floating Island Control Bar (Geometric Refinement) */}
       <div style={{
         position: 'sticky',
         top: 69,
@@ -323,19 +322,15 @@ export function ColorPage() {
         margin: '0 auto 40px auto',
         padding: '0 8px',
         width: 'fit-content',
-        height: 48,
-        background: '#1e1e20', // Island surface color
+        height: 40, // Strictly 40px
+        background: 'var(--bg3)', // Geometric surface
         backdropFilter: 'blur(20px)',
-        borderRadius: 24, // Large soft radius
-        border: '1px solid rgba(255, 255, 255, 0.05)',
+        borderRadius: 6, // Strictly 6px
+        border: '1px solid var(--border-hover)',
         display: 'flex',
         alignItems: 'center',
-        gap: 0,
-        boxShadow: `
-          0 12px 32px -8px rgba(0, 0, 0, 0.5),
-          0 4px 12px -2px rgba(0, 0, 0, 0.3),
-          inset 0 1px 0 rgba(255, 255, 255, 0.05)
-        `,
+        gap: 8, // Strictly 8px gap
+        boxShadow: '0 12px 32px -8px rgba(0, 0, 0, 0.5)',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
           {/* Grouped Dropdowns (Soft-rounded Island Group) */}

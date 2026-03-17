@@ -69,7 +69,7 @@ export function TabBar({ tabs, active, onChange, variant = 'ribbon' }) {
       display: 'flex', 
       gap: 4, 
       padding: isIsland ? 4 : 2,
-      borderRadius: isIsland ? 12 : 8, 
+      borderRadius: isIsland ? 6 : 8, // Strictly 6px for island
       background: isIsland ? 'rgba(255, 255, 255, 0.03)' : '#111111',
       width: 'fit-content',
     }}>
@@ -83,8 +83,8 @@ export function TabBar({ tabs, active, onChange, variant = 'ribbon' }) {
             key={id} 
             onClick={() => onChange(id)} 
             style={{
-              padding: isIsland ? '6px 16px' : '7px 16px', 
-              borderRadius: isIsland ? 8 : 6,
+              padding: isIsland ? '4px 12px' : '7px 16px', 
+              borderRadius: isIsland ? 6 : 6, // Strictly 6px
               fontSize: 12, 
               fontWeight: 600, 
               border: 'none',
