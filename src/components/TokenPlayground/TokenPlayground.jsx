@@ -106,15 +106,7 @@ const IcoChevron = ({ size = 11 }) => (
 // BRAND TOKEN MAP
 // ─────────────────────────────────────────────────────────────────
 const BRANDS = {
-  'wa-default': {
-    label: 'WA Default', sp: '#111113', sl1: '#18191b', sl2: '#212225', sa: '#0d2847',
-    cp: '#edeef0', cs: '#b0b4ba', csu: '#777b84', ca: '#3b9eff',
-    ap: '#104d87', as_: 'rgba(112,184,255,.12)', ash: 'rgba(112,184,255,.20)',
-    bsu: 'rgba(249,250,251,.07)', bac: '#2870bd', ban: '#004074',
-    gs: '#70b8ff', ge: '#0090ff',
-    scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
-  },
-  'belloa': {
+  'belloa-default': {
     label: 'Belloa', sp: '#101211', sl1: '#171918', sl2: '#202221', sa: '#0D2D2A',
     cp: '#EDEEF0', cs: '#B0B4BA', csu: '#717D79', ca: '#0EB39E',
     ap: '#145750', as_: 'rgba(0,255,230,.12)', ash: 'rgba(0,255,230,.18)',
@@ -123,43 +115,75 @@ const BRANDS = {
     scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
   },
   'belloa-light': {
-    label: 'Belloa Light', sp: '#FCFCFD', sl1: '#F8F9FA', sl2: '#F1F3F5', sa: '#E6F6F3',
-    cp: '#11181C', cs: '#313538', csu: '#687076', ca: '#067A6F',
-    ap: '#69BAA9', as_: 'rgba(11,195,173,.10)', ash: 'rgba(11,195,173,.18)',
+    label: 'Belloa Light', sp: '#FBFEFD', sl1: '#F4FBF9', sl2: '#E6F6F3', sa: '#D6F1EB',
+    cp: '#0A1715', cs: '#1E3D37', csu: '#4A6B62', ca: '#067A6F',
+    ap: '#207E73', as_: 'rgba(0,180,155,.10)', ash: 'rgba(0,180,155,.18)',
     bsu: 'rgba(0,0,0,.06)', bac: '#0BC3AD', ban: '#ADE0D4',
     gs: '#0BC3AD', ge: '#09B29E',
     scfg: '#cd2b31', scbg: '#ffefef', ssfg: '#18794e', ssbg: '#e9f9ee', swfg: '#946800', swbg: '#fffbd1',
   },
-  'pickem': {
-    label: "Pick'em", sp: '#1c191f', sl1: '#2b272c', sl2: '#332f35', sa: '#2f1747',
-    cp: '#eeeef0', cs: '#eeeef0', csu: '#9795a0', ca: '#a64eed',
-    ap: '#7410c5', as_: 'rgba(208,156,255,.12)', ash: 'rgba(208,156,255,.20)',
-    bsu: 'rgba(249,250,251,.07)', bac: '#8848c6', ban: '#48206e',
-    gs: '#d09cff', ge: '#a242f5',
-    scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
+  'superbetin': {
+    label: 'Superbetin', sp: '#FCFCFD', sl1: '#F8F9FA', sl2: '#F1F3F5', sa: '#E1F0FF',
+    cp: '#11181C', cs: '#313538', csu: '#687076', ca: '#0081F1',
+    ap: '#96C7F2', as_: 'rgba(0,130,240,.08)', ash: 'rgba(0,130,240,.15)',
+    bsu: 'rgba(0,0,0,.06)', bac: '#0091FF', ban: '#CEE7FE',
+    gs: '#52A9FF', ge: '#0091FF',
+    scfg: '#cd2b31', scbg: '#ffefef', ssfg: '#18794e', ssbg: '#e9f9ee', swfg: '#946800', swbg: '#fffbd1',
   },
   'manat': {
-    label: 'Manat', sp: '#111113', sl1: '#18191B', sl2: '#212225', sa: '#3D120E',
-    cp: '#EDEEF0', cs: '#B0B4BA', csu: '#777B84', ca: '#C80000',
-    ap: '#762019', as_: 'rgba(255,144,129,.12)', ash: 'rgba(255,144,129,.20)',
-    bsu: 'rgba(249,250,251,.07)', bac: '#BA3F35', ban: '#65110D',
-    gs: '#FF9081', ge: '#D91414',
-    scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
-  },
-  'superbetin': {
-    label: 'Superbetin', sp: '#111111', sl1: '#191919', sl2: '#222222', sa: '#09126f',
-    cp: '#f1f1f1', cs: '#d1d1d1', csu: '#a0a0a0', ca: '#1e2ae6',
-    ap: '#181fc9', as_: 'rgba(144,179,255,.12)', ash: 'rgba(144,179,255,.20)',
-    bsu: 'rgba(249,250,251,.07)', bac: '#252fff', ban: '#140fb4',
-    gs: '#90b3ff', ge: '#1717c5',
+    label: 'Manat', sp: '#100E08', sl1: '#181610', sl2: '#201E18', sa: '#2A2515',
+    cp: '#F0EBD8', cs: '#C8B890', csu: '#8A7A58', ca: '#D4A017',
+    ap: '#E8B420', as_: 'rgba(212,160,23,.12)', ash: 'rgba(212,160,23,.20)',
+    bsu: 'rgba(249,250,251,.07)', bac: '#D4A017', ban: '#6B500A',
+    gs: '#FFD700', ge: '#C89010',
     scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
   },
   'spinpokio': {
-    label: 'Spinpokio', sp: '#070709', sl1: '#1C1C23', sl2: '#232323', sa: '#2d2008',
-    cp: '#B9B6C2', cs: '#6658A3', csu: '#534A89', ca: '#f4b000',
-    ap: '#583f08', as_: 'rgba(255,197,55,.12)', ash: 'rgba(255,197,55,.20)',
-    bsu: 'rgba(249,250,251,.07)', bac: '#896725', ban: '#4b3100',
-    gs: '#ffc537', ge: '#ffba1a',
+    label: 'Spinpokio', sp: '#100F18', sl1: '#18172C', sl2: '#201E38', sa: '#2A2848',
+    cp: '#F0EEFF', cs: '#C2B8EE', csu: '#8070C0', ca: '#A888FF',
+    ap: '#7B5BE8', as_: 'rgba(160,120,255,.12)', ash: 'rgba(160,120,255,.20)',
+    bsu: 'rgba(249,250,251,.07)', bac: '#9070E0', ban: '#48388A',
+    gs: '#C0A8FF', ge: '#8060E0',
+    scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
+  },
+  'turkbet': {
+    label: 'Turkbet', sp: '#140B08', sl1: '#1E1210', sl2: '#281A18', sa: '#3B1812',
+    cp: '#F5EDE0', cs: '#C8A882', csu: '#8A7055', ca: '#E84830',
+    ap: '#CC3311', as_: 'rgba(232,72,48,.12)', ash: 'rgba(232,72,48,.20)',
+    bsu: 'rgba(249,250,251,.07)', bac: '#E84830', ban: '#611623',
+    gs: '#FF6644', ge: '#CC3311',
+    scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
+  },
+  'betsat': {
+    label: 'Betsat', sp: '#140F08', sl1: '#1E1710', sl2: '#281F18', sa: '#1A1208',
+    cp: '#F5ECD8', cs: '#C8A870', csu: '#8A7050', ca: '#FF9F20',
+    ap: '#D47B00', as_: 'rgba(255,159,32,.12)', ash: 'rgba(255,159,32,.20)',
+    bsu: 'rgba(249,250,251,.07)', bac: '#FF9F20', ban: '#3D2800',
+    gs: '#FFB820', ge: '#CC8800',
+    scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
+  },
+  'f12': {
+    label: 'F12', sp: '#0D1210', sl1: '#131A17', sl2: '#1B221E', sa: '#0E2818',
+    cp: '#EDFAF0', cs: '#9ED8B0', csu: '#60A878', ca: '#22C55E',
+    ap: '#16A34A', as_: 'rgba(34,197,94,.12)', ash: 'rgba(34,197,94,.20)',
+    bsu: 'rgba(249,250,251,.07)', bac: '#22C55E', ban: '#14532D',
+    gs: '#4ADE80', ge: '#16A34A',
+    scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
+  },
+  'spin': {
+    label: 'Spin', sp: '#160D14', sl1: '#201220', sl2: '#2A1830', sa: '#3A2038',
+    cp: '#F5E8F5', cs: '#D8A8D8', csu: '#A870A8', ca: '#E040E0',
+    ap: '#C020C0', as_: 'rgba(220,60,220,.12)', ash: 'rgba(220,60,220,.20)',
+    bsu: 'rgba(249,250,251,.07)', bac: '#E040E0', ban: '#601860',
+    gs: '#F060F0', ge: '#C020C0',
+    scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
+  },
+  'livescore': {
+    label: 'Livescore', sp: '#0C1010', sl1: '#141818', sl2: '#1C2020', sa: '#182510',
+    cp: '#E8F5E0', cs: '#A8D890', csu: '#70A860', ca: '#96E820',
+    ap: '#F0F0F0', as_: 'rgba(150,232,32,.12)', ash: 'rgba(150,232,32,.20)',
+    bsu: 'rgba(249,250,251,.07)', bac: '#96E820', ban: '#2A3800',
+    gs: '#B0F020', ge: '#78B010',
     scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
   },
 }
@@ -204,7 +228,7 @@ function BrandSwatch({ id, brand, active, onClick }) {
 //   Effect: grayscale + 18% opacity + brand color orbs tint through it
 // ─────────────────────────────────────────────────────────────────
 export default function TokenPlayground({ stickyTop = 0, bannerImage = '/image-banners.png' }) {
-  const [activeBrand, setActiveBrand] = useState('belloa')
+  const [activeBrand, setActiveBrand] = useState('belloa-default')
   const brand = BRANDS[activeBrand]
 
   // Shape (border radius) switcher
@@ -243,7 +267,7 @@ export default function TokenPlayground({ stickyTop = 0, bannerImage = '/image-b
 
   const containerRef = useCallback(el => {
     if (el) {
-      applyVars(el, BRANDS['belloa'])
+      applyVars(el, BRANDS['belloa-default'])
       applyShapeVars(el, 'rounded')
     }
   }, [applyVars, applyShapeVars])
