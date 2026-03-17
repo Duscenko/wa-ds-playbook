@@ -231,6 +231,25 @@ export default function TokenPlayground({ stickyTop = 0, bannerImage = '/image-b
   const [activeBrand, setActiveBrand] = useState('belloa-default')
   const brand = BRANDS[activeBrand]
 
+  // Shape (border radius) switcher
+  // Maps to radius tokens from the WA Design System scale
+  const SHAPES = {
+    sharp:  { label: 'Sharp',   r: { btn: '0px',  card: '0px',  tag: '2px',   input: '0px'  } },
+    semi:   { label: 'Semi',    r: { btn: '6px',  card: '8px',  tag: '6px',   input: '6px'  } },
+    rounded:{ label: 'Rounded', r: { btn: '12px', card: '16px', tag: '999px', input: '10px' } },
+  }
+  const [activeShape, setActiveShape] = useState('rounded')
+  const [shapeDropOpen, setShapeDropOpen] = useState(false)
+
+  const applyShapeVars = useCallback((el, shapeKey) => {
+    if (!el) return
+    const s = SHAPES[shapeKey].r
+    el.style.setProperty('--pg-r-btn',   s.btn)
+    el.style.setProperty('--pg-r-card',  s.card)
+    el.style.setProperty('--pg-r-tag',   s.tag)
+    el.style.setProperty('--pg-r-input', s.input)
+  }, [])
+
   const applyVars = useCallback((el, b) => {
     if (!el || !b) return
     const map = {
@@ -247,13 +266,21 @@ export default function TokenPlayground({ stickyTop = 0, bannerImage = '/image-b
   }, [])
 
   const containerRef = useCallback(el => {
-    if (el) applyVars(el, BRANDS['belloa-default'])
-  }, [applyVars])
+    if (el) {
+      applyVars(el, BRANDS['belloa-default'])
+      applyShapeVars(el, 'rounded')
+    }
+  }, [applyVars, applyShapeVars])
 
   useEffect(() => {
     const el = document.getElementById('tp-root')
     applyVars(el, brand)
   }, [activeBrand, brand, applyVars])
+
+  useEffect(() => {
+    const el = document.getElementById('tp-root')
+    applyShapeVars(el, activeShape)
+  }, [activeShape, applyShapeVars])
 
   useEffect(() => {
     createIcons({ icons })
@@ -305,6 +332,75 @@ export default function TokenPlayground({ stickyTop = 0, bannerImage = '/image-b
           ))}
         </div>
         <div className="tp-pill">{activeBrand}</div>
+
+        {/* ── SHAPE SWITCHER ─────────────────────────────────────
+            Desktop (≥640px): 3 inline icon+label buttons
+            Mobile (<640px):  dropdown selector — saves space
+            Both sit after the brand pill on the right end of the bar */}
+
+        {/* DESKTOP — inline buttons */}
+        <div className="tp-shape-sw tp-shape-desktop" role="group" aria-label="Border radius">
+          {[
+            { key: 'sharp',
+              icon: <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="0" stroke="currentColor" strokeWidth="1.6"/></svg>,
+              label: 'Sharp' },
+            { key: 'semi',
+              icon: <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" strokeWidth="1.6"/></svg>,
+              label: 'Semi' },
+            { key: 'rounded',
+              icon: <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="6" stroke="currentColor" strokeWidth="1.6"/></svg>,
+              label: 'Rounded' },
+          ].map(s => (
+            <button
+              key={s.key}
+              className={`tp-shape-btn${activeShape === s.key ? ' active' : ''}`}
+              onClick={() => setActiveShape(s.key)}
+              title={s.label}
+              aria-pressed={activeShape === s.key}
+            >
+              {s.icon}
+              <span>{s.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* MOBILE — dropdown */}
+        <div className="tp-shape-drop tp-shape-mobile">
+          <button
+            className="tp-shape-drop-trigger"
+            onClick={() => setShapeDropOpen(o => !o)}
+            aria-haspopup="listbox"
+            aria-expanded={shapeDropOpen}
+          >
+            {/* Icon of the active shape */}
+            {activeShape === 'sharp'   && <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="0" stroke="currentColor" strokeWidth="1.6"/></svg>}
+            {activeShape === 'semi'    && <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" strokeWidth="1.6"/></svg>}
+            {activeShape === 'rounded' && <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="6" stroke="currentColor" strokeWidth="1.6"/></svg>}
+            <span>{SHAPES[activeShape].label}</span>
+            {/* chevron */}
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 'auto', opacity: .6 }}>
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          {shapeDropOpen && (
+            <div className="tp-shape-drop-menu" role="listbox">
+              {Object.entries(SHAPES).map(([key, s]) => (
+                <button
+                  key={key}
+                  role="option"
+                  aria-selected={activeShape === key}
+                  className={`tp-shape-drop-item${activeShape === key ? ' active' : ''}`}
+                  onClick={() => { setActiveShape(key); setShapeDropOpen(false) }}
+                >
+                  {key === 'sharp'   && <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="0" stroke="currentColor" strokeWidth="1.6"/></svg>}
+                  {key === 'semi'    && <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" strokeWidth="1.6"/></svg>}
+                  {key === 'rounded' && <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="6" stroke="currentColor" strokeWidth="1.6"/></svg>}
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </header>
 
       {/* ── BENTO ─────────────────────────────────────────────── */}
