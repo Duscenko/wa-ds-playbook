@@ -104,9 +104,19 @@
   padding: 24px 28px; display: flex; flex-direction: column;
   justify-content: flex-end; gap: 8px; min-height: 190px; overflow: visible;
 }
+.tp-hero-img {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  filter: grayscale(100%);
+  opacity: 0.18;
+  z-index: 0;
+  transition: opacity .4s;
+}
 .tp-orb { position: absolute; border-radius: 50%; pointer-events: none; transition: background .4s; }
-.tp-orb1 { width: 280px; height: 280px; background: color-mix(in srgb, var(--pg-gs) 10%, transparent); top: -80px; right: 80px; filter: blur(60px); }
-.tp-orb2 { width: 120px; height: 120px; background: color-mix(in srgb, var(--pg-ge) 6%, transparent); bottom: -20px; left: 300px; filter: blur(40px); }
+.tp-orb1 { width: 280px; height: 280px; background: color-mix(in srgb, var(--pg-gs) 10%, transparent); top: -80px; right: 80px; filter: blur(60px); mix-blend-mode: screen; }
+.tp-orb2 { width: 120px; height: 120px; background: color-mix(in srgb, var(--pg-ge) 6%, transparent); bottom: -20px; left: 300px; filter: blur(40px); mix-blend-mode: screen; }
 .tp-hero-tag {
   display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px;
   border-radius: 999px;

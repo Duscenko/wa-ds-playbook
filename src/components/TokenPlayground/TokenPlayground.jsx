@@ -292,6 +292,7 @@ export default function TokenPlayground({ stickyTop = 0 }) {
 
         {/* HERO */}
         <section className="tp-bc tp-hero">
+          <div className="tp-hero-img" style={{ backgroundImage: `url('/image-banners.png')` }} aria-hidden="true" />
           <div className="tp-orb tp-orb1" />
           <div className="tp-orb tp-orb2" />
           {/* TASK #4: Premier League logo */}
