@@ -90,27 +90,71 @@ function Dropdown({ label, value, options, onChange }) {
 }
 
 /* ─── Search Input ────────────────────────────── */
-function SearchInput() {
+function SearchInput({ value, onChange, placeholder }) {
+  const [expanded, setExpanded] = useState(false);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (expanded && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [expanded]);
+
   return (
-    <button
+    <div
       style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        width: 40, height: 40,
+        display: 'flex',
+        alignItems: 'center',
+        height: 40,
+        width: expanded || value ? 200 : 40,
         borderRadius: 'var(--radius, 6px)',
-        background: 'var(--bg2)', border: '1px solid var(--border)',
-        cursor: 'pointer', color: 'var(--text)', transition: 'all 150ms',
-      }}
-      onMouseEnter={e => {
-        e.currentTarget.style.background = 'var(--bg3)';
-        e.currentTarget.style.borderColor = 'var(--border-hover)';
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.background = 'var(--bg2)';
-        e.currentTarget.style.borderColor = 'var(--border)';
+        background: 'var(--bg2)',
+        border: expanded ? '1px solid var(--accent)' : '1px solid var(--border)',
+        overflow: 'hidden',
+        transition: 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+        boxShadow: expanded ? '0 0 0 2px var(--accent-subtle)' : 'none',
       }}
     >
-      <Search size={16} color="var(--text3)" />
-    </button>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        style={{
+          width: 40,
+          height: 40,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          flexShrink: 0,
+          color: expanded ? 'var(--accent)' : 'var(--text3)',
+          transition: 'color 200ms',
+        }}
+      >
+        <Search size={16} />
+      </button>
+      <input
+        ref={inputRef}
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onBlur={() => {
+          if (!value) setExpanded(false);
+        }}
+        placeholder={placeholder}
+        style={{
+          width: '100%',
+          background: 'transparent',
+          border: 'none',
+          outline: 'none',
+          color: 'var(--text)',
+          fontSize: 13,
+          paddingRight: 12,
+          opacity: expanded || value ? 1 : 0,
+          transition: 'opacity 200ms',
+        }}
+      />
+    </div>
   );
 }
 

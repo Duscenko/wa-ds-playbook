@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from './components/ThemeContext';
 import ThemeSwitcher from './components/ThemeSwitcher';
-import { PanelLeft, Hand, Beaker, Layers, Palette, Type, Maximize, CornerUpRight, Copy, PieChart, Book, PenTool, FileJson } from 'lucide-react';
+import { PanelLeft, Hand, Beaker, Layers, Palette, Type, Maximize, CornerUpRight, Copy, PieChart, PenTool, FileJson } from 'lucide-react';
 
 import { IntroductionPage, PrinciplesPage, TokenArchitecturePage } from './pages/GetStarted';
 import { ColorPage, TypographyPage, SpacingPage, RadiiPage, ShadowsPage, ChartColorsPage } from './pages/Foundations';
 import { ChevronDown } from './components/UI';
 // Resources pages  
-import { ResourcesOverviewPage, FigmaLibraryPage, JsonExportsPage, StorybookPage } from './pages/Resources';
+// Resources pages  
+import { FigmaLibraryPage, JsonExportsPage, StorybookPage } from './pages/Resources';
 
 /* ─── NAV TREE ────────────────────────────────── */
 const NAV = [
@@ -30,9 +31,8 @@ const NAV = [
   },
   {
     id: 'resources', label: 'Resources', children: [
-      { id: 'resources-overview', label: 'Overview', icon: Book },
-      { id: 'figma', label: 'Figma Library', icon: PenTool },
       { id: 'storybook', label: 'Storybook', icon: Layers },
+      { id: 'figma', label: 'Figma Library', icon: PenTool },
       { id: 'json', label: 'JSON Exports', icon: FileJson },
     ]
   },
@@ -65,9 +65,9 @@ export default function App() {
       prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]
     );
     
-    // Navigate to overview when opening Resources section
+    // Navigate to storybook when opening Resources section
     if (id === 'resources' && !expanded.includes(id)) {
-      setPage('resources-overview');
+      setPage('storybook');
     }
   };
 
@@ -102,10 +102,9 @@ export default function App() {
   else if (page === 'radii') content = <RadiiPage />;
   else if (page === 'shadows') content = <ShadowsPage />;
   else if (page === 'charts') content = <ChartColorsPage />;
-  else if (page === 'resources-overview') content = <ResourcesOverviewPage onNavigate={setPage} />;
+  else if (page === 'storybook') content = <StorybookPage />;
   else if (page === 'figma') content = <FigmaLibraryPage />;
   else if (page === 'json') content = <JsonExportsPage />;
-  else if (page === 'storybook') content = <StorybookPage />;
 
   return (
     <div style={{
