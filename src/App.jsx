@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from './components/ThemeContext';
 import ThemeSwitcher from './components/ThemeSwitcher';
-import { PanelLeft, Hand, Beaker, Layers, Palette, Type, Maximize, CornerUpRight, Copy, PieChart, PenTool, FileJson } from 'lucide-react';
+import { PanelLeft, Hand, Beaker, Layers, Palette, Type, Maximize, CornerUpRight, Copy, PieChart, PenTool, FileJson, LayoutTemplate } from 'lucide-react';
+import TokenPlayground from './components/TokenPlayground/TokenPlayground';
 
 import { IntroductionPage, PrinciplesPage, TokenArchitecturePage } from './pages/GetStarted';
 import { ColorPage, TypographyPage, SpacingPage, RadiiPage, ShadowsPage, ChartColorsPage } from './pages/Foundations';
@@ -30,6 +31,11 @@ const NAV = [
     ]
   },
   {
+    id: 'patterns', label: 'Patterns', children: [
+      { id: 'play-layout', label: 'Play Layout', icon: LayoutTemplate },
+    ]
+  },
+  {
     id: 'resources', label: 'Resources', children: [
       { id: 'storybook', label: 'Storybook', icon: Layers },
       { id: 'figma', label: 'Figma Library', icon: PenTool },
@@ -48,7 +54,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Force initial state: All sections expanded
-  const [expanded, setExpanded] = useState(['get-started', 'foundations', 'resources']);
+  const [expanded, setExpanded] = useState(['get-started', 'foundations', 'patterns', 'resources']);
   const [expandedSubs, setExpandedSubs] = useState([]);
 
   const { getCSSVars, mode } = useTheme();
@@ -102,6 +108,7 @@ export default function App() {
   else if (page === 'radii') content = <RadiiPage />;
   else if (page === 'shadows') content = <ShadowsPage />;
   else if (page === 'charts') content = <ChartColorsPage />;
+  else if (page === 'play-layout') content = <TokenPlayground />;
   else if (page === 'storybook') content = <StorybookPage />;
   else if (page === 'figma') content = <FigmaLibraryPage />;
   else if (page === 'json') content = <JsonExportsPage />;
@@ -346,7 +353,7 @@ export default function App() {
         <div
           className="fade-in"
           key={`${page}-${mode}`}
-          style={{ padding: '36px 44px', flex: 1 }}
+          style={{ padding: page === 'play-layout' ? 0 : '36px 44px', flex: 1 }}
         >
           {content}
         </div>
