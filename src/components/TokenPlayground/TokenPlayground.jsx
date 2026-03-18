@@ -163,11 +163,11 @@ const BRANDS = {
     scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
   },
   'f12': {
-    label: 'F12', sp: '#0D1210', sl1: '#131A17', sl2: '#1B221E', sa: '#0E2818',
-    cp: '#EDFAF0', cs: '#9ED8B0', csu: '#60A878', ca: '#22C55E',
-    ap: '#16A34A', as_: 'rgba(34,197,94,.12)', ash: 'rgba(34,197,94,.20)',
-    bsu: 'rgba(249,250,251,.07)', bac: '#22C55E', ban: '#14532D',
-    gs: '#4ADE80', ge: '#16A34A',
+    label: 'F12', sp: '#0f1112', sl1: '#16181a', sl2: '#1c1e20', sa: '#2d3f0a',
+    cp: '#eeeeef', cs: '#b1b4b9', csu: '#798088', ca: '#bef23e',
+    ap: '#bef23e', as_: 'rgba(190,242,62,.10)', ash: 'rgba(190,242,62,.15)',
+    bsu: 'rgba(249,250,251,.07)', bac: '#96c618', ban: '#39510c',
+    gs: '#ccf565', ge: '#bef23e',
     scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
   },
   'spin': {
