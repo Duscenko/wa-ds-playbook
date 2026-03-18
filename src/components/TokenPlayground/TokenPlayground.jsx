@@ -179,11 +179,11 @@ const BRANDS = {
     scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
   },
   'livescore': {
-    label: 'Livescore', sp: '#0C1010', sl1: '#141818', sl2: '#1C2020', sa: '#182510',
-    cp: '#E8F5E0', cs: '#A8D890', csu: '#70A860', ca: '#96E820',
-    ap: '#F0F0F0', as_: 'rgba(150,232,32,.12)', ash: 'rgba(150,232,32,.20)',
-    bsu: 'rgba(249,250,251,.07)', bac: '#96E820', ban: '#2A3800',
-    gs: '#B0F020', ge: '#78B010',
+    label: 'Livescore', sp: '#121212', sl1: '#181818', sl2: '#1c1c1c', sa: '#45220d',
+    cp: '#eeeeee', cs: '#d6d6d6', csu: '#b3b3b3', ca: '#ff914d',
+    ap: '#ff7f32', as_: 'rgba(255,127,50,.12)', ash: 'rgba(255,127,50,.20)',
+    bsu: 'rgba(249,250,251,.07)', bac: '#f5792f', ban: '#8a441a',
+    gs: '#ffb380', ge: '#ff7f32',
     scfg: '#ec5d5e', scbg: 'rgba(80,15,28,.5)', ssfg: '#4cc38a', ssbg: '#164430', swfg: '#f5e147', swbg: 'rgba(254,187,0,.21)',
   },
 }
