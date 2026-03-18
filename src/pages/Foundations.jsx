@@ -295,6 +295,7 @@ function SemanticTokensPage() {
 // Brand list for Color Foundations — maps display ID → tokens.js key for data lookup
 const PLAY_BRANDS = [
   { id: 'belloa-default', label: 'Belloa',     dataKey: 'belloa'    },
+  { id: 'superbetin',     label: 'Superbetin', dataKey: 'superbetin'},
   { id: 'manat',          label: 'Manat',      dataKey: 'manat'     },
   { id: 'spinpokio',      label: 'Spinpokio',  dataKey: 'spinpokio' },
   { id: 'turkbet',        label: 'Turkbet',    dataKey: 'turkbet'   },
