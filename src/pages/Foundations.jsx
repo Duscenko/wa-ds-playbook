@@ -292,18 +292,16 @@ function SemanticTokensPage() {
   );
 }
 
-// Same brand list as TokenPlayground — maps display ID → tokens.js key for data lookup
+// Brand list for Color Foundations — maps display ID → tokens.js key for data lookup
 const PLAY_BRANDS = [
-  { id: 'belloa-default', label: 'Belloa',        dataKey: 'belloa'      },
-  { id: 'belloa-light',   label: 'Belloa Light',  dataKey: 'belloa'      },
-  { id: 'superbetin',     label: 'Superbetin',    dataKey: 'superbetin'  },
-  { id: 'manat',          label: 'Manat',          dataKey: 'manat'       },
-  { id: 'spinpokio',      label: 'Spinpokio',     dataKey: 'spinpokio'   },
-  { id: 'turkbet',        label: 'Turkbet',        dataKey: 'turkbet'     },
-  { id: 'betsat',         label: 'Betsat',         dataKey: 'betsat'      },
-  { id: 'f12',            label: 'F12',            dataKey: 'f12'         },
-  { id: 'spin',           label: 'Spin',           dataKey: 'spin'        },
-  { id: 'livescore',      label: 'Livescore',      dataKey: 'livescore'   },
+  { id: 'belloa-default', label: 'Belloa',     dataKey: 'belloa'    },
+  { id: 'manat',          label: 'Manat',      dataKey: 'manat'     },
+  { id: 'spinpokio',      label: 'Spinpokio',  dataKey: 'spinpokio' },
+  { id: 'turkbet',        label: 'Turkbet',    dataKey: 'turkbet'   },
+  { id: 'betsat',         label: 'Betsat',     dataKey: 'betsat'    },
+  { id: 'f12',            label: 'F12',        dataKey: 'f12'       },
+  { id: 'spin',           label: 'Spin',       dataKey: 'spin'      },
+  { id: 'livescore',      label: 'Livescore',  dataKey: 'livescore' },
 ]
 
 export function ColorPage() {
@@ -394,9 +392,14 @@ export function ColorPage() {
               <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 24 }}>
                 Brand-specific core palettes. These are the raw ingredients that vary between brands.
               </p>
-              {Object.entries(prims).map(([name, scale]) => (
-                <SwatchGrid key={name} label={name} scale={scale} />
-              ))}
+              {(() => {
+                const allEntries = Object.entries(prims);
+                const modeEntries = allEntries.filter(([name]) => name.includes(mode));
+                const displayed = modeEntries.length > 0 ? modeEntries : allEntries;
+                return displayed.map(([name, scale]) => (
+                  <SwatchGrid key={name} label={name} scale={scale} />
+                ));
+              })()}
             </div>
           )}
 
