@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from './components/ThemeContext';
 import ThemeSwitcher from './components/ThemeSwitcher';
-import { PanelLeft, Hand, Beaker, Layers, Palette, Type, Maximize, CornerUpRight, Copy, PieChart, PenTool, FileJson, LayoutTemplate } from 'lucide-react';
+import { PanelLeft, Hand, Beaker, Layers, Palette, Type, Maximize, CornerUpRight, Copy, PieChart, PenTool, FileJson, LayoutTemplate, Ticket } from 'lucide-react';
 import TokenPlayground from './components/TokenPlayground/TokenPlayground';
+import LotteryPlayground from './components/LotteryPlayground/LotteryPlayground';
 
 import { IntroductionPage, PrinciplesPage, TokenArchitecturePage } from './pages/GetStarted';
 import { ColorPage, TypographyPage, SpacingPage, RadiiPage, ShadowsPage, ChartColorsPage } from './pages/Foundations';
@@ -33,6 +34,7 @@ const NAV = [
   {
     id: 'patterns', label: 'Patterns', children: [
       { id: 'play-layout', label: 'Play Layout', icon: LayoutTemplate },
+      { id: 'lottery', label: 'Lottery', icon: Ticket },
     ]
   },
   {
@@ -109,6 +111,7 @@ export default function App() {
   else if (page === 'shadows') content = <ShadowsPage />;
   else if (page === 'charts') content = <ChartColorsPage />;
   else if (page === 'play-layout') content = <TokenPlayground stickyTop={69} />;
+  else if (page === 'lottery') content = <LotteryPlayground stickyTop={69} />;
   else if (page === 'storybook') content = <StorybookPage />;
   else if (page === 'figma') content = <FigmaLibraryPage />;
   else if (page === 'json') content = <JsonExportsPage />;
@@ -353,7 +356,7 @@ export default function App() {
         <div
           className="fade-in"
           key={`${page}-${mode}`}
-          style={{ padding: (page === 'play-layout' || page === 'color') ? 0 : '36px 44px', flex: 1 }}
+          style={{ padding: (page === 'play-layout' || page === 'lottery' || page === 'color') ? 0 : '36px 44px', flex: 1 }}
         >
           {content}
         </div>
